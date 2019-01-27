@@ -1,0 +1,110 @@
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.dll
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.dll
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Word.dll
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.xml
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.xml
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\ResolveAssemblyReference.cache
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\Madbatah_\eMadbatah\trunk\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.dll
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.dll
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Word.dll
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.xml
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.xml
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\ResolveAssemblyReference.cache
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Word.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\office.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Office.Interop.SmartTag.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.xml
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.xml
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\office.xml
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.csprojResolveAssemblyReference.cache
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TagLibSharp.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.Unity.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Word.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TagLibSharp.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\office.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Office.Interop.SmartTag.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.Unity.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\office.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.csprojResolveAssemblyReference.cache
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Office.Tools.Word.v9.0.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TagLibSharp.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Office.Tools.v9.0.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Office.Tools.Common.v9.0.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\office.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Vbe.Interop.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Office.Interop.SmartTag.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.Unity.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\stdole.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.VisualStudio.Tools.Applications.Hosting.v9.0.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Office.Tools.Word.v9.0.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Office.Tools.v9.0.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Office.Tools.Common.v9.0.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\office.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.csprojResolveAssemblyReference.cache
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb

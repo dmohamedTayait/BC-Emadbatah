@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EmadbatahVotingModelStoreContainer" CdmEntityContainer="EmadbatahVotingEntities">
+    <EntitySetMapping Name="MembersVotes">
+      <EntityTypeMapping TypeName="EmadbatahVotingModel.MembersVote">
+        <MappingFragment StoreEntitySet="MembersVote">
+          <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+          <ScalarProperty Name="NonSecretVoteSubjectID" ColumnName="NonSecretVoteSubjectID" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="MemberVoteID" ColumnName="MemberVoteID" />
+          <ScalarProperty Name="MemberFullName" ColumnName="MemberFullName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLMeetings">
+      <EntityTypeMapping TypeName="EmadbatahVotingModel.TBLMeeting">
+        <MappingFragment StoreEntitySet="TBLMeeting">
+          <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+          <ScalarProperty Name="MeetingSN" ColumnName="MeetingSN" />
+          <ScalarProperty Name="MeetingNo" ColumnName="MeetingNo" />
+          <ScalarProperty Name="MeetingDate" ColumnName="MeetingDate" />
+          <ScalarProperty Name="MeetingTitle" ColumnName="MeetingTitle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLNonSecretVoteSubjects">
+      <EntityTypeMapping TypeName="EmadbatahVotingModel.TBLNonSecretVoteSubject">
+        <MappingFragment StoreEntitySet="TBLNonSecretVoteSubject">
+          <ScalarProperty Name="NonSecretVoteSubjectID" ColumnName="NonSecretVoteSubjectID" />
+          <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+          <ScalarProperty Name="NonSecretVoteSubjectNumber" ColumnName="NonSecretVoteSubjectNumber" />
+          <ScalarProperty Name="NonSecretVoteSubject" ColumnName="NonSecretVoteSubject" />
+          <ScalarProperty Name="NonSecretVoteSubjectDate" ColumnName="NonSecretVoteSubjectDate" />
+          <ScalarProperty Name="NonSecreatVoteSubjectIsClosed" ColumnName="NonSecreatVoteSubjectIsClosed" />
+          <ScalarProperty Name="NofAgree" ColumnName="NofAgree" />
+          <ScalarProperty Name="NofDisagree" ColumnName="NofDisagree" />
+          <ScalarProperty Name="NofNoVote" ColumnName="NofNoVote" />
+          <ScalarProperty Name="NofAttendance" ColumnName="NofAttendance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLPersons">
+      <EntityTypeMapping TypeName="EmadbatahVotingModel.TBLPerson">
+        <MappingFragment StoreEntitySet="TBLPerson">
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="PersonShortName" ColumnName="PersonShortName" />
+          <ScalarProperty Name="PersonFullName" ColumnName="PersonFullName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

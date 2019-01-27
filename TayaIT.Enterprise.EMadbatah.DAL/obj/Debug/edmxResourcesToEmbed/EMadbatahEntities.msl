@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EMadbatahModelStoreContainer" CdmEntityContainer="EMadbatahEntities">
+    <EntitySetMapping Name="AgendaItems">
+      <EntityTypeMapping TypeName="EMadbatahModel.AgendaItem">
+        <MappingFragment StoreEntitySet="AgendaItem">
+          <ScalarProperty Name="IsIndexed" ColumnName="IsIndexed" />
+          <ScalarProperty Name="IsGroupSubAgendaItems" ColumnName="IsGroupSubAgendaItems" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsCustom" ColumnName="IsCustom" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AgendaSubItems">
+      <EntityTypeMapping TypeName="EMadbatahModel.AgendaSubItem">
+        <MappingFragment StoreEntitySet="AgendaSubItem">
+          <ScalarProperty Name="IsCustom" ColumnName="IsCustom" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="AgendaItemID" ColumnName="AgendaItemID" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="QFrom" ColumnName="QFrom" />
+          <ScalarProperty Name="QTo" ColumnName="QTo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Attachements">
+      <EntityTypeMapping TypeName="EMadbatahModel.Attachement">
+        <MappingFragment StoreEntitySet="Attachement">
+          <ScalarProperty Name="AttachmentType" ColumnName="AttachmentType" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Attendants">
+      <EntityTypeMapping TypeName="EMadbatahModel.Attendant">
+        <MappingFragment StoreEntitySet="Attendant">
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="AbsenseExcuse" ColumnName="AbsenseExcuse" />
+          <ScalarProperty Name="AttendantDegree" ColumnName="AttendantDegree" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="LongName" ColumnName="LongName" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+          <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
+          <ScalarProperty Name="OrderByAttendantType" ColumnName="OrderByAttendantType" />
+          <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
+          <ScalarProperty Name="AttendDate" ColumnName="AttendDate" />
+          <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttendantStates">
+      <EntityTypeMapping TypeName="EMadbatahModel.AttendantState">
+        <MappingFragment StoreEntitySet="AttendantState">
+          <ScalarProperty Name="ArName" ColumnName="ArName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttendantTypes">
+      <EntityTypeMapping TypeName="EMadbatahModel.AttendantType">
+        <MappingFragment StoreEntitySet="AttendantType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="EMadbatahModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sessions">
+      <EntityTypeMapping TypeName="EMadbatahModel.Session">
+        <MappingFragment StoreEntitySet="Session">
+          <ScalarProperty Name="StageType" ColumnName="StageType" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="HijriDate" ColumnName="HijriDate" />
+          <ScalarProperty Name="PresidentID" ColumnName="PresidentID" />
+          <ScalarProperty Name="SessionStartFlag" ColumnName="SessionStartFlag" />
+          <ScalarProperty Name="Checker" ColumnName="Checker" />
+          <ScalarProperty Name="MP3FolderPath" ColumnName="MP3FolderPath" />
+          <ScalarProperty Name="MadbatahFilesStatusID" ColumnName="MadbatahFilesStatusID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="President" ColumnName="President" />
+          <ScalarProperty Name="Place" ColumnName="Place" />
+          <ScalarProperty Name="SessionStatusID" ColumnName="SessionStatusID" />
+          <ScalarProperty Name="EParliamentID" ColumnName="EParliamentID" />
+          <ScalarProperty Name="Season" ColumnName="Season" />
+          <ScalarProperty Name="Stage" ColumnName="Stage" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="SessionMadbatahWord" ColumnName="SessionMadbatahWord" />
+          <ScalarProperty Name="SessionMadbatahPDF" ColumnName="SessionMadbatahPDF" />
+          <ScalarProperty Name="SessionMadbatahWordFinal" ColumnName="SessionMadbatahWordFinal" />
+          <ScalarProperty Name="SessionMadbatahPDFFinal" ColumnName="SessionMadbatahPDFFinal" />
+          <ScalarProperty Name="ReviewerID" ColumnName="ReviewerID" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionContentItems">
+      <EntityTypeMapping TypeName="EMadbatahModel.SessionContentItem">
+        <MappingFragment StoreEntitySet="SessionContentItem">
+          <ScalarProperty Name="MergedTopicWithPrevious" ColumnName="MergedTopicWithPrevious" />
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+          <ScalarProperty Name="OriginalStartTime" ColumnName="OriginalStartTime" />
+          <ScalarProperty Name="IsSessionPresident" ColumnName="IsSessionPresident" />
+          <ScalarProperty Name="VotingID" ColumnName="VotingID" />
+          <ScalarProperty Name="AttachementID" ColumnName="AttachementID" />
+          <ScalarProperty Name="FileReviewerID" ColumnName="FileReviewerID" />
+          <ScalarProperty Name="Ignored" ColumnName="Ignored" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SessionFileID" ColumnName="SessionFileID" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="AttendantID" ColumnName="AttendantID" />
+          <ScalarProperty Name="AgendaItemID" ColumnName="AgendaItemID" />
+          <ScalarProperty Name="AgendaSubItemID" ColumnName="AgendaSubItemID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="ReviewerUserID" ColumnName="ReviewerUserID" />
+          <ScalarProperty Name="ReviewerNote" ColumnName="ReviewerNote" />
+          <ScalarProperty Name="CommentOnText" ColumnName="CommentOnText" />
+          <ScalarProperty Name="CommentOnAttendant" ColumnName="CommentOnAttendant" />
+          <ScalarProperty Name="PageFooter" ColumnName="PageFooter" />
+          <ScalarProperty Name="UpdatedByReviewer" ColumnName="UpdatedByReviewer" />
+          <ScalarProperty Name="MergedWithPrevious" ColumnName="MergedWithPrevious" />
+          <ScalarProperty Name="FragOrderInXml" ColumnName="FragOrderInXml" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionContentItemStatus">
+      <EntityTypeMapping TypeName="EMadbatahModel.SessionContentItemStatus">
+        <MappingFragment StoreEntitySet="SessionContentItemStatus">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionFiles">
+      <EntityTypeMapping TypeName="EMadbatahModel.SessionFile">
+        <MappingFragment StoreEntitySet="SessionFile">
+          <ScalarProperty Name="IsLastSegment" ColumnName="IsLastSegment" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="FileError" ColumnName="FileError" />
+          <ScalarProperty Name="FileReviewerID" ColumnName="FileReviewerID" />
+          <ScalarProperty Name="SessionStartReviewerID" ColumnName="SessionStartReviewerID" />
+          <ScalarProperty Name="SessionStartReviewNote" ColumnName="SessionStartReviewNote" />
+          <ScalarProperty Name="SessionStartText" ColumnName="SessionStartText" />
+          <ScalarProperty Name="IsSessionStart" ColumnName="IsSessionStart" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DurationSecs" ColumnName="DurationSecs" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LastInsertedFragNumInXml" ColumnName="LastInsertedFragNumInXml" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="LastModefied" ColumnName="LastModefied" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionFileStatus1">
+      <EntityTypeMapping TypeName="EMadbatahModel.SessionFileStatus">
+        <MappingFragment StoreEntitySet="SessionFileStatus">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionStatus1">
+      <EntityTypeMapping TypeName="EMadbatahModel.SessionStatus">
+        <MappingFragment StoreEntitySet="SessionStatus">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="EMadbatahModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FName" ColumnName="FName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="DomainUserName" ColumnName="DomainUserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MadbatahFilesStatus">
+      <EntityTypeMapping TypeName="EMadbatahModel.MadbatahFilesStatus">
+        <MappingFragment StoreEntitySet="MadbatahFilesStatus">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Procedures">
+      <EntityTypeMapping TypeName="EMadbatahModel.Procedure">
+        <MappingFragment StoreEntitySet="Procedure">
+          <ScalarProperty Name="ProcedureTypeID" ColumnName="ProcedureTypeID" />
+          <ScalarProperty Name="ProcedureTitle" ColumnName="ProcedureTitle" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProcedureTypes">
+      <EntityTypeMapping TypeName="EMadbatahModel.ProcedureType">
+        <MappingFragment StoreEntitySet="ProcedureType">
+          <ScalarProperty Name="ProcedureTypeOrder" ColumnName="ProcedureTypeOrder" />
+          <ScalarProperty Name="ProcedureTypeStr" ColumnName="ProcedureTypeStr" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DefaultAttendants">
+      <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
+        <MappingFragment StoreEntitySet="DefaultAttendant">
+          <ScalarProperty Name="AttendantDegree" ColumnName="AttendantDegree" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="LongName" ColumnName="LongName" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+          <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
+          <ScalarProperty Name="OrderByAttendantType" ColumnName="OrderByAttendantType" />
+          <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

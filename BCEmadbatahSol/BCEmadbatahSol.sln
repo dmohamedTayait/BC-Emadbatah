@@ -1,0 +1,114 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.DAL", "..\TayaIT.Enterprise.EMadbatah.DAL\TayaIT.Enterprise.EMadbatah.DAL.csproj", "{B0FCFCD0-9BF1-43F7-A98E-D4EE14E3A891}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.BLL", "..\TayaIT.Enterprise.EMadbatah.BLL\TayaIT.Enterprise.EMadbatah.BLL.csproj", "{B98BAAAD-3F4A-4260-AB73-ED574924D28A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Config", "..\TayaIT.Enterprise.EMadbatah.Config\TayaIT.Enterprise.EMadbatah.Config.csproj", "{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Localization", "..\TayaIT.Enterprise.EMadbatah.Localization\TayaIT.Enterprise.EMadbatah.Localization.csproj", "{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Model", "..\TayaIT.Enterprise.EMadbatah.Model\TayaIT.Enterprise.EMadbatah.Model.csproj", "{FBC69697-B34A-4897-8F2A-D325C05EA455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.OpenXml.Word", "..\TayaIT.Enterprise.EMadbatah.OpenXml.Word\TayaIT.Enterprise.EMadbatah.OpenXml.Word.csproj", "{3109DCF8-95E9-44CD-A4A8-CD395D7D7E9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Pdf2Word", "..\TayaIT.Enterprise.EMadbatah.Pdf2Word\TayaIT.Enterprise.EMadbatah.Pdf2Word.csproj", "{E1F269D8-A18C-424C-822D-E5AEDA59CF78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Util", "..\TayaIT.Enterprise.EMadbatah.Util\TayaIT.Enterprise.EMadbatah.Util.csproj", "{D512000F-449B-497F-8023-D48DB046AC27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Util.Web", "..\TayaIT.Enterprise.EMadbatah.Util.Web\TayaIT.Enterprise.EMadbatah.Util.Web.csproj", "{84D21054-E26E-44BB-90F4-1E6CA5C37250}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Vecsys", "..\TayaIT.Enterprise.EMadbatah.Vecsys\TayaIT.Enterprise.EMadbatah.Vecsys.csproj", "{700D6C59-7736-4A04-A562-CB6EACFFE303}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Web.Framework", "..\TayaIT.Enterprise.EMadbatah.Web.Framework\TayaIT.Enterprise.EMadbatah.Web.Framework.csproj", "{B8761FA3-681C-46FB-AEEE-95BD530D735E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Word", "..\TayaIT.Enterprise.EMadbatah.Word\TayaIT.Enterprise.EMadbatah.Word.csproj", "{E25BAAA5-5532-4F14-9422-E03F40CBEEB4}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TayaIT.Enterprise.EMadbatah.Web", "..\TayaIT.Enterprise.EMadbatah.Web\", "{B114799F-E9C8-45AA-91A0-7C9D8C72FAC4}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{b98baaad-3f4a-4260-ab73-ed574924d28a}|TayaIT.Enterprise.EMadbatah.BLL.dll;{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}|TayaIT.Enterprise.EMadbatah.Config.dll;{FBC69697-B34A-4897-8F2A-D325C05EA455}|TayaIT.Enterprise.EMadbatah.Model.dll;{D512000F-449B-497F-8023-D48DB046AC27}|TayaIT.Enterprise.EMadbatah.Util.dll;{B0FCFCD0-9BF1-43F7-A98E-D4EE14E3A891}|TayaIT.Enterprise.EMadbatah.DAL.dll;{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}|TayaIT.Enterprise.EMadbatah.Localization.dll;{3109DCF8-95E9-44CD-A4A8-CD395D7D7E9A}|TayaIT.Enterprise.EMadbatah.OpenXml.Word.dll;{E1F269D8-A18C-424C-822D-E5AEDA59CF78}|TayaIT.Enterprise.EMadbatah.Pdf2Word.dll;{E25BAAA5-5532-4F14-9422-E03F40CBEEB4}|TayaIT.Enterprise.EMadbatah.Word.dll;{84D21054-E26E-44BB-90F4-1E6CA5C37250}|TayaIT.Enterprise.EMadbatah.Util.Web.dll;{700D6C59-7736-4A04-A562-CB6EACFFE303}|TayaIT.Enterprise.EMadbatah.Vecsys.dll;{b8761fa3-681c-46fb-aeee-95bd530d735e}|TayaIT.Enterprise.EMadbatah.Web.Framework.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_3017"
+		Debug.AspNetCompiler.PhysicalPath = "..\TayaIT.Enterprise.EMadbatah.Web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3017\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_3017"
+		Release.AspNetCompiler.PhysicalPath = "..\TayaIT.Enterprise.EMadbatah.Web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3017\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "3017"
+		SlnRelativePath = "..\TayaIT.Enterprise.EMadbatah.Web\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0FCFCD0-9BF1-43F7-A98E-D4EE14E3A891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0FCFCD0-9BF1-43F7-A98E-D4EE14E3A891}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0FCFCD0-9BF1-43F7-A98E-D4EE14E3A891}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0FCFCD0-9BF1-43F7-A98E-D4EE14E3A891}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B98BAAAD-3F4A-4260-AB73-ED574924D28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B98BAAAD-3F4A-4260-AB73-ED574924D28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B98BAAAD-3F4A-4260-AB73-ED574924D28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B98BAAAD-3F4A-4260-AB73-ED574924D28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC69697-B34A-4897-8F2A-D325C05EA455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC69697-B34A-4897-8F2A-D325C05EA455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC69697-B34A-4897-8F2A-D325C05EA455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC69697-B34A-4897-8F2A-D325C05EA455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3109DCF8-95E9-44CD-A4A8-CD395D7D7E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3109DCF8-95E9-44CD-A4A8-CD395D7D7E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3109DCF8-95E9-44CD-A4A8-CD395D7D7E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3109DCF8-95E9-44CD-A4A8-CD395D7D7E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1F269D8-A18C-424C-822D-E5AEDA59CF78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1F269D8-A18C-424C-822D-E5AEDA59CF78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1F269D8-A18C-424C-822D-E5AEDA59CF78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1F269D8-A18C-424C-822D-E5AEDA59CF78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D512000F-449B-497F-8023-D48DB046AC27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D512000F-449B-497F-8023-D48DB046AC27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D512000F-449B-497F-8023-D48DB046AC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D512000F-449B-497F-8023-D48DB046AC27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D21054-E26E-44BB-90F4-1E6CA5C37250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D21054-E26E-44BB-90F4-1E6CA5C37250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D21054-E26E-44BB-90F4-1E6CA5C37250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D21054-E26E-44BB-90F4-1E6CA5C37250}.Release|Any CPU.Build.0 = Release|Any CPU
+		{700D6C59-7736-4A04-A562-CB6EACFFE303}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{700D6C59-7736-4A04-A562-CB6EACFFE303}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{700D6C59-7736-4A04-A562-CB6EACFFE303}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{700D6C59-7736-4A04-A562-CB6EACFFE303}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8761FA3-681C-46FB-AEEE-95BD530D735E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8761FA3-681C-46FB-AEEE-95BD530D735E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8761FA3-681C-46FB-AEEE-95BD530D735E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8761FA3-681C-46FB-AEEE-95BD530D735E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E25BAAA5-5532-4F14-9422-E03F40CBEEB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E25BAAA5-5532-4F14-9422-E03F40CBEEB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E25BAAA5-5532-4F14-9422-E03F40CBEEB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E25BAAA5-5532-4F14-9422-E03F40CBEEB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B114799F-E9C8-45AA-91A0-7C9D8C72FAC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B114799F-E9C8-45AA-91A0-7C9D8C72FAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B114799F-E9C8-45AA-91A0-7C9D8C72FAC4}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B114799F-E9C8-45AA-91A0-7C9D8C72FAC4}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

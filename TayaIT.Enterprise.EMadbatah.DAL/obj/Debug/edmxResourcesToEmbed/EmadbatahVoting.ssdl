@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmadbatahVotingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="EmadbatahVotingModelStoreContainer">
+    <EntitySet Name="MembersVote" EntityType="EmadbatahVotingModel.Store.MembersVote" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBLMeeting" EntityType="EmadbatahVotingModel.Store.TBLMeeting" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBLNonSecretVoteSubject" EntityType="EmadbatahVotingModel.Store.TBLNonSecretVoteSubject" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBLPerson" EntityType="EmadbatahVotingModel.Store.TBLPerson" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_MembersVote_TBLNonSecretVoteSubject" Association="EmadbatahVotingModel.Store.FK_MembersVote_TBLNonSecretVoteSubject">
+      <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubject" />
+      <End Role="MembersVote" EntitySet="MembersVote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLNonSecretVoteSubject_TBLMeeting" Association="EmadbatahVotingModel.Store.FK_TBLNonSecretVoteSubject_TBLMeeting">
+      <End Role="TBLMeeting" EntitySet="TBLMeeting" />
+      <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubject" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="MembersVote">
+    <Key>
+      <PropertyRef Name="AutoID" />
+    </Key>
+    <Property Name="AutoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="NonSecretVoteSubjectID" Type="int" Nullable="false" />
+    <Property Name="PersonID" Type="int" Nullable="false" />
+    <Property Name="MemberVoteID" Type="int" />
+    <Property Name="MemberFullName" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="TBLMeeting">
+    <Key>
+      <PropertyRef Name="MeetingID" />
+    </Key>
+    <Property Name="MeetingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MeetingSN" Type="nvarchar" MaxLength="50" />
+    <Property Name="MeetingNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="MeetingDate" Type="datetime" />
+    <Property Name="MeetingTitle" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="TBLNonSecretVoteSubject">
+    <Key>
+      <PropertyRef Name="NonSecretVoteSubjectID" />
+    </Key>
+    <Property Name="NonSecretVoteSubjectID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MeetingID" Type="int" />
+    <Property Name="NonSecretVoteSubjectNumber" Type="int" Nullable="false" />
+    <Property Name="NonSecretVoteSubject" Type="nvarchar" />
+    <Property Name="NonSecretVoteSubjectDate" Type="datetime" />
+    <Property Name="NonSecreatVoteSubjectIsClosed" Type="bit" />
+    <Property Name="NofAgree" Type="int" />
+    <Property Name="NofDisagree" Type="int" />
+    <Property Name="NofNoVote" Type="int" />
+    <Property Name="NofAttendance" Type="int" />
+  </EntityType>
+  <EntityType Name="TBLPerson">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PersonShortName" Type="nvarchar" MaxLength="100" />
+    <Property Name="PersonFullName" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <Association Name="FK_MembersVote_TBLNonSecretVoteSubject">
+    <End Role="TBLNonSecretVoteSubject" Type="EmadbatahVotingModel.Store.TBLNonSecretVoteSubject" Multiplicity="1" />
+    <End Role="MembersVote" Type="EmadbatahVotingModel.Store.MembersVote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLNonSecretVoteSubject">
+        <PropertyRef Name="NonSecretVoteSubjectID" />
+      </Principal>
+      <Dependent Role="MembersVote">
+        <PropertyRef Name="NonSecretVoteSubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLNonSecretVoteSubject_TBLMeeting">
+    <End Role="TBLMeeting" Type="EmadbatahVotingModel.Store.TBLMeeting" Multiplicity="0..1" />
+    <End Role="TBLNonSecretVoteSubject" Type="EmadbatahVotingModel.Store.TBLNonSecretVoteSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLMeeting">
+        <PropertyRef Name="MeetingID" />
+      </Principal>
+      <Dependent Role="TBLNonSecretVoteSubject">
+        <PropertyRef Name="MeetingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
