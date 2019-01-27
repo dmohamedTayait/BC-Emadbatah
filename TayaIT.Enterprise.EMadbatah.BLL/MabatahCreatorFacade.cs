@@ -63,7 +63,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 List<string> mergeList = new List<string>();
                 mergeList.Add(SessionWorkingDir + "indexDoc.docx");
                 mergeList.Add(SessionWorkingDir + "indexSpeakers.docx");//done
-                mergeList.Add(ServerMapPath + "\\docs\\templates\\MadbatahBodyCover.docx");//ready
+                //mergeList.Add(ServerMapPath + "\\docs\\templates\\MadbatahBodyCover.docx");//ready
                 mergeList.Add(SessionWorkingDir + "bodyDoc.docx");
                 for (int h = 0; h < bodySize; h++)
                 {
@@ -175,7 +175,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.Open, true);
                 {
                     doc.DocHeaderString = "ــــــــــــــــــــ        " + details.EparlimentID.ToString() + " / " + details.Type + "        ــــــــــــــــــــ";
-                    doc.ApplyHeaderAndFooter();
+                    doc.ApplyFooter();
 
                     index = new List<MadbatahIndexItem>();// Fehres Index for Madbatah Topics
                     speakersIndex = new List<SpeakersIndexItem>();//Fehres index for Madbatah Speakers
@@ -190,11 +190,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     int k = 0;//loop counter
                     docPageCount = 0;
 
-                    doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph("space", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                     lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
                     doc.DeleteLastParagraph("space");
                     if (lineNum != 1)
-                        doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
 
                     List<List<SessionContentItem>> speakerGroup = new List<List<SessionContentItem>>();
                     List<SessionContentItem> newGroup = GroupSpeakerSimilarArticles(allItems, out speakerGroup);//to Group Segments by Speakers 
@@ -221,11 +221,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     if (updatedAgenda.IsIndexed == 1)
                                     {
                                         doc.AddParagraph(TextHelper.StripHTML(updatedAgenda.Name.Trim()), ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                                        doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                        doc.AddParagraph("space", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                                         lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
                                         doc.DeleteLastParagraph("space");
                                         if (lineNum != 1)
-                                            doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                            doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                                     }
                                 }
                                 else
@@ -441,7 +441,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 long lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
                 if (lineNum > 20)
                 {
-                    doc.AddParagraph("test line num", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph("test line num", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     long newlineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
                     doc.DeleteLastParagraph("test line num");
 
@@ -466,13 +466,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 string attFullPresentationName = "";
                 if ((Model.AttendantType)att.Type == Model.AttendantType.President)
                 {
-                    doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                 }
                 else
                 {
                     if (contentItem.IsSessionPresident == 1)
                     {
-                        doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         if (att.AttendantTitle == null)
                             attFullPresentationName = "السيد " + att.ShortName.Trim();
                         else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
@@ -490,7 +490,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         if (att.AttendantTitle == null)
                             attFullPresentationName = "السيد " + att.ShortName.Trim() + " : ";
                         else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim() + " : ";
-                        doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         if (!String.IsNullOrEmpty(att.JobTitle))
                             doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         if (!String.IsNullOrEmpty(contentItem.CommentOnAttendant))
@@ -519,9 +519,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (pp != 0)
                         WriteAttendantInWord(sessionItem, sessionItem.Attendant);
                     if (sessionItem.PageFooter != "")
-                        doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
-                    else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph(myCollection, ParagraphStyle.NormalArabic, ParagrapJustification.RTL, true, myCollection2);
+                    else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                 }
 
 
@@ -538,10 +538,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                         for (int x = 0; x < procedureArr.Length; x++)
                         {
-                            doc.AddParagraph(procedureArr[x].Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, align, false, "");
+                            doc.AddParagraph(procedureArr[x].Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, align, false, "");
                         }
 
-                        doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                     }
                 }
             }
@@ -578,12 +578,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 if (parag.Trim() != "")
                                 {
                                     WriteAttendantInWord(sessionItem, sessionItem.Attendant);
-                                    doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
-                                    doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                    doc.AddParagraph(myCollection, ParagraphStyle.NormalArabic, ParagrapJustification.RTL, true, myCollection2);
+                                    doc.AddParagraph("space", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                                     long lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
                                     doc.DeleteLastParagraph("space");
                                     if (lineNum != 1)
-                                        doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                        doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
 
                                     myCollection.Clear();
                                     myCollection2.Clear();
@@ -628,13 +628,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (lastparag.Trim() != "")
                     {
                         WriteAttendantInWord(sessionItem, sessionItem.Attendant);
-                        doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
+                        doc.AddParagraph(myCollection, ParagraphStyle.NormalArabic, ParagrapJustification.RTL, true, myCollection2);
 
-                        doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("space", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                         long lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
                         doc.DeleteLastParagraph("space");
                         if (lineNum != 1)
-                            doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                            doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                     }
                     myCollection.Clear();
                     myCollection2.Clear();
@@ -803,7 +803,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 // HTMLtoDOCX hd = new HTMLtoDOCX();
                 // hd.CreateFileFromHTML(sb.ToString(), @outIndexPath);
-                WordprocessingWorker.SaveDOCX(@outIndexPath, sb.ToString(), false, 1, 1, .5, .5);
+                WordprocessingWorker.SaveDOCX(@outIndexPath, sb.ToString(), false, 0.8, 0.8, 0.5, 0.3);
 
                 using (WordprocessingWorker doc = new WordprocessingWorker(outIndexPath, xmlFilesPaths, DocFileOperation.Open))
                 {
@@ -868,7 +868,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 int stats = 0;
                 //   HTMLtoDOCX hd = new HTMLtoDOCX();
                 //   hd.CreateFileFromHTML(sb.ToString(), outPath);
-                WordprocessingWorker.SaveDOCX(outPath, sb.ToString(), false, 1, 1, .5, .5);
+                WordprocessingWorker.SaveDOCX(outPath, sb.ToString(), false, 0.8, 0.8, 0.5, 0.3);
 
                 DocXmlParts xmlFilesPaths = WordprocessingWorker.GetDocParts(ServerMapPath + "\\resources\\");
 

@@ -119,7 +119,7 @@
                                     height: 40px" CssClass="txtgrid"></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="اسم العضو الثنائى فى ملف الوورد">
+                        <asp:TemplateField HeaderText="اسم العضو الثنائى فى ملف الوورد" Visible="false">
                             <ItemTemplate>
                                 <asp:Label ID="lblAttShortName" runat="server" Text='<%# Eval("ShortName")%>'></asp:Label>
                             </ItemTemplate>
@@ -151,19 +151,19 @@
                                 <asp:DropDownList ID="ddlDeptCode" runat="server" SelectedValue='<%# Eval("Type") %>'
                                     Enabled="false" Style="width: 100%;">
                                     <asp:ListItem Value="1" Text="عضو من المجلس"></asp:ListItem>
-                                    <asp:ListItem Value="2" Text="زائر خارجى "></asp:ListItem>
+                                    <asp:ListItem Value="4" Text="الأمانة العامة "></asp:ListItem>
                                     <asp:ListItem Value="3" Text="السادة الوزراء"></asp:ListItem>
                                     <asp:ListItem Value="5" Text="رئيس المجلس"></asp:ListItem>
-                                    <asp:ListItem Value="9" Text="أمير البلاد"></asp:ListItem>
+                                   
                                 </asp:DropDownList>
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:DropDownList ID="ddlDeptCode" runat="server" SelectedValue='<%# Eval("Type") %>'
                                     Style="width: 100%;">
-                                    <asp:ListItem Value="1" Text="عضو من المجلس"></asp:ListItem>
+                                     <asp:ListItem Value="1" Text="عضو من المجلس"></asp:ListItem>
+                                    <asp:ListItem Value="4" Text="الأمانة العامة "></asp:ListItem>
                                     <asp:ListItem Value="3" Text="السادة الوزراء"></asp:ListItem>
                                     <asp:ListItem Value="5" Text="رئيس المجلس"></asp:ListItem>
-                                    <asp:ListItem Value="9" Text="أمير البلاد"></asp:ListItem>
                                 </asp:DropDownList>
                             </EditItemTemplate>
                         </asp:TemplateField>

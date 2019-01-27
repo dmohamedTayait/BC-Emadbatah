@@ -90,10 +90,8 @@
             <div class="clear">
             </div>
         </div>
-        <div class="largerow">
+        <div class="largerow displaynone">
             <div class="grid_6 h2">
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*"
-                    ForeColor="Red" ControlToValidate="textAttShortName" ValidationGroup="VGSession"></asp:RequiredFieldValidator>
                 <asp:Label ID="lblAttShortName" runat="server" Text="اسم العضو الثنائى فى ملف الوورد"></asp:Label>
             </div>
             <div class="grid_10">
@@ -135,10 +133,10 @@
             </div>
             <div class="grid_10">
                 <asp:DropDownList ID="ddlAttType" runat="server" Style="width: 100%;">
-                    <asp:ListItem Value="1" Text="عضو من المجلس"></asp:ListItem>
-                    <asp:ListItem Value="3" Text="السادة الوزراء"></asp:ListItem>
-                    <asp:ListItem Value="5" Text="رئيس المجلس"></asp:ListItem>
-                    <asp:ListItem Value="9" Text="أمير البلاد"></asp:ListItem>
+                     <asp:ListItem Value="1" Text="عضو من المجلس"></asp:ListItem>
+                     <asp:ListItem Value="4" Text="الأمانة العامة "></asp:ListItem>
+                     <asp:ListItem Value="3" Text="السادة الوزراء"></asp:ListItem>
+                     <asp:ListItem Value="5" Text="رئيس المجلس"></asp:ListItem>
                 </asp:DropDownList>
             </div>
             <div class="clear">

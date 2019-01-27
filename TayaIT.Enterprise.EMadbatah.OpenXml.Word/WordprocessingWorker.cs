@@ -1910,12 +1910,22 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                                 new TabStop() { Val = TabStopValues.Clear, Position = 8640 },
                                 new TabStop() { Val = TabStopValues.Center, Position = 4820 },
                                 new TabStop() { Val = TabStopValues.Right, Position = 6639 }));
+            ParagraphProperties paragraphProperties2 = new ParagraphProperties(new RightToLeftText(),
+                         new ParagraphStyleId() { Val = "Footer" }, new RunProperties(new RightToLeftText()));
 
-            paragraphProperties.ParagraphStyleId = new ParagraphStyleId() { Val = ParagraphStyle.Footer.ToString() }; 
+            paragraphProperties.ParagraphStyleId = new ParagraphStyleId() { Val = ParagraphStyle.Footer.ToString() };
 
-            Paragraph paragraph = new Paragraph(
+            Paragraph paragraph1 = new Paragraph(
 
-                        paragraphProperties,
+                       paragraphProperties,
+                         new Run(
+                           new Text(" ------") { Space = SpaceProcessingModeValues.Preserve }, new RunProperties(new RightToLeftText())
+                         )
+                   );
+
+            Paragraph paragraph2 = new Paragraph(
+
+                        paragraphProperties2,
                         new Run(
                             new FieldChar() { FieldCharType = FieldCharValues.Begin }, new RunProperties(new RightToLeftText())),
                         new Run(
@@ -1941,7 +1951,8 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         )
                     );
 
-            footer.Append(paragraph);
+            footer.Append(paragraph1);
+            footer.Append(paragraph2);
 
             return footer;
         }

@@ -17,8 +17,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         public static string madbatahHeader2 = "دور الانعقاد %stage% %stageType%";
         public static string madbatahHeader3 = "الفصل التشريعي %season%";
         public static string madbatahHeader4 = "الرقم: %type% (%subject%)";
-        public static string madbatahHeader5 = "التاريخ: %hijridate%";
-        public static string madbatahHeader6 = "          %GeorgianDate%";
+        public static string madbatahHeader5 = "%hijridate%";
+        public static string madbatahHeader6 = "%GeorgianDate%";
         public static string madbatahBodyHeader = " إنه فى الساعة "
             + "%sessionTime%"
             + " "
@@ -53,7 +53,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 + ")";
 
         public static string madbatahStartsection2 = "** وتولى الأمانة العامة السيد علام علي الكندري الأمين العام للمجلس والسيد عادل عيسى اللوغاني الأمين العام المساعد لقطاع الجلسات والسيد محمد عبدالمجيد الخنفر مدير إدارة المضابط .";
-        public static string madbatahStartsection3 = "** و حضر الجلسة مندوبو الصحافة و الإعلام و لفيف من السادة المواطنين .";
+        public static string madbatahStartsection3 = "(كانت معالي رئيس المجلس قد أعلنت في الساعة التاسعة والنصف عن تأجيل انعقاد الجلسة لحين اكتمال النصاب القانوني للجلسة، وذلك وفقا للمادة (49) من اللائحة الداخلية للمجلس).";
 
         public static string presidentStr = "السيد الرئيــــــــــــــــــــــــــــــــــس :";
         public static string tempPresidentStr = "السيد رئيس الجلســــــــــــــــــــــة :";
@@ -193,8 +193,16 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             body += emptyParag;
             body += emptyParag;
             body += "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>" + madbatahHeader4.Replace("%type%", details.Type).Replace("%subject%", details.Subject) + "</p>";
-            body += "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>" + madbatahHeader5.Replace("%hijridate%", hijriDate) + "</p>";
-            body += "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>" + madbatahHeader6.Replace("%GeorgianDate%", gDate) + "</p>";
+            body += "<table style='" + directionStyle + marginZeroStyle + ";'>";
+            body += "<tr>";
+            body += "<td><p style='" + basicPStyle + textJustify + defFontSize2 + "'>التاريخ:</p></td>";
+            body += "<td><p style='" + basicPStyle + textJustify + defFontSize2 + "'>" + madbatahHeader5.Replace("%hijridate%", hijriDate) + "</p></td>";
+            body += "</tr>";
+            body += "<tr>";
+            body += "<td></td>";
+            body += "<td><p style='" + basicPStyle + textJustify + defFontSize2 + "'>" + madbatahHeader6.Replace("%GeorgianDate%", gDate) + "</p></td>";
+            body += "</tr>";
+            body += "</table>";
             body += emptyParag;
 
             string sessionStart = "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>" + madbatahBodyHeader.Replace("%subject%", femail_numbers.getResultEnhanced(int.Parse(details.Subject)))
@@ -209,9 +217,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 .Replace("%PresidentTitle%", presidentTitle) + "</p>";
             body += sessionStart;
             body += emptyParag;
-            List<Attendant> councilMemattendants = AttendantHelper.GetAttendantInSession(details.SessionID, (int) Model.AttendantType.FromTheCouncilMembers) ;
+            List<Attendant> councilMemattendants = AttendantHelper.GetAttendantInSession(details.SessionID, (int)Model.AttendantType.FromTheCouncilMembers);
             List<Attendant> governmentMemAttendants = AttendantHelper.GetAttendantInSession(details.SessionID, (int)Model.AttendantType.GovernmentRepresentative);
-            if(governmentMemAttendants.Count > 0) {
+            if (governmentMemAttendants.Count > 0)
+            {
                 body += writeCouncilMemAttendantNFile("", councilMemattendants, false);
                 body += "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>و قد مثل الحكومة كل من:</p>";
                 body += writeGovernmentMemAttendantNFile("", governmentMemAttendants, false);
@@ -221,8 +230,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             string madbatahStart = "<html style='" + directionStyle + "'>";
             madbatahStart += "<body dir='" + directionStyle + "'>";
             madbatahStart += body;
-          //  madbatahStart += "<p style='" + basicPStyle + textJustify + "'>" + madbatahStartsection2 + "</p>" + emptyParag;
-           // madbatahStart += "<p style='" + basicPStyle + textJustify + "'>" + madbatahStartsection3 + "</p>" + emptyParag;
+            //  madbatahStart += "<p style='" + basicPStyle + textJustify + "'>" + madbatahStartsection2 + "</p>" + emptyParag;
+            if (details.SessionStartFlag == (int)SessionOpenStatus.NotOnTime)
+                madbatahStart += "<p style='" + basicPStyle + textCenter + "'>" + madbatahStartsection3 + "</p>" + emptyParag;
             madbatahStart += "</body></html>";
             return madbatahStart;
         }

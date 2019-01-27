@@ -117,7 +117,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             defAttobj.JobTitle = textAttJobTitle;
             defAttobj.LongName = textAttLongName;
             defAttobj.Name = textAttName;
-            defAttobj.ShortName = textAttShortName;
+            defAttobj.ShortName = textAttLongName;// textAttShortName;
             defAttobj.Status = 1;
             defAttobj.Type = textAttType;
             defAttobj.CreatedAt = DateTime.Now;

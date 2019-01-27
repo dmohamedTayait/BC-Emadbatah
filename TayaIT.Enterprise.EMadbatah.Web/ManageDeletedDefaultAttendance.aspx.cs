@@ -35,7 +35,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             List<DefaultAttendant> DefaultAttendantLst = DefaultAttendantHelper.GetDeletedDefaultAttendants();
             if (DefaultAttendantLst.Count == 0)
             {
-                DefaultAttendantLst = new List<DefaultAttendant>();
+               /* DefaultAttendantLst = new List<DefaultAttendant>();
                 DefaultAttendant DefaultAttendantObj = new DefaultAttendant();
                 DefaultAttendantObj.Type = 3;
                 DefaultAttendantLst.Add(DefaultAttendantObj);
@@ -45,7 +45,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 gvDefaultAttendants.Rows[0].Cells.Clear();
                 gvDefaultAttendants.Rows[0].Cells.Add(new TableCell());
                 gvDefaultAttendants.Rows[0].Cells[0].ColumnSpan = columncount;
-                gvDefaultAttendants.Rows[0].Cells[0].Text = "لا يوجد أعضاء";
+                gvDefaultAttendants.Rows[0].Cells[0].Text = "لا يوجد أعضاء";*/
             }
             else
             {
