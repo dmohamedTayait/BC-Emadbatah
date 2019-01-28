@@ -53,74 +53,6 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
-
-
-           // mp3player($(".MP3FilePath").val());
-            // on change
-            var MP3FilePath = $(".MP3FilePath");
-            var MP3FilePathValue = MP3FilePath.val();
-           // var AudioPlayer = $("#jquery_jplayer_1");
-            // timer
-            setInterval(function () {
-                // vars
-                MP3FilePath = $(".MP3FilePath");
-                // cehck if the value changed
-                if (MP3FilePath.val() != MP3FilePathValue) {
-                    // save the last value
-                    MP3FilePathValue = MP3FilePath.val();
-                    // change the player file
-                  /*  AudioPlayer.jPlayer("setMedia", {
-                        mp3: MP3FilePathValue
-                    }).jPlayer("play", 0);
-                    $('.jp-audio .next-jp-xseconds').click(function (e) {
-                        AudioPlayer.jPlayer("play", playertime + 5)
-                    });
-                    // prev x seconds button
-                    $('.jp-audio .prev-jp-xseconds').click(function (e) {
-                        AudioPlayer.jPlayer("play", playertime - 5)
-                    });*/
-                    mp3player(MP3FilePathValue);
-                }
-            }, 500);
-        });
-
-        function mp3player(mp3path) {     // alert($(".MP3FilePath").val());
-           var AudioPlayer = $("#jquery_jplayer_1");
-           var playertime;
-           AudioPlayer.jPlayer({
-               swfPath: "/scripts/jPlayer/",
-               wmode: "window",
-               solution: 'html, flash',
-               supplied: "mp3",
-               preload: 'metadata',
-               volume: 1,
-               cssSelectorAncestor: '#jp_container_1',
-               errorAlerts: false,
-               warningAlerts: false,
-               ready: function () {
-                   // play the jplayer
-                   $(this).jPlayer("setMedia", {
-                       mp3:mp3path// $(".MP3FilePath").val() // mp3 file path//'http://localhost:12000/SessionFiles/1345/session_10-05-2016_1.mp3'//$(".MP3FilePath").val() // mp3 file path
-                   }).jPlayer("play",0);
-                   // next x seconds button
-                   $('.jp-audio .next-jp-xseconds').click(function (e) {
-                       AudioPlayer.jPlayer("play", playertime + 5)
-                   });
-                   // prev x seconds button
-                   $('.jp-audio .prev-jp-xseconds').click(function (e) {
-                       AudioPlayer.jPlayer("play", playertime - 5)
-                   });
-               },
-               timeupdate: function (event) {
-                   if (!$(this).data("jPlayer").status.paused) {
-                       // highlight the word by time
-                       playertime = event.jPlayer.status.currentTime;
-                   }
-               }
-           });
-       }
-
-        $(document).ready(function () {
             AjaxEndMethod();
             if (!Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack()) {
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(AjaxEndMethod);
@@ -147,8 +79,6 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-               <input id="MP3FolderPath" class="MP3FolderPath" type="hidden" runat="server" value="" />
-               <input id="MP3FilePath" class="MP3FilePath" type="hidden" runat="server" value="http://localhost:12000/SessionFiles/1345/session_10-05-2016_1.mp3" name="MP3FilePath"/>
                 <div class="grid_24">
                     <div>
                         <asp:Label runat="server" ID="lblInfo1" Visible="false" CssClass="lInfo"></asp:Label>
@@ -176,32 +106,6 @@
                             CssClass="sessionopenintime h2">
                         </asp:RadioButtonList>
                         <div class="clear">
-                        </div>
-                    </div>
-                    <div id="jquery_jplayer_1" class="jp-jplayer">
-                    </div>
-                    <div id="jp_container_1" class="jp-audio">
-                        <div class="jp-type-single">
-                            <div id="jp_interface_1" class="jp-interface">
-                                <ul class="jp-controls">
-                                    <li><a href="#" class="jp-play" tabindex="1" title="play"></a></li>
-                                    <li><a href="#" class="jp-pause" tabindex="1" title="pause"></a></li>
-                                </ul>
-                                <div class="jp-progress">
-                                    <div class="jp-seek-bar">
-                                        <div class="jp-play-bar">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="jp-current-time">
-                                </div>
-                                <div class="jp-duration">
-                                </div>
-                                <div class="next-jp-xseconds" title="تقديم 5 ثوانى">
-                                </div>
-                                <div class="prev-jp-xseconds" title="تاخير 5 ثوانى">
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <br />

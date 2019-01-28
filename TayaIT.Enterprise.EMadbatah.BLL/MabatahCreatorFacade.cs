@@ -474,8 +474,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     {
                         doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         if (att.AttendantTitle == null)
-                            attFullPresentationName = "السيد " + att.ShortName.Trim();
-                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
+                            attFullPresentationName = "السيد " + att.LongName.Trim();
+                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.LongName.Trim();
                         attFullPresentationName = "( " + attFullPresentationName;
                         if (String.IsNullOrEmpty(att.JobTitle))//if (att.Type != 3)
                             attFullPresentationName = attFullPresentationName + ")";
@@ -488,8 +488,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     else
                     {
                         if (att.AttendantTitle == null)
-                            attFullPresentationName = "السيد " + att.ShortName.Trim() + " : ";
-                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim() + " : ";
+                            attFullPresentationName = "السيد " + att.LongName.Trim() + " : ";
+                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.LongName.Trim() + " : ";
                         doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         if (!String.IsNullOrEmpty(att.JobTitle))
                             doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");

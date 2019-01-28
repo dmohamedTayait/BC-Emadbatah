@@ -56,8 +56,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             long SessionID = long.Parse(ddlSessions.SelectedValue);
             Session sessionObj = SessionHelper.GetSessionByID(SessionID);
-            MP3FolderPath.Value = sessionObj.ID.ToString();
-            bind_audio_file(sessionObj);
             btnSave.Style.Add("display", "");
 
             ddlAttendantTypes.Style.Add("display", "block");
@@ -74,7 +72,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
            
             long SessionID = long.Parse(ddlSessions.SelectedValue);
             Session sessionObj = SessionHelper.GetSessionByID(SessionID);
-            bind_audio_file(sessionObj);
             btnSave.Style.Add("display", "");
 
             if (ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.FromTheCouncilMembers).ToString() || ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.GovernmentRepresentative).ToString())
@@ -184,20 +181,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             GVAttendants.DataSource = attendantsLst;
             GVAttendants.DataBind();
             GVAttendants.Style.Add("display", "block");
-        }
-
-        private void bind_audio_file(Session sessionObj)
-        {
-            DateTime time = (DateTime)sessionObj.StartTime;
-            MP3FilePath.Value = string.Format("{0}://{1}:{2}/", Request.Url.Scheme, Request.Url.Host, Request.Url.Port) + "SessionFiles/";
-            string day = time.Day.ToString();
-            string month = time.Month.ToString();
-            if (time.Day < 10)
-                day = "0" + day;
-            if (time.Month < 10)
-                month = "0" + month;
-            MP3FilePath.Value += MP3FolderPath.Value + "/speakers_" + day + "_" + month + "_" + time.Year + "_";
-            MP3FilePath.Value += "01.mp3";
         }
 
         private void bind_script()

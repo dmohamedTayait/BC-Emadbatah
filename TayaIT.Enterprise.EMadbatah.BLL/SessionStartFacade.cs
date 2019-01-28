@@ -221,9 +221,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             List<Attendant> governmentMemAttendants = AttendantHelper.GetAttendantInSession(details.SessionID, (int)Model.AttendantType.GovernmentRepresentative);
             if (governmentMemAttendants.Count > 0)
             {
-                body += writeCouncilMemAttendantNFile("", councilMemattendants, false);
+                body += writeCouncilMemAttendantNFile("", councilMemattendants, (int)Model.AttendantState.Attended);
                 body += "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>و قد مثل الحكومة كل من:</p>";
-                body += writeGovernmentMemAttendantNFile("", governmentMemAttendants, false);
+                body += writeGovernmentMemAttendantNFile("", governmentMemAttendants, (int)Model.AttendantState.Attended);
                 body += emptyParag;
             }
 
@@ -245,7 +245,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             return s + "  م";
         }
 
-        public static string writeCouncilMemAttendantNFile(string head, List<Attendant> attendants, bool if_status_added)
+        public static string writeCouncilMemAttendantNFile(string head, List<Attendant> attendants, int status_filter)
         {
             string body = "";
             if (attendants.Count > 0)
@@ -260,7 +260,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 string att_stats = "1";
                 foreach (Attendant att in attendants)
                 {
-                    if (att.Name != "غير معرف")
+                    if (att.Name != "غير معرف" && att.State == status_filter)
                     {
                         att_stats = (Model.AttendantState)att.State == Model.AttendantState.Attended ? "حاضر" : "غير موجود";
                         body += "<tr style='" + pagebreak + "'><td style='width:10%;display:none;'><p style=' " + tdJustifyStyle + " '></p></td><td><p style=' " + tdJustifyStyle + defFontSize2 + " '>" + count.ToString() + ". " + "سعادة " + att.AttendantTitle.Trim() + " " + att.Name.Trim() + "</p>";
@@ -279,7 +279,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             return body;
         }
 
-        public static string writeGovernmentMemAttendantNFile(string head, List<Attendant> attendants, bool if_status_added)
+        public static string writeGovernmentMemAttendantNFile(string head, List<Attendant> attendants, int status_filter)
         {
             string body = "";
             if (attendants.Count > 0)
@@ -294,7 +294,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 string att_stats = "1";
                 foreach (Attendant att in attendants)
                 {
-                    if (att.Name != "غير معرف")
+                    if (att.Name != "غير معرف" && att.State == status_filter)
                     {
                         att_stats = (Model.AttendantState)att.State == Model.AttendantState.Attended ? "حاضر" : "غير موجود";
                         body += "<tr style='" + pagebreak + "'><td style=" + valign + "width:65%;" + "><p style=' " + tdJustifyStyle + defFontSize2 + " '>" + att.AttendantTitle.Trim() + " / " + att.Name.Trim() + "</p></td>";

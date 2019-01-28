@@ -254,8 +254,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                             name = "السيد رئيـس الجلســـــــــــــــــــــــة :";
 
                                             if (att.AttendantTitle == null)
-                                                attFullPresentationName = "السيد " + att.ShortName.Trim();
-                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
+                                                attFullPresentationName = "السيد " + att.LongName.Trim();
+                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.LongName.Trim();
                                             attFullPresentationName = "( " + attFullPresentationName;
                                             if (String.IsNullOrEmpty(att.JobTitle))
                                                 attFullPresentationName = attFullPresentationName + ")";
