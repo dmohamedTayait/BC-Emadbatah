@@ -69,7 +69,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 {
                     mergeList.Add(SessionWorkingDir + "bodyDoc" + (h + 1).ToString() + ".docx");
                 }
-                mergeList.Add(ServerMapPath + "\\docs\\templates\\MadbatahEndCover.docx");//ready
+               // mergeList.Add(ServerMapPath + "\\docs\\templates\\MadbatahEndCover.docx");//ready
                 File.Copy(SessionWorkingDir + "MadbatahcoverDoc.docx", SessionWorkingDir + sessionID + ".docx", true);
                 WordprocessingWorker.MergeWithAltChunk(SessionWorkingDir + sessionID + ".docx", mergeList.ToArray());
 
@@ -90,8 +90,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             DateTimeFormatInfo dateFormat = Util.DateUtils.ConvertDateCalendar(details.Date, Util.CalendarTypes.Hijri, "en-us");
 
             string dayNameAr = details.Date.ToString("dddd", dateFormat); // LocalHelper.GetLocalizedString("strDay" + hijDate.DayOfWeek);
-            string monthNameAr = details.Date.Month.ToString();//LocalHelper.GetLocalizedString("strMonth" + details.Date.Month);
-            string monthNameHijAr = (int.Parse(details.Date.ToString("MM", dateFormat))).ToString();// details.Date.ToString("MMMM", dateFormat); //LocalHelper.GetLocalizedString("strHijMonth"+hijDate.Month);
+            string monthNameAr = LocalHelper.GetLocalizedString("strMonth" + details.Date.Month); //details.Date.Month.ToString();
+            string monthNameHijAr = details.Date.ToString("MMMM", dateFormat); //(int.Parse(details.Date.ToString("MMMM", dateFormat))).ToString(); //LocalHelper.GetLocalizedString("strHijMonth"+hijDate.Month);
             string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
             string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
 
@@ -105,8 +105,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
             //for header
             string sessionNum = details.Subject; //"الخامسة عشره";
-            string hijriDate = dayNameAr + " " + dayOfMonthNumHij + " / " + monthNameHijAr + " / " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
-            string gDate = details.Date.Day + " / " + monthNameAr + " / " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
+            string hijriDate = dayOfMonthNumHij + " " + monthNameHijAr + " " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
+            string gDate = details.Date.Day + " " + monthNameAr + " " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
 
             NumberingFormatter fomratterFemale = new NumberingFormatter(false);
             NumberingFormatter fomratterMale = new NumberingFormatter(true);
@@ -129,11 +129,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             sb.Append("<root>");
 
             //sb.Append("<Name>").Append(sessionName).Append("</Name>");
-            string footer = details.Type + " " + details.Subject + " - " + "الانعقاد" + " " + details.Stage + " - " + "الفصل" + " " + details.Season;
+            string footer = details.Type.Trim() + " (" + details.Subject + ") | " + hijriDate + " - " + gDate;
             sb.Append("<Season>").Append(fomratterMale.getResultEnhanced(int.Parse(details.Season))).Append("</Season>");
             sb.Append("<Name>").Append(details.Type).Append("</Name>");
-            sb.Append("<Stage>").Append(fomratterMale.getResultEnhanced(int.Parse(details.Stage))).Append("</Stage>");//fomratterMale.getResultEnhanced((int)details.Stage)
-            sb.Append("<StageType>").Append(details.StageType).Append("</StageType>");
+            sb.Append("<Stage>").Append(fomratterMale.getResultEnhanced(int.Parse(details.Stage)).Trim()).Append("</Stage>");//fomratterMale.getResultEnhanced((int)details.Stage)
+            sb.Append("<StageType>").Append(details.StageType.Trim()).Append("</StageType>");
             sb.Append("<Subject>").Append(fomratterFemale.getResultEnhanced(int.Parse(details.Subject))).Append("</Subject>");
             sb.Append("<DateHijri>").Append(hijriDate).Append("</DateHijri>");
             sb.Append("<DateMilady>").Append(gDate).Append("</DateMilady>");
@@ -235,18 +235,37 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             if (k == 0)//First Time only to be Executed 
                             {
                                 Attendant att = sessionItem.Attendant;
-                                if (att.Type == (int)Model.AttendantType.FromTheCouncilMembers)
+                                string name_reprsented_n_file = "";
+                                if (att.Type == (int)Model.AttendantType.President || att.Type == (int)Model.AttendantType.FromTheCouncilMembers || att.Type == (int)Model.AttendantType.FromOutsideTheCouncil || att.Type == (int)Model.AttendantType.GovernmentRepresentative)
                                 {
                                     //Prepare Speaker to be written in Word SpeakersFehres
+                                    if (att.Type == (int)Model.AttendantType.President)
+                                        name_reprsented_n_file = "الرئيـــس";
+                                    else
+                                    {
+                                        if (contentItem.IsSessionPresident == 1)
+                                        {
+                                            name_reprsented_n_file = "رئيس الجلسة ";
+                                            if (!String.IsNullOrEmpty(contentItem.CommentOnAttendant))
+                                                name_reprsented_n_file += " (" + contentItem.CommentOnAttendant.Trim() + ")";
+                                        }
+                                        else
+                                            name_reprsented_n_file = att.Type == (int)Model.AttendantType.FromTheCouncilMembers ? MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att) : att.JobTitle;
+                                    }
+
                                     pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
-                                    int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), (pageNum + docPageCount).ToString(), att.Type));
+                                    int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(name_reprsented_n_file, (pageNum + docPageCount).ToString(), att.Type));
                                     if (itemIndex == -1)
-                                        speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), (pageNum + docPageCount).ToString() + ",", att.Type));
+                                    {
+                                        if (att.Type == (int)Model.AttendantType.President)
+                                            speakersIndex.Insert(0,new SpeakersIndexItem(name_reprsented_n_file, (pageNum + docPageCount).ToString() + ",", att.Type));
+                                        else
+                                            speakersIndex.Add(new SpeakersIndexItem(name_reprsented_n_file, (pageNum + docPageCount).ToString() + ",", att.Type));
+                                    }
                                     else
                                         speakersIndex[itemIndex].PageNum += (pageNum + docPageCount) + ", ";
                                 }
                             }
-
                             if ((contentItem.TopicID != null && contentItem.TopicID != 0 && contentItem.MergedTopicWithPrevious == false) || contentItem.TopicID == null)
                             {
                                 if (contentItemGrp.Count > 0)
@@ -466,84 +485,35 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 string attFullPresentationName = "";
                 if ((Model.AttendantType)att.Type == Model.AttendantType.President)
                 {
-                    doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph("الرئيـــس :", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                 }
                 else
                 {
                     if (contentItem.IsSessionPresident == 1)
                     {
-                        doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (att.AttendantTitle == null)
-                            attFullPresentationName = "السيد " + att.LongName.Trim();
-                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.LongName.Trim();
-                        attFullPresentationName = "( " + attFullPresentationName;
-                        if (String.IsNullOrEmpty(att.JobTitle))//if (att.Type != 3)
-                            attFullPresentationName = attFullPresentationName + ")";
-                        doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (!String.IsNullOrEmpty(att.JobTitle))
-                            doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        attFullPresentationName = "رئيس الجلسة ";
                         if (!String.IsNullOrEmpty(contentItem.CommentOnAttendant))
-                            doc.AddParagraph(contentItem.CommentOnAttendant.Trim(), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                            attFullPresentationName += " (" + contentItem.CommentOnAttendant.Trim() + ")";
+                        attFullPresentationName += " :";
+                        doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                     else
                     {
-                        if (att.AttendantTitle == null)
-                            attFullPresentationName = "السيد " + att.LongName.Trim() + " : ";
-                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.LongName.Trim() + " : ";
-                        doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (!String.IsNullOrEmpty(att.JobTitle))
-                            doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (!String.IsNullOrEmpty(contentItem.CommentOnAttendant))
-                            doc.AddParagraph("    " + contentItem.CommentOnAttendant.Trim(), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                    }
-                }
-
-            }
-        }
-
-        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, List<SessionContentItem> grp, bool ttt)
-        {
-            string[] p = new string[] { };
-            string[] paragraphs = GetParagraphsArr(contentItemAsText, out p);
-            string[] procedureArr = new string[] { };
-            string parag = "";
-            List<string> myCollection = new List<string>();
-            List<string> myCollection2 = new List<string>();
-            for (int pp = 0; pp < paragraphs.Length; pp++)
-            {
-                parag = TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ")).Trim();
-                if (parag != "")
-                {
-                    myCollection.Add(parag.Replace("&nbsp;", " "));
-                    myCollection2.Add(sessionItem.PageFooter);
-                    if (pp != 0)
-                        WriteAttendantInWord(sessionItem, sessionItem.Attendant);
-                    if (sessionItem.PageFooter != "")
-                        doc.AddParagraph(myCollection, ParagraphStyle.NormalArabic, ParagrapJustification.RTL, true, myCollection2);
-                    else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
-                    doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
-                }
-
-
-                if (pp < p.Length)
-                {
-                    parag = TextHelper.StripHTML(p[pp].ToString()).Trim();
-                    if (parag != "")
-                    {
-                        string[] sep = new string[1] { "#!#!#!" };
-                        procedureArr = parag.Split(sep, StringSplitOptions.RemoveEmptyEntries);
-                        ParagrapJustification align = ParagrapJustification.RTL;
-                        if (p[pp].ToString().IndexOf("center") > 0)
-                            align = ParagrapJustification.Center;
-
-                        for (int x = 0; x < procedureArr.Length; x++)
+                        if(att.Type == (int)Model.AttendantType.FromTheCouncilMembers)
                         {
-                            doc.AddParagraph(procedureArr[x].Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, align, false, "");
+                            attFullPresentationName = att.AttendantTitle == null ? "النائب " + att.LongName.Trim() : att.AttendantTitle.Trim() + " " + att.LongName.Trim();
+                            if (!String.IsNullOrEmpty(contentItem.CommentOnAttendant))
+                                attFullPresentationName += " (" + contentItem.CommentOnAttendant.Trim() + ")";
+                            attFullPresentationName += " :";
+                            doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         }
-
-                        doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                        else
+                        {
+                            doc.AddParagraph(att.JobTitle + " :", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        }
                     }
                 }
+
             }
         }
 
@@ -591,8 +561,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
                             }
 
-
-
                             if (pp < p.Length)
                             {
                                 proc = TextHelper.StripHTML(p[pp].ToString()).Trim();
@@ -612,7 +580,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     long lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
                                     doc.DeleteLastParagraph("space");
                                     if (lineNum != 1)
-                                        doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                        doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                                 }
                             }
                         }
@@ -630,7 +598,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         WriteAttendantInWord(sessionItem, sessionItem.Attendant);
                         doc.AddParagraph(myCollection, ParagraphStyle.NormalArabic, ParagrapJustification.RTL, true, myCollection2);
 
-                        doc.AddParagraph("space", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         long lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
                         doc.DeleteLastParagraph("space");
                         if (lineNum != 1)
@@ -705,12 +673,88 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             return parag;
         }
 
-        public static string tblBorder = "border:2px solid #000;";
-        public static string pRightDefStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defFontWeight + SessionStartFacade.defFontSize1 + SessionStartFacade.textRight;
-        public static string pCenterDefStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defFontWeight + SessionStartFacade.defFontSize1 + SessionStartFacade.textCenter;
-        public static string pUnderLineCenterDefStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defFontWeight + SessionStartFacade.defFontSize1 + SessionStartFacade.textCenter + SessionStartFacade.textunderline;
+        public static string tblBorder = "border:0px";
+        public static string pRightDefStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defFont + SessionStartFacade.defFontSize1 + SessionStartFacade.textRight;
+        public static string pCenterDefStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defFont + SessionStartFacade.defFontSize1 + SessionStartFacade.textCenter;
+        public static string pRightDefBoldStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defFont + SessionStartFacade.defFontWeight + SessionStartFacade.defFontSize1 + SessionStartFacade.textRight;
+        public static string pLeftDefBoldStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defFont + SessionStartFacade.defFontWeight + SessionStartFacade.defFontSize1 + SessionStartFacade.textLeft;
+        public static string pCenterDefBoldStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defFont + SessionStartFacade.defFontWeight + SessionStartFacade.defFontSize1 + SessionStartFacade.textCenter;
+        public static string pDefStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defFont + SessionStartFacade.defFontWeight + SessionStartFacade.defFontSize0 + SessionStartFacade.textCenter;
         public static string emptyParag = "<p style='" + SessionStartFacade.marginZeroStyle + "'>&nbsp;</p>";
         public static int CreateMadbatahIndex(List<MadbatahIndexItem> index, string folderPath, int indexSize, string outIndexPath, string ServerMapPath, Model.SessionDetails details)
+        {
+            try
+            {
+                string indexHeader = @"<p style='" + pDefStyle + SessionStartFacade.biglineHeight + "'>فــــــــــــهـــــــــــــــــــــــــــــــرس الـــمـــــــــــــوضــــــــــــوعـــــــــــــــــــــــــات</p>"
+                   + emptyParag
+                   + "<table style='width:100%;" + tblBorder + SessionStartFacade.lineHeight + SessionStartFacade.directionStyle + SessionStartFacade.marginZeroStyle + "' "
+                   + "  <tr style='" + SessionStartFacade.pagebreak + "'>"
+                   + "   <th style='" + tblBorder + ";width:85%'><p style='" + pRightDefBoldStyle + SessionStartFacade.biglineHeight + "'>المــوضـــــــوع</p></th>"
+                   + "   <th style='" + tblBorder + "'><p style='" + pCenterDefBoldStyle + SessionStartFacade.biglineHeight + "'>الصفحة</p></th>"
+                   + " </tr>";
+
+
+                int i = 1, j = 1;
+                string indx = "";
+                string emptyRowBold = "<tr style='" + SessionStartFacade.pagebreak + "'>" +
+                                          "<td style='" + tblBorder + "'><p style='" + pRightDefStyle + "'>ItemName</p></td>" +
+                                          "<td style='" + tblBorder + "' valign='bottom'><p style='" + pCenterDefStyle + "'>PageNum</p></td>" +
+                                          "</tr>";
+                StringBuilder sb = new StringBuilder();
+                sb.Append(indexHeader);
+
+                string toBeReplaced = emptyRowBold.Replace("ItemName", "1. " + "أسماء السادة الأعضاء").Replace("PageNum", (indexSize + 1).ToString());
+                sb.Append(toBeReplaced);
+
+                foreach (MadbatahIndexItem item in index)
+                {
+                    string name = "";
+                    string pageNum = "";
+                    i++;
+                    name = item.Name;
+                    pageNum = item.PageNum.ToString();
+                    string[] pageNums = pageNum.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                    pageNum = (int.Parse(pageNums[0]) + indexSize).ToString();
+                    if (item.IsIndexed == 1)
+                    {
+                        j++;
+                        indx = j.ToString();
+                    }
+                    else
+                    {
+                        indx = "";
+                    }
+                    name = indx + " ." +name;
+                    toBeReplaced = emptyRowBold.Replace("ItemNum", indx).Replace("ItemName", name).Replace("PageNum", pageNum);
+                    sb.Append(toBeReplaced);
+                }
+
+                DocXmlParts xmlFilesPaths = WordprocessingWorker.GetDocParts(ServerMapPath + "\\resources\\");
+                sb.Append("</table> </tr></table>");
+
+                int stats = 0;
+
+                // HTMLtoDOCX hd = new HTMLtoDOCX();
+                // hd.CreateFileFromHTML(sb.ToString(), @outIndexPath);
+                WordprocessingWorker.SaveDOCX(@outIndexPath, sb.ToString(), false, 1,1,1,1);
+
+                using (WordprocessingWorker doc = new WordprocessingWorker(outIndexPath, xmlFilesPaths, DocFileOperation.Open))
+                {
+                    WordprocessingWorker doctmp = doc;
+                    stats = doc.CountPagesUsingOpenXML(doc, outIndexPath, xmlFilesPaths, ServerMapPath, out doctmp);
+                    doctmp.Dispose();
+                }
+
+                return stats;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment");
+                return -1;
+            }
+        }
+
+        public static int CreateMadbatahIndex2(List<MadbatahIndexItem> index, string folderPath, int indexSize, string outIndexPath, string ServerMapPath, Model.SessionDetails details)
         {
             try
             {
@@ -739,16 +783,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 string indexHeader = @"<table width='100%' border='0' align='right' style='writing-mode: tb-rl; " + SessionStartFacade.lineHeight + SessionStartFacade.textRight + SessionStartFacade.directionStyle + SessionStartFacade.defFontWeight + "'>"
                   + " <tr>"
-                  + "  <p style='" + pCenterDefStyle + "'>بسم الله الرحمن الرحيم</p>"
-                  + "  <p style='" + pCenterDefStyle + "'>مجلس الأمة</p>"
-                  + "  <p style='" + pCenterDefStyle + "'>الأمانة العامة</p>"
-                  + "  <p style='" + pCenterDefStyle + "'>ادارة شؤون المضابط</p>"
+                  + "  <p style='" + pCenterDefBoldStyle + "'>بسم الله الرحمن الرحيم</p>"
+                  + "  <p style='" + pCenterDefBoldStyle + "'>مجلس الأمة</p>"
+                  + "  <p style='" + pCenterDefBoldStyle + "'>الأمانة العامة</p>"
+                  + "  <p style='" + pCenterDefBoldStyle + "'>ادارة شؤون المضابط</p>"
                   + emptyParag
-                  + "<p style='" + pUnderLineCenterDefStyle + "'>ملخص الموضوعات التى نظرت فى  " + sessionName + " </p>"
-                  + "<p style='" + pUnderLineCenterDefStyle + "'>المعقودة يوم  " + hijriDate + "</p>"
-                  + "<p style='" + pUnderLineCenterDefStyle + "'>الموافق  " + gDate + "</p>"
-                  + emptyParag
-                  + "<p style='" + pCenterDefStyle + "'>فهرس الموضوعات</p>"
+                  + "<p style='" + pCenterDefBoldStyle + "'>فهرس الموضوعات</p>"
                   + " </tr>"
                   + " <tr>"
                   + "  <table border='1' style='width:100%;border-collapse:collapse; " + tblBorder + SessionStartFacade.lineHeight + SessionStartFacade.textCenter + SessionStartFacade.directionStyle + SessionStartFacade.defFontWeight + SessionStartFacade.defFontSize1 + SessionStartFacade.marginZeroStyle + "' align='center' cellpadding='5' cellspacing='0'>"
@@ -762,9 +802,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 int i = 1, j = 1;
                 string indx = "";
                 string emptyRowBold = "<tr style='" + SessionStartFacade.pagebreak + "'>" +
-                                          "<td style='" + tblBorder + "'><p style='" + pCenterDefStyle + "'>ItemNum</p></td>" +
+                                          "<td style='" + tblBorder + "'><p style='" + pCenterDefBoldStyle + "'>ItemNum</p></td>" +
                                           "<td style='" + tblBorder + "'><p style='font-family: UsedFont;" + SessionStartFacade.marginZeroStyle + SessionStartFacade.textRight + SessionStartFacade.defFontSize1 + "'>ItemName</p></td>" +
-                                          "<td style='" + tblBorder + "'><p style='" + pCenterDefStyle + "'>PageNum</p></td>" +
+                                          "<td style='" + tblBorder + "'><p style='" + pCenterDefBoldStyle + "'>PageNum</p></td>" +
                                           "</tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
@@ -803,7 +843,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 // HTMLtoDOCX hd = new HTMLtoDOCX();
                 // hd.CreateFileFromHTML(sb.ToString(), @outIndexPath);
-                WordprocessingWorker.SaveDOCX(@outIndexPath, sb.ToString(), false, 0.8, 0.8, 0.5, 0.3);
+                WordprocessingWorker.SaveDOCX(@outIndexPath, sb.ToString(), false, 1, 1, 1, 1);
 
                 using (WordprocessingWorker doc = new WordprocessingWorker(outIndexPath, xmlFilesPaths, DocFileOperation.Open))
                 {
@@ -825,20 +865,21 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         {
             try
             {
-                string indexHeader = @"<p style='" + pUnderLineCenterDefStyle + SessionStartFacade.lineHeight + "'>فهـــــرس المتحــــــدثــين</p>"
-                    + "<p style='" + SessionStartFacade.defFontWeight + SessionStartFacade.lineHeight + SessionStartFacade.textCenter + " font-size: 12pt;'>(السادة الاعضاء المتحدثون على الموضوعات التى تم مناقشتها أثناء انعقاد الجلسة)</p>"
+                string indexHeader = @"<p style='" + pDefStyle + SessionStartFacade.biglineHeight + "'>فـــــــــــــهـــــــــــــــــــــــــــــــرس الأقــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــوال</p>"
                     + emptyParag
-                    + "<table border='1' style='width:100%; border-collapse:collapse;" + tblBorder + SessionStartFacade.lineHeight + SessionStartFacade.textCenter + SessionStartFacade.directionStyle + SessionStartFacade.defFontWeight + SessionStartFacade.defFontSize1 + SessionStartFacade.marginZeroStyle + "' align='center' cellpadding='3' cellspacing='0'>"
+                    + "<table style='width:100%;" + tblBorder + SessionStartFacade.lineHeight + SessionStartFacade.textCenter + SessionStartFacade.directionStyle + SessionStartFacade.marginZeroStyle + "' align='center' cellpadding='3' cellspacing='0'>"
                     + "  <tr style='" + SessionStartFacade.pagebreak + "'>"
-                    + "   <th style='" + tblBorder + "width:80%'><p style='" + pCenterDefStyle + "'>اسم المتحدث</p></th>"
-                    + "   <th style='" + tblBorder + "'><p style='" + pCenterDefStyle + "'>رقم الصفحة</p></th>"
+                    + "   <th style='" + tblBorder + "width:5%'><p style='" + pCenterDefBoldStyle + SessionStartFacade.biglineHeight + "'>الرقم</p></th>"
+                    + "   <th style='" + tblBorder + "width:75%'><p style='" + pCenterDefBoldStyle + SessionStartFacade.biglineHeight + "'>الاســـــــــــــــــــــــم</p></th>"
+                    + "   <th style='" + tblBorder + "'><p style='" + pCenterDefBoldStyle + SessionStartFacade.biglineHeight + "'>الصفحــــــــــــــات</p></th>"
                     + " </tr>";
 
 
                 int i = 1;
                 string emptyRowBold = @"<tr style='" + SessionStartFacade.pagebreak + "'>" +
-                            "<td style='" + SessionStartFacade.textRight + tblBorder + ";width:80%'><p style='" + pRightDefStyle + "'>ItemName</p></td>" +
-                            "<td style='" + tblBorder + "'><p style='" + pCenterDefStyle + "'>PageNum</p></td></tr>";
+                            "<td style='" + tblBorder + "width:5%'><p style='" + pRightDefStyle + SessionStartFacade.midlineHeight + "'>count</p></td>"+
+                            "<td style='" + SessionStartFacade.textRight + tblBorder + ";width:75%'><p style='" + SessionStartFacade.midlineHeight + pRightDefStyle + "'>ItemName</p></td>" +
+                            "<td style='" + SessionStartFacade.textRight + tblBorder + "'><p style='" + SessionStartFacade.midlineHeight + pRightDefStyle + "'>PageNum</p></td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 
@@ -860,7 +901,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                     if (pagesStr.Length > 2)
                         pagesStr = pagesStr.Remove(pagesStr.Length - 2);
-                    sb.Append(emptyRowBold.Replace("ItemName", item.Name.Trim()).Replace("PageNum", pagesStr));
+                    sb.Append(emptyRowBold.Replace("ItemName", item.Name.Trim()).Replace("PageNum", pagesStr).Replace("count", i.ToString() + "."));
                     i++;
                 }
                 sb.Append("</table>");
@@ -868,7 +909,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 int stats = 0;
                 //   HTMLtoDOCX hd = new HTMLtoDOCX();
                 //   hd.CreateFileFromHTML(sb.ToString(), outPath);
-                WordprocessingWorker.SaveDOCX(outPath, sb.ToString(), false, 0.8, 0.8, 0.5, 0.3);
+                WordprocessingWorker.SaveDOCX(outPath, sb.ToString(), false, 1,1,1,1);
 
                 DocXmlParts xmlFilesPaths = WordprocessingWorker.GetDocParts(ServerMapPath + "\\resources\\");
 
@@ -951,26 +992,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             return newGroup;
         }
 
-        public static string GetAttendantTitleNSpeakersIndex(Object SomeObj, long session_id)
+        public static string GetAttendantTitleNSpeakersIndex(Attendant att)
         {
-            Attendant att = null;
-            string title = "السيد العضو  ";
-            if (SomeObj is SessionAttendant)
-            {
-                SessionAttendant sAtt = (SessionAttendant)SomeObj;
-                att = new Attendant()
-                {
-                    ID = sAtt.ID,
-                    Name = sAtt.Name,
-                    Type = (int)sAtt.Type
-                };
-            }
-            else
-                att = (Attendant)SomeObj;
-
-            string attName = att.Name.Trim();
-
-            return (title + attName).Trim();
+            return (att.AttendantTitle.Trim() + " " + att.AttendantDegree.Trim() + " " + att.Name.Trim()).Trim();
 
         }
 

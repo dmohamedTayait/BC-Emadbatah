@@ -119,7 +119,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     InitializeDocumentStyles();
             }
             SectionProperties sectionProps = new SectionProperties();
-            PageMargin pageMargin = new PageMargin() { Top = 432, Right = (UInt32Value)1152U, Bottom = 720, Left = (UInt32Value)1152U, Header = (UInt32Value)720U, Footer = (UInt32Value)720U, Gutter = (UInt32Value)0U };//def; 1440
+            PageMargin pageMargin = new PageMargin() { Top = 1440, Right = (UInt32Value)1440U, Bottom = 1440, Left = (UInt32Value)1440U, Header = (UInt32Value)850U, Footer = (UInt32Value)130U, Gutter = (UInt32Value)0U };//def; 1440
             PageSize pageSize = new PageSize() { Width = (UInt32Value)11908U, Height = (UInt32Value)16833U };
             //Spacing space = new Spacing (){ 
             sectionProps.Append(pageMargin);
@@ -154,7 +154,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             }
 
             SectionProperties sectionProps = new SectionProperties();
-            PageMargin pageMargin = new PageMargin() { Top = 432, Right = (UInt32Value)1152U, Bottom = 720, Left = (UInt32Value)1152U, Header = (UInt32Value)720U, Footer = (UInt32Value)720U, Gutter = (UInt32Value)0U };
+            PageMargin pageMargin = new PageMargin() { Top = 1440, Right = (UInt32Value)1440U, Bottom = 1440, Left = (UInt32Value)1440U, Header = (UInt32Value)850U, Footer = (UInt32Value)130U, Gutter = (UInt32Value)0U };
             PageSize pageSize = new PageSize() { Width = (UInt32Value)11908U, Height = (UInt32Value)16833U };
             //Spacing space = new Spacing (){ 
             sectionProps.Append(pageMargin);
@@ -741,7 +741,6 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             switch (textDirection)
             {
                 case ParagrapJustification.RTL:
-                    //justification.Val = JustificationValues.Right;
                     justification.Val = JustificationValues.LowKashida;
                     paragraphProp.Append(biDi1);
                     break;
@@ -759,20 +758,19 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     break;
             }
 
-
             paragraphProp.Append(justification);
             paragraphProp.ParagraphStyleId = new ParagraphStyleId() { Val = paragraphType.ToString() }; // we set the style
             paragraph.Append(paragraphProp);    //HeadingArabic
 
             paragraph.ParagraphProperties.SpacingBetweenLines = new SpacingBetweenLines() { After = "1", Line = "240", LineRule = LineSpacingRuleValues.Auto };
             Run run = new Run(new Text(paragraphText) { Space = SpaceProcessingModeValues.Preserve });
-           
 
             switch (paragraphType)
             {
                 case ParagraphStyle.ParagraphTitle:
                     break;
                 case ParagraphStyle.NormalArabic:
+                    paragraphProp.Append(new Indentation() { FirstLine = "720" });
                     break;
                 case ParagraphStyle.FootnoteText:
                     // footnote = new Footnote() { Type = FootnoteEndnoteValues.Separator, Id = -1 };
@@ -789,26 +787,8 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     break;
             }
 
-
-
-
-            if (appendFootNote)//(appendFootNote)//if (paragraphType == ParagraphStyle.FootnoteText)
+            if (appendFootNote)
             {
-                //SeparatorMark separatorMark2 = new SeparatorMark();
-                //paragraph.Append(new Run(separatorMark2));
-
-                //Footnote footnote = null;
-                //footnote = new Footnote() { Type = FootnoteEndnoteValues.Normal, Id = -1 };
-
-                //footnote.Append(paragraph);
-                ////_docMainPart.Document.Body.Append(footnote);
-                //_footNotes.Append(footnote);
-                //_footnotesPart.Footnotes = _footNotes;
-
-                //NewWordWorker n = new NewWordWorker();
-                //n.GenerateEndnotesPart1Content(_endnotesPart);
-                //n.GenerateFootnotesPart1Content(_footnotesPart, "عباس الهنداوي");
-
                 FootnoteEndnoteReferenceType reference;
                 reference = new FootnoteReference() { Id = AddFootnoteReference(footNoteText) };
 
@@ -881,6 +861,16 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             paragraph.Append(paragraphProp);    //HeadingArabic
 
             paragraph.ParagraphProperties.SpacingBetweenLines = new SpacingBetweenLines() { After = "1", Line = "240", LineRule = LineSpacingRuleValues.Auto };
+            switch (paragraphType)
+            {
+                case ParagraphStyle.ParagraphTitle:
+                    break;
+                case ParagraphStyle.NormalArabic:
+                    paragraphProp.Append(new Indentation() { FirstLine = "720" });
+                    break;
+                default:
+                    break;
+            }
 
             int i = 0;
             bool emptyStr = false;
@@ -2382,7 +2372,8 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             bMargin = bMargin * 1440;
             tMargin = tMargin * 1440;
 
-            PageMargin pageMargin = new PageMargin() { Top = (Int32)tMargin, Right = (UInt32Value)rMargin, Bottom = (Int32)bMargin, Left = (UInt32Value)lMargin, Header = (UInt32Value)360U, Footer = (UInt32Value)360U, Gutter = (UInt32Value)0U };
+            //Top = 1440, Right = (UInt32Value)1440U, Bottom = 1440, Left = (UInt32Value)1440U, Header = (UInt32Value)850U, Footer = (UInt32Value)130U, Gutter = (UInt32Value)0U 
+            PageMargin pageMargin = new PageMargin() { Top = (Int32)tMargin, Right = (UInt32Value)rMargin, Bottom = (Int32)bMargin, Left = (UInt32Value)lMargin, Header = (UInt32Value)850U, Footer = (UInt32Value)130U, Gutter = (UInt32Value)0U };
 
             sectionProps.Append(pageSize);
             sectionProps.Append(pageMargin);

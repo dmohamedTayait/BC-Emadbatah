@@ -52,7 +52,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 + " %PresidentTitle%"
                 + ")";
 
-        public static string madbatahStartsection2 = "** وتولى الأمانة العامة السيد علام علي الكندري الأمين العام للمجلس والسيد عادل عيسى اللوغاني الأمين العام المساعد لقطاع الجلسات والسيد محمد عبدالمجيد الخنفر مدير إدارة المضابط .";
+        public static string madbatahStartsection2 = "وحضر الجلسة  " +
+            "%out_attendants%" +
+            " وعدد من موظفي الأمانة العامة، وقد تفضلت معالي الرئيس بافتتاح الجلسة:";
         public static string madbatahStartsection3 = "(كانت معالي رئيس المجلس قد أعلنت في الساعة التاسعة والنصف عن تأجيل انعقاد الجلسة لحين اكتمال النصاب القانوني للجلسة، وذلك وفقا للمادة (49) من اللائحة الداخلية للمجلس).";
 
         public static string presidentStr = "السيد الرئيــــــــــــــــــــــــــــــــــس :";
@@ -70,16 +72,24 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         public static string directionStyle = "direction:rtl;";
         public static string defFont = "font-family:Sakkal Majalla;";
         public static string defFontWeight = "font-weight:bold;";
+        public static string defFontSize0 = "font-size:22pt;";
         public static string defFontSize1 = "font-size:20pt;";
         public static string defFontSize2 = "font-size:18pt;";
+
         public static string lineHeight = "line-height:100%;";
-        public static string valign = "vertical-align:top;";
+        public static string midlineHeight = "line-height:115%;";
+        public static string biglineHeight = "line-height:150%;";
+        public static string valign = "vertical-align:text-top;";
+        public static string vbalign = "vertical-align:text-bottom;";
+        public static string vcalign = "vertical-align:baseline;";
+        public static string textindent = "text-indent: 50px;";
 
         public static string basicPStyle = defFont + defFontWeight + lineHeight + marginZeroStyle + directionStyle;
 
         public static string textJustify = "text-align: justify;";
         public static string textJustifyKashida = "text-justify:kashida;";
         public static string textRight = "text-align: right;";
+        public static string textLeft = "text-align: left;";
         public static string textCenter = "text-align: center;";
         public static string textunderline = "text-decoration:underline;";
         public static string pagebreak = "page-break-inside:avoid;";
@@ -190,8 +200,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             body += "<p style='" + basicPStyle + textCenter + defFontSize1 + "'>" + madbatahHeader2.Replace("%stageType%", details.StageType).Replace("%stage%", stage) + "</p>";
             body += "<p style='" + basicPStyle + textCenter + defFontSize1 + "'>" + madbatahHeader3.Replace("%season%", season) + "</p>";
             body += emptyParag;
-            body += emptyParag;
-            body += emptyParag;
             body += "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>" + madbatahHeader4.Replace("%type%", details.Type).Replace("%subject%", details.Subject) + "</p>";
             body += "<table style='" + directionStyle + marginZeroStyle + ";'>";
             body += "<tr>";
@@ -205,7 +213,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             body += "</table>";
             body += emptyParag;
 
-            string sessionStart = "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>" + madbatahBodyHeader.Replace("%subject%", femail_numbers.getResultEnhanced(int.Parse(details.Subject)))
+            string sessionStart = "<p style='" + basicPStyle + textJustify + defFontSize2 + textindent + "'>" + madbatahBodyHeader.Replace("%subject%", femail_numbers.getResultEnhanced(int.Parse(details.Subject)))
                 .Replace("%season%", season)
                 .Replace("%type%", details.Type)
                 .Replace("%stageType%", details.StageType)
@@ -218,21 +226,29 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             body += sessionStart;
             body += emptyParag;
             List<Attendant> councilMemattendants = AttendantHelper.GetAttendantInSession(details.SessionID, (int)Model.AttendantType.FromTheCouncilMembers);
+            if (councilMemattendants.Count > 0)
+            {
+                body += writeCouncilMemAttendantNFile("", councilMemattendants, (int)Model.AttendantState.Attended);
+            }
             List<Attendant> governmentMemAttendants = AttendantHelper.GetAttendantInSession(details.SessionID, (int)Model.AttendantType.GovernmentRepresentative);
             if (governmentMemAttendants.Count > 0)
             {
-                body += writeCouncilMemAttendantNFile("", councilMemattendants, (int)Model.AttendantState.Attended);
+                body += emptyParag;
                 body += "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>و قد مثل الحكومة كل من:</p>";
                 body += writeGovernmentMemAttendantNFile("", governmentMemAttendants, (int)Model.AttendantState.Attended);
+            }
+            List<Attendant> outsideAttendants = AttendantHelper.GetAttendantInSession(details.SessionID, (int)Model.AttendantType.FromOutsideTheCouncil);
+            if (outsideAttendants.Count > 0)
+            {
                 body += emptyParag;
+                body += writeOutCouncilMemAttendantNFile(outsideAttendants);
             }
 
             string madbatahStart = "<html style='" + directionStyle + "'>";
             madbatahStart += "<body dir='" + directionStyle + "'>";
             madbatahStart += body;
-            //  madbatahStart += "<p style='" + basicPStyle + textJustify + "'>" + madbatahStartsection2 + "</p>" + emptyParag;
             if (details.SessionStartFlag == (int)SessionOpenStatus.NotOnTime)
-                madbatahStart += "<p style='" + basicPStyle + textCenter + "'>" + madbatahStartsection3 + "</p>" + emptyParag;
+                madbatahStart += "<p style='" + basicPStyle + textCenter + "'>" + madbatahStartsection3 + "</p>";
             madbatahStart += "</body></html>";
             return madbatahStart;
         }
@@ -268,13 +284,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             body += "<p style=' " + tdCenterStyle + "'>" + "(" + att.JobTitle.Trim() + ")" + "</p>";*/
                         body += "</td>";
                         /*if(if_status_added)
-                            body += "<td  style='" + valign + "'><p style=' " + tdJustifyStyle + "'>" + "(" + att_stats + ")" + "</p></td>";*/
+                            body += "<td ><p style=' " + tdJustifyStyle + "'>" + "(" + att_stats + ")" + "</p></td>";*/
                         body += "</tr>";
                         count++;
                     }
                 }
                 body += "</table>";
-                body += emptyParag;
             }
             return body;
         }
@@ -297,53 +312,38 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (att.Name != "غير معرف" && att.State == status_filter)
                     {
                         att_stats = (Model.AttendantState)att.State == Model.AttendantState.Attended ? "حاضر" : "غير موجود";
-                        body += "<tr style='" + pagebreak + "'><td style=" + valign + "width:65%;" + "><p style=' " + tdJustifyStyle + defFontSize2 + " '>" + att.AttendantTitle.Trim() + " / " + att.Name.Trim() + "</p></td>";
+                        body += "<tr style='" + pagebreak + "'><td style=" + "width:65%;" + "><p style=' " + tdJustifyStyle + defFontSize2 + " '>" + att.AttendantTitle.Trim() + " / " + att.Name.Trim() + "</p></td>";
                         if (!String.IsNullOrEmpty(att.JobTitle))
                             body += "<td><p style=' " + tdJustifyStyle + defFontSize2 + " '>" + att.JobTitle.Trim() + "</p></td>";
                        
                         /*if(if_status_added)
-                            body += "<td  style='" + valign + "'><p style=' " + tdJustifyStyle + "'>" + "(" + att_stats + ")" + "</p></td>";*/
+                            body += "<td ><p style=' " + tdJustifyStyle + "'>" + "(" + att_stats + ")" + "</p></td>";*/
                         body += "</tr>";
                         count++;
                     }
                 }
                 body += "</table>";
-                body += emptyParag;
             }
             return body;
         }
 
-        public static string writeOutCouncilMemAttendantNFile(string head, List<Attendant> attendants, bool if_status_added)
+        public static string writeOutCouncilMemAttendantNFile(List<Attendant> attendants)
         {
             string body = "";
+            string attendant_str = "";
             if (attendants.Count > 0)
             {
-                int table_width = 100;
-                if (head != "")
-                {
-                    body += "<p style='" + basicPStyle + textunderline + textRight + "'>" + head + "</p>";
-                }
-                body += "<table style='" + tableStyle + ";width:" + table_width.ToString() + "%'>";
                 int count = 1;
-                string att_stats = "1";
                 foreach (Attendant att in attendants)
                 {
                     if (att.Name != "غير معرف")
                     {
-                        att_stats = (Model.AttendantState)att.State == Model.AttendantState.Attended ? "حاضر" : "غير موجود";
-                        body += "<tr style='" + pagebreak + "'><td style='width:15%;display:none;'><p style=' " + tdJustifyStyle + " '></p></td><td><p style=' " + tdJustifyStyle + defFontSize2 + " '>" + count.ToString() + ". " + "سعادة " + att.AttendantTitle.Trim() + " " + att.Name.Trim() + "</p>";
-                        /*if (!String.IsNullOrEmpty(att.JobTitle))
-                            body += "<p style=' " + tdCenterStyle + "'>" + "(" + att.JobTitle.Trim() + ")" + "</p>";*/
-                        body += "</td>";
-                        /*if(if_status_added)
-                            body += "<td  style='" + valign + "'><p style=' " + tdJustifyStyle + "'>" + "(" + att_stats + ")" + "</p></td>";*/
-                        body += "</tr>";
+                        attendant_str += att.AttendantTitle.Trim() + " " + att.AttendantDegree.Trim() + " " + att.LongName.Trim() + " " + att.JobTitle.Trim() + "، ";
                         count++;
                     }
                 }
-                body += "</table>";
-                body += emptyParag;
             }
+            body = "<p style='" + basicPStyle + textJustify + defFontSize2 + textindent + "'>" + madbatahStartsection2.Replace("%out_attendants%", attendant_str) + "</p>";
             return body;
         }
 

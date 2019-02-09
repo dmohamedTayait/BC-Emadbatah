@@ -312,5 +312,35 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return false;
             }
         }
+
+        public static int UpdateAttendantById(long attendant_id, string name, string shortName, string longName, string attTitle, string attAvatar, string jobTitle, int type, string attendantDegree)
+        {
+            try
+            {
+                Attendant attendantForUpdate = null;
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    attendantForUpdate = context.Attendants.FirstOrDefault(c => c.ID == attendant_id);
+                    if (attendantForUpdate != null)
+                    {
+                        attendantForUpdate.AttendantAvatar = attAvatar;
+                        attendantForUpdate.AttendantTitle = attTitle;
+                        attendantForUpdate.JobTitle = jobTitle;
+                        attendantForUpdate.LongName = longName;
+                        attendantForUpdate.Name = name;
+                        attendantForUpdate.ShortName = shortName;
+                        attendantForUpdate.Type = type;
+                        attendantForUpdate.AttendantDegree = attendantDegree;
+                        //  attendantForUpdate.CreatedAt = DateTime.Now;
+                    }
+                    return context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttendantHelper.GetAttendantById(" + attendant_id + ")");
+                return 0;
+            }
+        }
     }
 }
