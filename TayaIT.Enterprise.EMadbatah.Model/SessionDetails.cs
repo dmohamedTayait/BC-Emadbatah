@@ -55,15 +55,15 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             string subject,
             int presidentID)
         {
-            Initialize(eparlimentID, -1, serial, date, dateHijri, startTime, president, place, season, type, stageType, stage, null, attendance, null, agendaItems, status, subject, 0, presidentID);
+            Initialize(eparlimentID, -1, serial, date, dateHijri, startTime, president, place, season, type, stageType, stage, null, attendance, null,null, agendaItems, status, subject, 0, presidentID);
 
         }
 
-        public SessionDetails(int eparlimentID,       long sessionID,   long serial,    DateTime date,   DateTime dateHijri, DateTime startTime, 
-             string president,  string place,  string season, string type, string stage, string stageType, List<SessionAudioFile> sessionFiles,    List<SessionAttendant> attendance,
-            List<SessionAttachment> attachments, Hashtable agendaItems, SessionStatus status, string subject, long? reviewerID, string reviewerName, string mp3FolderPath, int sessionStartFlag, int presidentID)
+        public SessionDetails(int eparlimentID, long sessionID, long serial, DateTime date, DateTime dateHijri, DateTime startTime,
+            string president, string place, string season, string type, string stage, string stageType, List<SessionAudioFile> sessionFiles, List<SessionAttendant> attendance,
+           List<SessionAttachment> attachments, List<SessionAttachment> votes, Hashtable agendaItems, SessionStatus status, string subject, long? reviewerID, string reviewerName, string mp3FolderPath, int sessionStartFlag, int presidentID)
         {
-            Initialize(eparlimentID, sessionID, serial, date, dateHijri, startTime, president, place, season,type, stage,stageType, sessionFiles, attendance, attachments, agendaItems, status, subject, sessionStartFlag,presidentID);
+            Initialize(eparlimentID, sessionID, serial, date, dateHijri, startTime, president, place, season, type, stage, stageType, sessionFiles, attendance, attachments, votes, agendaItems, status, subject, sessionStartFlag, presidentID);
             ReviewerID = reviewerID;
             ReviewerName = reviewerName;
             MP3FolderPath = mp3FolderPath;
@@ -84,6 +84,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             List<SessionAudioFile> sessionFiles,
             List<SessionAttendant> attendance,
             List<SessionAttachment> attachments,
+            List<SessionAttachment> votes,
             Hashtable agendaItems,
             SessionStatus status,
             string subject, int sessionStartFlag, int presidentID)
@@ -123,6 +124,10 @@ namespace TayaIT.Enterprise.EMadbatah.Model
                 Attachments = attachments;
             else
                 Attachments = new List<SessionAttachment>();
+            if (votes != null)
+                Votes = votes;
+            else
+                Votes = new List<SessionAttachment>();
         }
 
         public int EparlimentID { get; set; }
@@ -139,6 +144,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         public List<SessionAttendant> Attendance { get; set; }
         public long UserId { get; set; }
         public List<SessionAttachment> Attachments { get; set; }
+        public List<SessionAttachment> Votes { get; set; }
         public List<SessionAudioFile> SessionFiles { get; set; }
         public List<string> ReviewerStatus { get; set; }
         public long SessionID { get; set; }

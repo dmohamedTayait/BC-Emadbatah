@@ -8,7 +8,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 {
     public static class AttachmentHelper
     {
-        public static long AddNewAttachement(long sessionID, string fileName, string filetype, byte[] fileContents)
+        public static long AddNewAttachement(long sessionID, string fileName, string filetype, byte[] fileContents,int attachType)
         {
             try
             {
@@ -26,7 +26,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         SessionID = sessionID,
                         Order = (int)x + 1,
                         FileType = filetype,
-                        FileContent = fileContents
+                        FileContent = fileContents,
+                        AttachmentType = attachType
                     };
                     context.Attachements.AddObject(item);
                     context.SaveChanges();
@@ -159,6 +160,24 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 {
                     return (from obj in context.Attachements
                             where obj.SessionID == sessionID
+                            select obj).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttachmentHelper.GetSessionAttachments(" + sessionID + ")");
+                return null;
+            }
+        }
+
+        public static List<Attachement> GetSessionAttachments(long sessionID,int attachType)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    return (from obj in context.Attachements
+                            where obj.SessionID == sessionID && obj.AttachmentType == attachType
                             select obj).ToList();
                 }
             }

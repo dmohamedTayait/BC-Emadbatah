@@ -59,17 +59,30 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 MabatahCreatorFacade.CreateMadbatahIndex(index, SessionWorkingDir, indexSize + speakerSize + coverSize + sessionStartSize, SessionWorkingDir + "indexDoc.docx", ServerMapPath, details);
                 MabatahCreatorFacade.CreateSpeakersIndex(speakersIndex, indexSize + speakerSize + coverSize + sessionStartSize, ServerMapPath, SessionWorkingDir + "indexSpeakers.docx");
 
-                //Merga All Generated Files
+                //Merge All Generated Files
                 List<string> mergeList = new List<string>();
                 mergeList.Add(SessionWorkingDir + "indexDoc.docx");
-                mergeList.Add(SessionWorkingDir + "indexSpeakers.docx");//done
-                //mergeList.Add(ServerMapPath + "\\docs\\templates\\MadbatahBodyCover.docx");//ready
+                mergeList.Add(SessionWorkingDir + "indexSpeakers.docx");
                 mergeList.Add(SessionWorkingDir + "bodyDoc.docx");
                 for (int h = 0; h < bodySize; h++)
                 {
                     mergeList.Add(SessionWorkingDir + "bodyDoc" + (h + 1).ToString() + ".docx");
                 }
-               // mergeList.Add(ServerMapPath + "\\docs\\templates\\MadbatahEndCover.docx");//ready
+                //Add madbatah Attachments
+                List<SessionAttachment> attachment = details.Attachments.ToList();
+                foreach (SessionAttachment attach in attachment)
+                {
+                    attach.FileContent = AttachmentHelper.GetAttachementByID((int)attach.ID).FileContent;
+                    mergeList.Add(downloads_attachment_files(SessionWorkingDir, ServerMapPath, attach));
+                }
+
+                List<SessionAttachment> votes = details.Votes.ToList();
+                foreach (SessionAttachment attach in votes)
+                {
+                    attach.FileContent = AttachmentHelper.GetAttachementByID((int)attach.ID).FileContent;
+                    mergeList.Add(downloads_attachment_files(SessionWorkingDir, ServerMapPath, attach));
+                }
+                //Madbatah cover
                 File.Copy(SessionWorkingDir + "MadbatahcoverDoc.docx", SessionWorkingDir + sessionID + ".docx", true);
                 WordprocessingWorker.MergeWithAltChunk(SessionWorkingDir + sessionID + ".docx", mergeList.ToArray());
 
@@ -82,6 +95,25 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
         }
 
+        private static string downloads_attachment_files(string SessionWorkingDir,string ServerMapPath, SessionAttachment attach)
+        {
+            System.IO.File.WriteAllBytes(SessionWorkingDir + attach.Name, attach.FileContent);
+            FileInfo fInfo = new FileInfo(SessionWorkingDir + attach.Name);
+
+            if (!fInfo.Extension.ToLower().Equals(".pdf"))
+                return SessionWorkingDir + attach.Name;
+            else
+            {
+                /* String pdfFilePath = SessionWorkingDir + attach.Name;
+                 pdf2ImageConvert.convertPdfFile(pdfFilePath);
+                 string wordAttFilePath = SessionWorkingDir + attach.Name.ToLower().Replace(".pdf", ".pdf.docx");
+                 string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, ""));
+                 ImageWriter.CreateImageDocument(wordAttFilePath, ServerMapPath + "\\resources\\", files);
+                 return SessionWorkingDir + attach.Name.ToLower().Replace(".pdf", ".pdf.docx");
+                 //attach.Name = attach.Name.ToLower().Replace(".pdf", ".pdf.docx");*/
+                return "";
+            }
+        }
         public static void CreateMadbatahCover(Model.SessionDetails details, string outCoverPath, string ServerMapPath)
         {
             File.Copy(ServerMapPath + "\\docs\\templates\\MadbatahStartCover.docx", outCoverPath, true);
@@ -325,42 +357,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             contentItemAsText = text.Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!");
                             contentItemGrp.Add(contentItem);
                             k++;
-
-                            if (contentItem.AttachementID != null)//If Current Segment Contains Attach
-                            {
-                                string attachName = "";
-                                Attachement attach = AttachmentHelper.GetAttachementByID(int.Parse(contentItem.AttachementID.ToString()));
-                                attachName = "attach_" + attach.ID.ToString() + ".pdf";
-                                System.IO.File.WriteAllBytes(SessionWorkingDir + attachName, attach.FileContent);//Save Attach to the word working directory
-                                FileInfo fInfo = new FileInfo(SessionWorkingDir + attachName);
-
-                                if (fInfo.Extension.ToLower().Equals(".pdf"))
-                                {
-                                    String pdfFilePath = SessionWorkingDir + attachName;
-                                    pdf2ImageConvert.convertPdfFile(pdfFilePath);//Convert PDF To Images list
-                                    string wordAttFilePath = SessionWorkingDir + attachName.ToLower().Replace(".pdf", ".pdf.docx");
-                                    string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, "")).OrderBy(p => new FileInfo(p).CreationTime).ToArray();
-
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 1);// Copy the previuos segments before witing the attach
-                                    docPageCount += doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
-                                    text = "";
-                                    contentItemAsText = "";
-                                    contentItemGrp.Clear();//clear the segments array after writing them in the word
-                                    foreach (string f in files)
-                                    {
-                                        // ImageWriter.AddImage(doc.DocMainPart.Document.Body, doc.DocMainPart, f, "rId" + ii);//write attach images
-                                        doc.InsertImage(f, ii);
-                                        ii++;
-                                        docPageCount++;
-                                    }
-                                    doc.Dispose();
-                                    docNum++;
-                                    //   currentWorkingDoc = SessionWorkingDir + "bodyDoc" + docNum.ToString() + ".docx";
-                                    docPath = SessionWorkingDir + "bodyDoc" + docNum.ToString() + ".docx"; //currentWorkingDoc;
-                                    doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.CreateNew, true);
-                                }
-                            }
-
 
                        /*     if (contentItem.VotingID != null && contentItem.VotingID != 0)// To write Vote Table
                             {

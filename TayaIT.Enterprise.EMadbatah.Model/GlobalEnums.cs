@@ -192,4 +192,9 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         RemoveUser
     }
 
+    public enum AttachmentType
+    {
+       Attachment =3,
+       Vote = 4
+    }
 }

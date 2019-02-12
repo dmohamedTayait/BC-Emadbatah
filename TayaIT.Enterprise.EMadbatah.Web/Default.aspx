@@ -318,12 +318,12 @@
                                                 <div class="grayed fr">
                                                     ملفات مرفقة</div>
                                                 <div class="number fl">
-                                                    (<span><%=session.Attachments.Count%></span>)</div>
+                                                    (<span class="attach-uploader"><%=session.Attachments.Count%></span>)</div>
                                                 <div class="clear">
                                                 </div>
                                             </div>
                                             <div class="row tex_align_ar displayOnOpen">
-                                                <ul class="ulist circle" id="separate-list<%=currentSessionNum%>">
+                                                <ul class="ulist circle" id="separate-list-<%=((int)AttachmentType.Attachment).ToString()%>-<%=currentSessionNum%>">
                                                     <%
                                 
                                                         //load attachments
@@ -358,10 +358,65 @@
                                                   && CurrentUser.Role != UserRole.Reviewer 
                                                   && CurrentUser.Role != UserRole.FileReviewer)
                                                    {%>
-                                                <div id="file-uploader<%=currentSessionNum%>" data-sid="<%=session.SessionID%>">
+                                                <div id="attach-uploader<%=currentSessionNum%>" data-sid="<%=session.SessionID%>">
                                                 </div>
                                                 <script language="javascript" type="text/javascript">
-                                                                            fileUploader(<%=currentSessionNum%>)
+                                                    fileUploader(<%=currentSessionNum%>,'attach-uploader','إضافة ملحق', <%=(int)AttachmentType.Attachment%>)
+                                                </script>
+                                                <div class="clear">
+                                                </div>
+                                                <% }%>
+                                            </div>
+                                        </div>
+                                        <div class="margR5" style="padding-top: 20px;">
+                                            <div class="row">
+                                                <div class="grayed fr">
+                                                    ملفات التصويتات</div>
+                                                <div class="number fl">
+                                                    (<span class="vote-uploader"><%=session.Votes.Count%></span>)</div>
+                                                <div class="clear">
+                                                </div>
+                                            </div>
+                                            <div class="row tex_align_ar displayOnOpen">
+                                                <ul class="ulist circle" id="separate-list-<%=((int)AttachmentType.Vote).ToString() %>-<%=currentSessionNum%>">
+                                                    <%
+                                
+                                                        //load attachments
+                                                        foreach (SessionAttachment attachment in session.Votes)
+                                                        {
+                                                            string attachmentFileName = TextHelper.Truncate(attachment.Name, 17, "...");
+                                                            string attachmentFileOrderStr = attachment.Order.ToString();
+                                                            int attachmentFileOrder = attachment.Order;
+                                                    %>
+                                                    <li class="word_wrap flnone" title="<%=attachment.Name%>" data-id="<%=attachment.ID.ToString()%>"
+                                                        data-order="<%=attachmentFileOrderStr%>" data-sessionid="<%=session.SessionID%>">
+                                                        <%=attachmentFileName%>
+                                                        <% if (CurrentUser.Role != UserRole.Reviewer && !(session.Status == SessionStatus.FinalApproved))
+                                                           { %>
+                                                        <a href="#" class="Dellink">حذف</a>
+                                                        <div class="upordown flnone">
+                                                            <div class="up">
+                                                            </div>
+                                                            <div class="down">
+                                                            </div>
+                                                        </div>
+                                                        <%} %>
+                                                    </li>
+                                                    <%
+                                                                    
+                                                        }
+                                                    %>
+                                                </ul>
+                                                <div class="clear">
+                                                </div>
+                                                <% if(! (session.Status == SessionStatus.FinalApproved)                         
+                                                  && CurrentUser.Role != UserRole.Reviewer 
+                                                  && CurrentUser.Role != UserRole.FileReviewer)
+                                                   {%>
+                                                <div id="vote-uploader<%=currentSessionNum%>" data-sid="<%=session.SessionID%>">
+                                                </div>
+                                                <script language="javascript" type="text/javascript">
+                                                    fileUploader(<%=currentSessionNum%>,'vote-uploader', 'إضافة تصويت', <%=(int)AttachmentType.Vote%>)
                                                 </script>
                                                 <div class="clear">
                                                 </div>

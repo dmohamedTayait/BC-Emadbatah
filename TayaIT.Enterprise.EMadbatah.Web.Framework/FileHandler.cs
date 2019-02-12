@@ -93,7 +93,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
 
                                     if (fileData.Length > 0)
                                     {
-                                        newId = AttachmentHelper.AddNewAttachement(sessionID, AttachmentFileName, Path.GetExtension(AttachmentFileName).ToLower().Replace(".", ""), fileData);
+                                        newId = AttachmentHelper.AddNewAttachement(sessionID, AttachmentFileName, Path.GetExtension(AttachmentFileName).ToLower().Replace(".", ""), fileData, int.Parse(AttachmentType));
                                        /* if (newId > -1)
                                         {
                                             EMadbatahFacade.UpdateSessionStatus(sessionID, Model.SessionStatus.InProgress);
@@ -187,6 +187,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             }
         }
 
+        public string AttachmentType
+        {
+            get
+            {
+                return WebHelper.GetQSValue(Constants.QSKeyNames.ATTACHMNET_TYPE, _context);
+            }
+        }
 
         public string FileType
         {

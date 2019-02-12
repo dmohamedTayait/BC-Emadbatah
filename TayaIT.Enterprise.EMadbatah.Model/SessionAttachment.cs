@@ -7,7 +7,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
 {
     public class SessionAttachment
     {
-        public SessionAttachment(long id, string name, FileExtensionType fileType, int order, long sessionID, byte[] fileContent) 
+        public SessionAttachment(long id, string name, FileExtensionType fileType, int order, long sessionID, byte[] fileContent,int attchType) 
         {
             Name = name;
             ID = id;
@@ -15,6 +15,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             SessionID = sessionID;
             FileType = fileType;
             FileContent = fileContent;
+            AttachmentType = attchType;
         }
 
         public string Name { get; set; }
@@ -23,6 +24,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         public long SessionID { get; set; }
         public FileExtensionType FileType { get; set; }
         public byte[] FileContent { get; set; }
+        public int AttachmentType { get; set; }
 
     }
 }

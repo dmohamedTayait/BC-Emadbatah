@@ -1,8 +1,9 @@
-﻿function fileUploader(ID) {
+﻿function fileUploader(ID, control_id,control_name,attachType) {
+    control_id = control_id == null ? 'attach-uploader' : control_id;
     new qq.FileUploader({
         template: '<div class="qq-uploader">' +
             '<div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>' +
-            '<div class="qq-upload-button">إضافة ملحق</div>' +
+            '<div class="qq-upload-button">' + control_name +'</div>' +
             '<ul class="qq-upload-list"></ul>' +
             '</div>',
         messages: {
@@ -14,19 +15,21 @@
         },
 
         // pass the dom node (ex. $(selector)[0] for jQuery users)
-        element: $('#file-uploader' + ID)[0],
-        listElement: $('#separate-list' + ID)[0],
-        allowedExtensions: ['doc', 'docx', 'pdf'],
+        
+        element: $('#' +control_id + ID)[0],
+        listElement: $('#separate-list-' + attachType + '-' + ID)[0],
+        allowedExtensions: ['doc', 'docx'],//, 'pdf'
         // path to server-side upload script
         action: 'FileHandler.ashx',
         params: {
             funcname: 'Upload',
-            sid: $('#file-uploader' + ID).attr('data-sid')
+            sid: $('#' + control_id + + ID).attr('data-sid'),
+            attachtype: attachType
         },
         onComplete: function (id, fileName, responseJSON) {
-            $('#separate-list' + ID + ' li:last').attr('data-id', responseJSON.id).append('<div class=\"upordown flnone\"><div class=\"up\"></div><div class=\"down\"></div></div><a class=\"Dellink\" href=\"#\">حذف</a>');
+            $('#separate-list-' + attachType+ '-'+ ID + ' li:last').attr('data-id', responseJSON.id).append('<div class=\"upordown flnone\"><div class=\"up\"></div><div class=\"down\"></div></div><a class=\"Dellink\" href=\"#\">حذف</a>');
             // change the number
-            var span = $('.column.column5 .number span', '.tbrowID' + ID);
+            var span = $('span.' + control_id, '.tbrowID' + ID);
             var spanHTML = span.html();
             var spanValue = spanHTML - 0 + 1;
             span.html(spanValue)

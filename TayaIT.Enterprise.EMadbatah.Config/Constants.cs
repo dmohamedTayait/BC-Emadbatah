@@ -144,7 +144,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             //for SessionAgendaIndex page
             public string AGENDA_ITEM_NAME { get { return "itemname"; } }
 
-
+            public string ATTACHMNET_TYPE { get { return "attachtype"; } }
         }
 
         public static class PageNames

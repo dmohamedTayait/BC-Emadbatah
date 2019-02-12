@@ -317,7 +317,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                          List<DAL.Attachement> ret = new List<DAL.Attachement>();
                         if (!string.IsNullOrEmpty(SessionID))
                         {
-                            List<DAL.Attachement> attachmentLst = DAL.AttachmentHelper.GetSessionAttachments(long.Parse(SessionID));
+                            List<DAL.Attachement> attachmentLst = DAL.AttachmentHelper.GetSessionAttachments(long.Parse(SessionID),int.Parse(AttachmentType));
                             DAL.Attachement attachObj = new DAL.Attachement();
                            
                             foreach (DAL.Attachement tAttachobj in attachmentLst)
@@ -485,5 +485,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             }
         }
 
+        public string AttachmentType
+        {
+            get
+            {
+                return WebHelper.GetQSValue(Constants.QSKeyNames.ATTACHMNET_TYPE, _context);
+            }
+        }
     }
 }

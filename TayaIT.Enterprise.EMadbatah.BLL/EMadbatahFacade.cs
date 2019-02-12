@@ -250,16 +250,23 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             //fill the sessionDetalisList
             foreach (Session session in allSessions)
             {
-                List<Attachement> attachments =  session.Attachements.ToList<Attachement>();
+                List<Attachement> attachments =  session.Attachements.Where(c=> c.AttachmentType == 3).ToList<Attachement>();
+                List<Attachement> votes = session.Attachements.Where(c => c.AttachmentType == 4).ToList<Attachement>();
                 List<SessionAttachment> sessionAttachments =  new List<SessionAttachment>();
+                List<SessionAttachment> sessionVotes = new List<SessionAttachment>();
 
                 List<SessionFile> sessionFiles = session.SessionFiles.ToList<SessionFile>();
                 List<SessionAudioFile> sessionAudioFiles = new List<SessionAudioFile>();
 
                 foreach (Attachement att in attachments)
 	            {
-		             sessionAttachments.Add(new SessionAttachment(att.ID, att.Name, (FileExtensionType)Enum.Parse(typeof(FileExtensionType), att.FileType),att.Order, att.SessionID, att.FileContent));
+                    sessionAttachments.Add(new SessionAttachment(att.ID, att.Name, (FileExtensionType)Enum.Parse(typeof(FileExtensionType), att.FileType), att.Order, att.SessionID, att.FileContent, (int)att.AttachmentType));
 	            }
+
+                foreach (Attachement att in votes)
+                {
+                    sessionVotes.Add(new SessionAttachment(att.ID, att.Name, (FileExtensionType)Enum.Parse(typeof(FileExtensionType), att.FileType), att.Order, att.SessionID, att.FileContent, (int)att.AttachmentType));
+                }
 
                 foreach (SessionFile sf in sessionFiles)
                 {
@@ -407,16 +414,25 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
 
             List<SessionAttachment> sessionAttachments = new List<SessionAttachment>();
+            List<SessionAttachment> sessionVotes = new List<SessionAttachment>();
             if (session.Attachements.IsLoaded)
             {
                 foreach (Attachement attachment in session.Attachements.OrderBy(x=> x.Order))
                 {
+                    if(attachment.AttachmentType == (int)Model.AttachmentType.Attachment)
                     sessionAttachments.Add(new SessionAttachment(attachment.ID,
                             attachment.Name,
                             (FileExtensionType)Enum.Parse(typeof(FileExtensionType), attachment.FileType, true),
                             attachment.Order,
                             session.ID,
-                            null));
+                            null,(int)attachment.AttachmentType));
+                    else if (attachment.AttachmentType == (int)Model.AttachmentType.Vote)
+                        sessionVotes.Add(new SessionAttachment(attachment.ID,
+                           attachment.Name,
+                           (FileExtensionType)Enum.Parse(typeof(FileExtensionType), attachment.FileType, true),
+                           attachment.Order,
+                           session.ID,
+                           null, (int)attachment.AttachmentType));
                 }
 
             }
@@ -441,6 +457,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 sessionFiles,
                 attendants,
                 sessionAttachments,
+                sessionVotes,
                 agendaItems,
                 (Model.SessionStatus)session.SessionStatusID,
                 session.Subject,
