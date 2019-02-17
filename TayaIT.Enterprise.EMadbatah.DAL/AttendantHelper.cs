@@ -255,6 +255,22 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+        public static List<Attendant> GetAttendantInSession(long SessionID, List<int> attendantTypes)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    List<Attendant> attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionID == SessionID && ww.State == 1 && attendantTypes.Contains((int)ww.Type)).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt).ToList();
+                    return attendantsInTime;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public static List<Attendant> GetAttendantInSession(long SessionID, int SessionAttendantType, bool excluded)
         {
             try

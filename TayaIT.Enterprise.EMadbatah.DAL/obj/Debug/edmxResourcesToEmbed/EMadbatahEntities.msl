@@ -257,5 +257,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Votes">
+      <EntityTypeMapping TypeName="EMadbatahModel.Vote">
+        <MappingFragment StoreEntitySet="Vote">
+          <ScalarProperty Name="TotalNofNoVote" ColumnName="TotalNofNoVote" />
+          <ScalarProperty Name="TotalNofDisagree" ColumnName="TotalNofDisagree" />
+          <ScalarProperty Name="TotalNofAgree" ColumnName="TotalNofAgree" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="VoteSubject" ColumnName="VoteSubject" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VoteMembers">
+      <EntityTypeMapping TypeName="EMadbatahModel.VoteMember">
+        <MappingFragment StoreEntitySet="VoteMember">
+          <ScalarProperty Name="AttendantID" ColumnName="AttendantID" />
+          <ScalarProperty Name="VoteValue" ColumnName="VoteValue" />
+          <ScalarProperty Name="VoteID" ColumnName="VoteID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

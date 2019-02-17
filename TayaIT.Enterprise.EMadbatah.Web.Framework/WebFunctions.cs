@@ -134,7 +134,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
 
         public enum VotingFunctions
         {
-            GetSessionVotes
+            AddVote,
+            GetSessionVotes,
+            GetVoteMemVal,
+            SaveVoteMemVal
         }
     }
 }

@@ -123,6 +123,20 @@
       <End Role="Session" EntitySet="Sessions" />
       <End Role="Attendant" EntitySet="Attendants" />
     </AssociationSet>
+    <EntitySet Name="Votes" EntityType="EMadbatahModel.Vote" />
+    <EntitySet Name="VoteMembers" EntityType="EMadbatahModel.VoteMember" />
+    <AssociationSet Name="FK_VoteMember_Attendant" Association="EMadbatahModel.FK_VoteMember_Attendant">
+      <End Role="Attendant" EntitySet="Attendants" />
+      <End Role="VoteMember" EntitySet="VoteMembers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vote_Session" Association="EMadbatahModel.FK_Vote_Session">
+      <End Role="Session" EntitySet="Sessions" />
+      <End Role="Vote" EntitySet="Votes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VoteMember_Vote" Association="EMadbatahModel.FK_VoteMember_Vote">
+      <End Role="Vote" EntitySet="Votes" />
+      <End Role="VoteMember" EntitySet="VoteMembers" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AgendaItem">
     <Key>
@@ -192,6 +206,7 @@
     <Property Type="String" Name="AbsenseExcuse" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="Int64" Name="SessionID" />
     <NavigationProperty Name="Session" Relationship="EMadbatahModel.FK_Attendant_Session" FromRole="Attendant" ToRole="Session" />
+    <NavigationProperty Name="VoteMembers" Relationship="EMadbatahModel.FK_VoteMember_Attendant" FromRole="Attendant" ToRole="VoteMember" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -253,6 +268,7 @@
     <NavigationProperty Name="Attendants" Relationship="EMadbatahModel.FK_Attendant_Session" FromRole="Session" ToRole="Attendant" />
     <Property Name="StageType" MaxLength="200" FixedLength="false" Unicode="false" Type="String" />
     <Property Type="String" Name="Type" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Votes" Relationship="EMadbatahModel.FK_Vote_Session" FromRole="Session" ToRole="Vote" />
   </EntityType>
   <EntityType Name="SessionContentItem">
     <Key>
@@ -725,6 +741,67 @@
       </Principal>
       <Dependent Role="Attendant">
         <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Vote">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int64" Name="SessionID" />
+    <Property Type="String" Name="VoteSubject" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreatedAt" />
+    <Property Type="Int32" Name="TotalNofAgree" />
+    <Property Type="Int32" Name="TotalNofDisagree" />
+    <Property Type="Int32" Name="TotalNofNoVote" />
+    <NavigationProperty Name="Session" Relationship="EMadbatahModel.FK_Vote_Session" FromRole="Vote" ToRole="Session" />
+    <NavigationProperty Name="VoteMembers" Relationship="EMadbatahModel.FK_VoteMember_Vote" FromRole="Vote" ToRole="VoteMember" />
+  </EntityType>
+  <EntityType Name="VoteMember">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int64" Name="VoteID" />
+    <Property Type="Int32" Name="VoteValue" />
+    <Property Type="Int64" Name="AttendantID" />
+    <NavigationProperty Name="Attendant" Relationship="EMadbatahModel.FK_VoteMember_Attendant" FromRole="VoteMember" ToRole="Attendant" />
+    <NavigationProperty Name="Vote1" Relationship="EMadbatahModel.FK_VoteMember_Vote" FromRole="VoteMember" ToRole="Vote" />
+  </EntityType>
+  <Association Name="FK_VoteMember_Attendant">
+    <End Type="EMadbatahModel.Attendant" Role="Attendant" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.VoteMember" Role="VoteMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attendant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VoteMember">
+        <PropertyRef Name="AttendantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vote_Session">
+    <End Type="EMadbatahModel.Session" Role="Session" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.Vote" Role="Vote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Vote">
+        <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VoteMember_Vote">
+    <End Type="EMadbatahModel.Vote" Role="Vote" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.VoteMember" Role="VoteMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vote">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VoteMember">
+        <PropertyRef Name="VoteID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

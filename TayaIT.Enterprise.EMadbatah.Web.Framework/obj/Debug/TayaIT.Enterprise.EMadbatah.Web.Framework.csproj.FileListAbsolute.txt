@@ -218,6 +218,3 @@ C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Web.Framework\bin\D
 C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Web.Framework\bin\Debug\Microsoft.Practices.ServiceLocation.xml
 C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Web.Framework\bin\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
 C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Web.Framework\bin\Debug\gsdll32.dll
-C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Web.Framework\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
-C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Web.Framework\bin\Debug\itextsharp.dll
-C:\tayawork\BC Work\BC-Emadbatah\TayaIT.Enterprise.EMadbatah.Web.Framework\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb

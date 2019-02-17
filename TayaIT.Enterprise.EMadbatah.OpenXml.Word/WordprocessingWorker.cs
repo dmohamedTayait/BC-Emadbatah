@@ -1158,7 +1158,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             {
                 string voteStr = "";
                 string color = "fff";
-                switch (member.MemberVoteID)
+                switch (member.MemberVoteValue)
                 {
                     case 0:
                         voteStr = "غير موجود";
@@ -1187,7 +1187,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 tc1.Append(new TableCellProperties(new TableCellWidth { Width = "500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));*/
 
                 var tc2 = new TableCell();
-                tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("  " + member.MemberFullName) { Space = SpaceProcessingModeValues.Preserve }) { RsidRunProperties = "003213CC" }) { RsidParagraphAddition = "003213CC", RsidParagraphProperties = "00704A9B", RsidParagraphMarkRevision = "003213CC", RsidRunAdditionDefault = "003213CC" });
+                tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("  " + member.AttendantName) { Space = SpaceProcessingModeValues.Preserve }) { RsidRunProperties = "003213CC" }) { RsidParagraphAddition = "003213CC", RsidParagraphProperties = "00704A9B", RsidParagraphMarkRevision = "003213CC", RsidRunAdditionDefault = "003213CC" });
                 tc2.Append(new TableCellProperties(new TableCellWidth { Width = "2000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
       
                 var tc3 = new TableCell();

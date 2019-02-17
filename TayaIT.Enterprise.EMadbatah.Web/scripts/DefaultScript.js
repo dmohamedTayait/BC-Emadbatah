@@ -248,7 +248,7 @@ $(document).ready(function () {
                         alert('لقد حدث خطأ');
                     }
                     else {
-                        var span = $('.column.column5 .number span', button.parents('tr.tbrow'));
+                        var span = button.closest('.margR5').find('.number span');//$('.column.column5 .number span', button.parents('tr.tbrow'));
                         var spanHTML = span.html();
                         var spanValue = spanHTML - 0 - 1;
                         span.html(spanValue)

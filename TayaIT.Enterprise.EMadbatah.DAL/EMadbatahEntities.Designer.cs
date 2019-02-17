@@ -45,6 +45,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_Attendant_DefaultAttendant", "DefaultAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.DefaultAttendant), "Attendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionContentItem_Attachement", "Attachement", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attachement), "SessionContentItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionContentItem), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_Attendant_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "Attendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attendant), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_VoteMember_Attendant", "Attendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attendant), "VoteMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.VoteMember), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_Vote_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "Vote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.Vote), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_VoteMember_Vote", "Vote", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Vote), "VoteMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.VoteMember), true)]
 
 #endregion
 
@@ -383,6 +386,38 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
         private ObjectSet<DefaultAttendant> _DefaultAttendants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Vote> Votes
+        {
+            get
+            {
+                if ((_Votes == null))
+                {
+                    _Votes = base.CreateObjectSet<Vote>("Votes");
+                }
+                return _Votes;
+            }
+        }
+        private ObjectSet<Vote> _Votes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<VoteMember> VoteMembers
+        {
+            get
+            {
+                if ((_VoteMembers == null))
+                {
+                    _VoteMembers = base.CreateObjectSet<VoteMember>("VoteMembers");
+                }
+                return _VoteMembers;
+            }
+        }
+        private ObjectSet<VoteMember> _VoteMembers;
 
         #endregion
 
@@ -530,6 +565,22 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         public void AddToDefaultAttendants(DefaultAttendant defaultAttendant)
         {
             base.AddObject("DefaultAttendants", defaultAttendant);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Votes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVotes(Vote vote)
+        {
+            base.AddObject("Votes", vote);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the VoteMembers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVoteMembers(VoteMember voteMember)
+        {
+            base.AddObject("VoteMembers", voteMember);
         }
 
         #endregion
@@ -1962,6 +2013,28 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Session>("EMadbatahModel.FK_Attendant_Session", "Session", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_VoteMember_Attendant", "VoteMember")]
+        public EntityCollection<VoteMember> VoteMembers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VoteMember>("EMadbatahModel.FK_VoteMember_Attendant", "VoteMember");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VoteMember>("EMadbatahModel.FK_VoteMember_Attendant", "VoteMember", value);
                 }
             }
         }
@@ -3858,6 +3931,28 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Attendant>("EMadbatahModel.FK_Attendant_Session", "Attendant", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_Vote_Session", "Vote")]
+        public EntityCollection<Vote> Votes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Vote>("EMadbatahModel.FK_Vote_Session", "Vote");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Vote>("EMadbatahModel.FK_Vote_Session", "Vote", value);
                 }
             }
         }
@@ -6396,6 +6491,480 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionFile>("EMadbatahModel.FK_SessionFile_FileReviewer", "SessionFile", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="Vote")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Vote : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Vote object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static Vote CreateVote(global::System.Int64 id)
+        {
+            Vote vote = new Vote();
+            vote.ID = id;
+            return vote;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> SessionID
+        {
+            get
+            {
+                return _SessionID;
+            }
+            set
+            {
+                OnSessionIDChanging(value);
+                ReportPropertyChanging("SessionID");
+                _SessionID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SessionID");
+                OnSessionIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _SessionID;
+        partial void OnSessionIDChanging(Nullable<global::System.Int64> value);
+        partial void OnSessionIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String VoteSubject
+        {
+            get
+            {
+                return _VoteSubject;
+            }
+            set
+            {
+                OnVoteSubjectChanging(value);
+                ReportPropertyChanging("VoteSubject");
+                _VoteSubject = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("VoteSubject");
+                OnVoteSubjectChanged();
+            }
+        }
+        private global::System.String _VoteSubject;
+        partial void OnVoteSubjectChanging(global::System.String value);
+        partial void OnVoteSubjectChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedAt
+        {
+            get
+            {
+                return _CreatedAt;
+            }
+            set
+            {
+                OnCreatedAtChanging(value);
+                ReportPropertyChanging("CreatedAt");
+                _CreatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedAt");
+                OnCreatedAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedAt;
+        partial void OnCreatedAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TotalNofAgree
+        {
+            get
+            {
+                return _TotalNofAgree;
+            }
+            set
+            {
+                OnTotalNofAgreeChanging(value);
+                ReportPropertyChanging("TotalNofAgree");
+                _TotalNofAgree = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TotalNofAgree");
+                OnTotalNofAgreeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TotalNofAgree;
+        partial void OnTotalNofAgreeChanging(Nullable<global::System.Int32> value);
+        partial void OnTotalNofAgreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TotalNofDisagree
+        {
+            get
+            {
+                return _TotalNofDisagree;
+            }
+            set
+            {
+                OnTotalNofDisagreeChanging(value);
+                ReportPropertyChanging("TotalNofDisagree");
+                _TotalNofDisagree = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TotalNofDisagree");
+                OnTotalNofDisagreeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TotalNofDisagree;
+        partial void OnTotalNofDisagreeChanging(Nullable<global::System.Int32> value);
+        partial void OnTotalNofDisagreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TotalNofNoVote
+        {
+            get
+            {
+                return _TotalNofNoVote;
+            }
+            set
+            {
+                OnTotalNofNoVoteChanging(value);
+                ReportPropertyChanging("TotalNofNoVote");
+                _TotalNofNoVote = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TotalNofNoVote");
+                OnTotalNofNoVoteChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TotalNofNoVote;
+        partial void OnTotalNofNoVoteChanging(Nullable<global::System.Int32> value);
+        partial void OnTotalNofNoVoteChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_Vote_Session", "Session")]
+        public Session Session
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_Vote_Session", "Session").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_Vote_Session", "Session").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Session> SessionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_Vote_Session", "Session");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Session>("EMadbatahModel.FK_Vote_Session", "Session", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_VoteMember_Vote", "VoteMember")]
+        public EntityCollection<VoteMember> VoteMembers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VoteMember>("EMadbatahModel.FK_VoteMember_Vote", "VoteMember");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VoteMember>("EMadbatahModel.FK_VoteMember_Vote", "VoteMember", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="VoteMember")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class VoteMember : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new VoteMember object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static VoteMember CreateVoteMember(global::System.Int64 id)
+        {
+            VoteMember voteMember = new VoteMember();
+            voteMember.ID = id;
+            return voteMember;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> VoteID
+        {
+            get
+            {
+                return _VoteID;
+            }
+            set
+            {
+                OnVoteIDChanging(value);
+                ReportPropertyChanging("VoteID");
+                _VoteID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("VoteID");
+                OnVoteIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _VoteID;
+        partial void OnVoteIDChanging(Nullable<global::System.Int64> value);
+        partial void OnVoteIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> VoteValue
+        {
+            get
+            {
+                return _VoteValue;
+            }
+            set
+            {
+                OnVoteValueChanging(value);
+                ReportPropertyChanging("VoteValue");
+                _VoteValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("VoteValue");
+                OnVoteValueChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _VoteValue;
+        partial void OnVoteValueChanging(Nullable<global::System.Int32> value);
+        partial void OnVoteValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AttendantID
+        {
+            get
+            {
+                return _AttendantID;
+            }
+            set
+            {
+                OnAttendantIDChanging(value);
+                ReportPropertyChanging("AttendantID");
+                _AttendantID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AttendantID");
+                OnAttendantIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AttendantID;
+        partial void OnAttendantIDChanging(Nullable<global::System.Int64> value);
+        partial void OnAttendantIDChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_VoteMember_Attendant", "Attendant")]
+        public Attendant Attendant
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attendant>("EMadbatahModel.FK_VoteMember_Attendant", "Attendant").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attendant>("EMadbatahModel.FK_VoteMember_Attendant", "Attendant").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Attendant> AttendantReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attendant>("EMadbatahModel.FK_VoteMember_Attendant", "Attendant");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Attendant>("EMadbatahModel.FK_VoteMember_Attendant", "Attendant", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_VoteMember_Vote", "Vote")]
+        public Vote Vote1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Vote>("EMadbatahModel.FK_VoteMember_Vote", "Vote").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Vote>("EMadbatahModel.FK_VoteMember_Vote", "Vote").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Vote> Vote1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Vote>("EMadbatahModel.FK_VoteMember_Vote", "Vote");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Vote>("EMadbatahModel.FK_VoteMember_Vote", "Vote", value);
                 }
             }
         }

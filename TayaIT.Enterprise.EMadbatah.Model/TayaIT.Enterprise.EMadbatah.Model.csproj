@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SessionMembersVote.cs" />
-    <Compile Include="SessionNonSecretVoteSubject.cs" />
+    <Compile Include="SessionHandVote.cs" />
     <Compile Include="SessionProcedureType.cs" />
     <Compile Include="SessionProcedure.cs" />
     <Compile Include="EMadbatahUser.cs" />

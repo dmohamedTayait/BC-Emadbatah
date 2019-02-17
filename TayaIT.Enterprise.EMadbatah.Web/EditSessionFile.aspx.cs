@@ -285,7 +285,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     divTopic.Style.Add("display", "none");
                     chkTopic.Checked = false;
                     chkTopic.Disabled = true;
-                    btnAddNewTopic.Disabled = false;
+                   // btnAddNewTopic.Disabled = false;
                     aPopupGetAttTopic.Style.Add("display", "none");
                 }
                 else if ((lastContentItem.TopicID != null && lastContentItem.TopicID != 0) && (prevTopicID == null || prevTopicID == 0))
@@ -294,7 +294,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     divTopic.Style.Add("display", "");
                     chkTopic.Checked = false;
                     chkTopic.Disabled = true;
-                    btnAddNewTopic.Disabled = true;
+                   // btnAddNewTopic.Disabled = true;
                     aPopupGetAttTopic.Style.Add("display", "");
                     if (!(bool)lastContentItem.MergedTopicWithPrevious)
                     {
@@ -313,7 +313,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     divTopic.Style.Add("display", "none");
                     chkTopic.Checked = false;
                     chkTopic.Disabled = false;
-                    btnAddNewTopic.Disabled = true;
+                 //   btnAddNewTopic.Disabled = true;
                     aPopupGetAttTopic.Style.Add("display", "none");
                 }
                 else if ((lastContentItem.TopicID != null && lastContentItem.TopicID != 0) && (prevTopicID != null && prevTopicID != 0))
@@ -334,7 +334,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         divTopic.Style.Add("display", "block");
                     } 
                     chkTopic.Disabled = false;
-                    btnAddNewTopic.Disabled = false;
+                  //  btnAddNewTopic.Disabled = false;
                     aPopupGetAttTopic.Style.Add("display", "");
                 }/*
                 if (lastContentItem.TopicID != null && lastContentItem.TopicID != 0)

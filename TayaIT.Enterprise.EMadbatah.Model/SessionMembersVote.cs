@@ -7,27 +7,24 @@ namespace TayaIT.Enterprise.EMadbatah.Model
 {
     public class SessionMembersVote
     {
-
         public SessionMembersVote()
         {
         }
 
-
-        public SessionMembersVote(int id, int nonSecretVoteSubjectID, int personID, int memberVoteID, string memberFullName)
+        public SessionMembersVote(long id, long voteID, long attID, string attName, int voteVal)
         {
             ID = id;
-            NonSecretVoteSubjectID = nonSecretVoteSubjectID;
-            PersonID = personID;
-            MemberVoteID = memberVoteID;
-            MemberFullName = memberFullName;
+            VoteID = voteID;
+            AttendantID = attID;
+            AttendantName = attName;
+            MemberVoteValue = voteVal;
         }
 
-        public int ID { get; set; }
-
-        public int NonSecretVoteSubjectID { get; set; }
-
-        public int PersonID { get; set; }
-        public int? MemberVoteID { get; set; }
-        public string MemberFullName { get; set; }
+        public long ID { get; set; }
+        public long VoteID { get; set; }
+        public long AttendantID { get; set; }
+        public string AttendantName { get; set; }
+        public int? MemberVoteValue { get; set; }
+      
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionStartHandler.cs" />
     <Compile Include="FileHandler.cs" />
+    <Compile Include="VotingHandler.cs" />
     <Compile Include="WebFunctions.cs" />
   </ItemGroup>
   <ItemGroup>

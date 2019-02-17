@@ -197,4 +197,12 @@ namespace TayaIT.Enterprise.EMadbatah.Model
        Attachment =3,
        Vote = 4
     }
+
+    public enum VoteType//Attachement or Session File
+    {
+        Agree = 1,
+        Disagree = 2,
+        Novote = 3
+    }
+
 }
