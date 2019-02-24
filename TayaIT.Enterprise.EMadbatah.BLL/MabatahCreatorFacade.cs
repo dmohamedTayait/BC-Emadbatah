@@ -303,30 +303,75 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             contentItemGrp.Add(contentItem);
                             k++;
 
-                       /*     if (contentItem.VotingID != null && contentItem.VotingID != 0)// To write Vote Table
+                            if (contentItem.VotingID != null && contentItem.VotingID != 0)// To write Vote Table
                             {
-                                WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 1);// Copy the previuos segments before witing the attach
-                                text = "";
-                                contentItemAsText = "";
-                                contentItemGrp.Clear();//clear the segments array after writing them in the word
+                                Vote voteSubject = VoteHelper.GetSessionVote((long)contentItem.VotingID);
+                                List<VoteMember> voteMems = VoteHelper.GetSessionVoteMemberValues((long)contentItem.VotingID);
+                                List<SessionMembersVote> voteMemsLst = new List<SessionMembersVote>();
 
-                                TBLNonSecretVoteSubject voteSubject = NonSecretVoteSubjectHelper.GetSessionVoteByVoteID((int)contentItem.VotingID);
-                                List<MembersVote> mems = MembersVoteHelper.GetMembersVoteNonSecretVoteID((int)contentItem.VotingID);
-                                List<SessionMembersVote> membersVoteLst = new List<SessionMembersVote>();
-                                foreach (MembersVote mem in mems)
+                                if (voteMems != null && voteMems.Count > 0)
                                 {
-                                    SessionMembersVote s = new SessionMembersVote(mem.AutoID, mem.NonSecretVoteSubjectID, mem.PersonID, (int)mem.MemberVoteID, mem.MemberFullName);
-                                    membersVoteLst.Add(s);
+                                    //write the saved segments then write the vote
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 1);// Copy the previuos segments before witing the attach
+                                    text = "";
+                                    contentItemAsText = "";
+                                    contentItemGrp.Clear();//clear the segments array after writing them in the word
+
+                                    int agreed = 0, disgreed = 0, novote = 0, nonexist = 0;
+                                    string vote_status = "";
+                                    foreach (VoteMember voteObj in voteMems)
+                                    {
+                                        voteMemsLst.Add(new SessionMembersVote(voteObj.ID, (long)contentItem.VotingID, (long)voteObj.AttendantID, AttendantHelper.GetAttendantById((long)voteObj.AttendantID).LongName, (int)voteObj.VoteValue));
+                                        switch (voteObj.VoteValue)
+                                        {
+                                            case 1:
+                                                agreed++;
+                                                vote_status = "موافقة";
+                                                break;
+                                            case 2:
+                                                disgreed++;
+                                                vote_status = "غير موافقة";
+                                                break;
+                                            case 3:
+                                                novote++;
+                                                vote_status = "ممتنعة";
+                                                break;
+                                            default:
+                                                nonexist++;
+                                                vote_status = "غير موجودة";
+                                                break;
+                                        }
+                                    }
+                                        
+
+                                    doc.AddParagraph("(وهنا تمت عملية التصويت نداء بالاسم)", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
+                                    doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                                    doc.AddCustomTable(voteMemsLst);
+
+                                    doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                    lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
+                                    doc.DeleteLastParagraph("space");
+                                    if (lineNum != 1)
+                                        doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                                    doc.AddParagraph("الأمين العام للمجلس :", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                    doc.AddParagraph("الموافقون: (" + agreed.ToString() + ") نائبا. غير الموافقين: (" + disgreed.ToString() + ") نائبا. الممتنعون: (" + novote.ToString() + ") نائبا..", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                                    doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                    lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
+                                    doc.DeleteLastParagraph("space");
+                                    if (lineNum != 1)
+                                        doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+
+                                    doc.AddParagraph(" (أغلبية "+ vote_status + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
+
+                                    doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                    lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
+                                    doc.DeleteLastParagraph("space");
+                                    if (lineNum != 1)
+                                        doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+
                                 }
-                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
-                                doc.AddCustomTable(membersVoteLst);
-                                doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
-                                doc.DeleteLastParagraph("space");
-                                if (lineNum != 1)
-                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                             }
-                            */
+                        
                             if (speakerGroup[j].Count == k)// reach the loop end
                             {
                                 if (contentItem.TopicID != null && contentItem.TopicID != 0)

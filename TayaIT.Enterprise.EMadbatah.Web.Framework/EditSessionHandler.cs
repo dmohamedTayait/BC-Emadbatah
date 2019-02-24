@@ -236,13 +236,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         }
 
                                     //For Voting
-                                    /*  if (retItem.VotingID != null && retItem.VotingID != 0)
+                                      if (retItem.VotingID != null && retItem.VotingID != 0)
                                       {
-                                         TBLNonSecretVoteSubject vote = NonSecretVoteSubjectHelper.GetSessionVoteByVoteID((int)retItem.VotingID);
+                                         Vote vote = VoteHelper.GetSessionVote((long)retItem.VotingID);
                                           if (vote != null)
                                           {
-                                              result["VoteSubject"] = vote.NonSecretVoteSubject;
-                                              result["VoteID"] = vote.NonSecretVoteSubjectID.ToString();
+                                              result["VoteSubject"] = vote.VoteSubject;
+                                              result["VoteID"] = vote.ID.ToString();
                                           }
                                           else
                                           {
@@ -254,7 +254,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                       {
                                           result["VoteSubject"] = "";
                                           result["VoteID"] = "0";
-                                      }*/
+                                      }
                                     /* //For Topics
                                      if (retItem.TopicID != null && retItem.TopicID != 0)
                                      {
@@ -436,13 +436,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                       }
 
                                       //For Voting
-                                   /*   if (retItem.VotingID != null && retItem.VotingID != 0)
+                                      if (retItem.VotingID != null && retItem.VotingID != 0)
                                       {
-                                          TBLNonSecretVoteSubject vote = NonSecretVoteSubjectHelper.GetSessionVoteByVoteID((int)retItem.VotingID);
+                                          Vote  vote = VoteHelper.GetSessionVote((long)retItem.VotingID);
                                           if (vote != null)
                                           {
-                                              result["VoteSubject"] = vote.NonSecretVoteSubject;
-                                              result["VoteID"] = vote.NonSecretVoteSubjectID.ToString();
+                                              result["VoteSubject"] = vote.VoteSubject;
+                                              result["VoteID"] = vote.ID.ToString();
                                           }
                                           else
                                           {
@@ -454,7 +454,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                       {
                                           result["VoteSubject"] = "";
                                           result["VoteID"] = "0";
-                                      }*/
+                                      }
 
                                       //For Topics
                                       if (retItem.TopicID != null && retItem.TopicID != 0)

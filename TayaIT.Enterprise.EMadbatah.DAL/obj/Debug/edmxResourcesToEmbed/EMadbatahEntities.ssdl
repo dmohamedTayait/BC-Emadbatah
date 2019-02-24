@@ -394,7 +394,6 @@
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="VoteID" Type="bigint" />
-    <Property Name="Vote" Type="int" />
     <Property Name="VoteValue" Type="int" />
     <Property Name="AttendantID" Type="bigint" />
   </EntityType>

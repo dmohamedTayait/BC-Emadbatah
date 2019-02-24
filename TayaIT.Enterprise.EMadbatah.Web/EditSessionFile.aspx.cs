@@ -360,10 +360,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 voteId.Value = "0";
                 divVote.Style.Add("display", "none");
                 spanVoteSubject.InnerHtml = "";
-                /* if (lastContentItem.VotingID != null && lastContentItem.VotingID != 0)tbr
+                 if (lastContentItem.VotingID != null && lastContentItem.VotingID != 0)
                  {
-                     TBLNonSecretVoteSubject voteObj = NonSecretVoteSubjectHelper.GetSessionVoteByVoteID((int)lastContentItem.VotingID);
-                     voteSubject = voteObj.NonSecretVoteSubject;
+                     Vote voteObj = VoteHelper.GetSessionVote((long)lastContentItem.VotingID);
+                     voteSubject = voteObj.VoteSubject;
                      voteId.Value = lastContentItem.VotingID.ToString();
                      divVote.Style.Add("display", "");
                      spanVoteSubject.InnerHtml = voteSubject;
@@ -373,7 +373,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                      voteId.Value = "0";
                      divVote.Style.Add("display", "none");
                      spanVoteSubject.InnerHtml = "";
-                 }*/
+                 }
 
                 ddlSpeakers.SelectedValue = lastContentItem.AttendantID.ToString();
                 //ddlSpeakers.t

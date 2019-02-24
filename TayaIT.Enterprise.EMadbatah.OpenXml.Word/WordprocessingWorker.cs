@@ -1123,10 +1123,10 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U, Space = (UInt32Value)0U },
                         new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U, Space = (UInt32Value)0U }),
                    new TableCellMarginDefault(
-                       new TopMargin() { Width = "100.5", Type = TableWidthUnitValues.Dxa },//0.07
-                       new TableCellLeftMargin() { Width = 100, Type = TableWidthValues.Dxa },
-                       new BottomMargin() { Width = "100.5", Type = TableWidthUnitValues.Dxa },
-                       new TableCellRightMargin() { Width = 100, Type = TableWidthValues.Dxa })
+                       new TopMargin() { Width = "75.5", Type = TableWidthUnitValues.Dxa },//0.07
+                       new TableCellLeftMargin() { Width = 75, Type = TableWidthValues.Dxa },
+                       new BottomMargin() { Width = "75.5", Type = TableWidthUnitValues.Dxa },
+                       new TableCellRightMargin() { Width = 75, Type = TableWidthValues.Dxa })
                        );
             /*  TableLook tableLook = new TableLook() { Val = "04A0", FirstRow = true,
                 LastRow = false, FirstColumn = true, LastColumn = false,
@@ -1160,21 +1160,18 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 string color = "fff";
                 switch (member.MemberVoteValue)
                 {
-                    case 0:
-                        voteStr = "غير موجود";
-                        break;
                     case 1:
-                        voteStr = "ممتنع";
+                         voteStr = "موافق";
+                        // color = "fff";
+                        color = "9be19b";
                         break;
                     case 2:
                         voteStr = "غير موافق";
-                        color = "fff";
-                       // color = "fb969e";
+                        // color = "fff";
+                        color = "fb969e";
                         break;
                     case 3:
-                        voteStr = "موافق";
-                        color = "fff";
-                       // color = "9be19b";
+                        voteStr = "ممتنع";
                         break;
                     default:
                         voteStr = "غير موجود";
@@ -1187,11 +1184,11 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 tc1.Append(new TableCellProperties(new TableCellWidth { Width = "500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));*/
 
                 var tc2 = new TableCell();
-                tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("  " + member.AttendantName) { Space = SpaceProcessingModeValues.Preserve }) { RsidRunProperties = "003213CC" }) { RsidParagraphAddition = "003213CC", RsidParagraphProperties = "00704A9B", RsidParagraphMarkRevision = "003213CC", RsidRunAdditionDefault = "003213CC" });
+                tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "NormalArabic" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("  " + member.AttendantName) { Space = SpaceProcessingModeValues.Preserve }) { RsidRunProperties = "003213CC" }) { RsidParagraphAddition = "003213CC", RsidParagraphProperties = "00704A9B", RsidParagraphMarkRevision = "003213CC", RsidRunAdditionDefault = "003213CC" });
                 tc2.Append(new TableCellProperties(new TableCellWidth { Width = "2000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
       
                 var tc3 = new TableCell();
-                tc3.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(voteStr) { Space = SpaceProcessingModeValues.Preserve })));
+                tc3.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "NormalArabic" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(voteStr) { Space = SpaceProcessingModeValues.Preserve })));
                 tc3.Append(new TableCellProperties(new Shading() { Color = "auto", Fill = color, Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "1000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
                 tr.Append(tc3);

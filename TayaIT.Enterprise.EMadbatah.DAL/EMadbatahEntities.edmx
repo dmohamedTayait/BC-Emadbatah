@@ -399,7 +399,6 @@
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="VoteID" Type="bigint" />
-          <Property Name="Vote" Type="int" />
           <Property Name="VoteValue" Type="int" />
           <Property Name="AttendantID" Type="bigint" />
         </EntityType>
@@ -2033,7 +2032,7 @@
           <ConnectorPoint PointX="5.25" PointY="11.807108057191508" />
           <ConnectorPoint PointX="4.5" PointY="11.807108057191508" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="EMadbatahModel.Vote" Width="1.5" PointX="8" PointY="21" Height="2.414042968749996" />
+        <EntityTypeShape EntityType="EMadbatahModel.Vote" Width="1.5" PointX="11.75" PointY="18.125" Height="2.414042968749996" />
         <EntityTypeShape EntityType="EMadbatahModel.VoteMember" Width="1.5" PointX="12.25" PointY="15.375" Height="2.0853483072916674" />
         <AssociationConnector Association="EMadbatahModel.FK_VoteMember_Attendant" >
           <ConnectorPoint PointX="3.75" PointY="14.050558268229166" />

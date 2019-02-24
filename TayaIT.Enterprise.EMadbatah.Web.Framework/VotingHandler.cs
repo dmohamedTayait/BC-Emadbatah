@@ -35,7 +35,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                     case WebFunctions.VotingFunctions.AddVote:
                         long vote_id = 0;
                         if (!string.IsNullOrEmpty(SessionID) && !string.IsNullOrEmpty(VoteSubject))
+                        {
                             vote_id = VoteHelper.AddNewVote(long.Parse(SessionID), VoteSubject);
+                            List<Attendant> attLst = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.GovernmentRepresentative, (int)Model.AttendantType.President });
+                            foreach (Attendant attObj in attLst)
+                                VoteHelper.AddSessionVoteMemberValues(vote_id, attObj.ID, 0);
+                        }
  
                         jsonStringOut = SerializeObjectInJSON(vote_id);
                         break;
@@ -64,15 +69,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             if (voteMems != null && voteMems.Count > 0)
                             {
                                 foreach (VoteMember voteObj in voteMems)
-                                {
-                                    voteMemsLst.Add(new SessionMembersVote(voteObj.ID, long.Parse(VoteID), (long)voteObj.AttendantID, AttendantHelper.GetAttendantById((long)voteObj.AttendantID).Name, (int)voteObj.VoteValue));
-                                }
+                                    voteMemsLst.Add(new SessionMembersVote(voteObj.ID, long.Parse(VoteID), (long)voteObj.AttendantID, AttendantHelper.GetAttendantById((long)voteObj.AttendantID).LongName, (int)voteObj.VoteValue));
                             }
                             else
                             {
                                 List<Attendant> attLst = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.GovernmentRepresentative, (int)Model.AttendantType.President });
-                                foreach (Attendant attObj in attLst) 
+                                foreach (Attendant attObj in attLst)
                                 {
+                                    VoteHelper.AddSessionVoteMemberValues(long.Parse(VoteID), attObj.ID, 0);
                                     voteMemsLst.Add(new SessionMembersVote(0, long.Parse(VoteID), (long)attObj.ID, AttendantHelper.GetAttendantById((long)attObj.ID).LongName, 0));
                                 }
                             }
@@ -95,6 +99,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         {
                             VoteHelper.AddSessionVoteMemberValues(long.Parse(VoteID), long.Parse(attID), (int)Model.VoteType.Novote);
                         }
+                       
                         break;
                     default:
                         break;

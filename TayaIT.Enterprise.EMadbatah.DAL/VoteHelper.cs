@@ -54,19 +54,53 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static List<VoteMember> GetSessionVoteMemberValues(long vote_ID)
+        public static Vote GetSessionVote(long voteID)
         {
             try
             {
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
-                    return context.VoteMembers.Where(c => c.VoteID == vote_ID).ToList<VoteMember>();
+                    return (from obj in context.Votes
+                            where obj.ID == voteID
+                            select obj).First();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttachmentHelper.GetSessionVote(" + voteID + ")");
+                return null;
+            }
+        }
+
+        public static List<VoteMember> GetSessionVoteMemberValues(long voteID)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    return context.VoteMembers.Where(c => c.VoteID == voteID).ToList<VoteMember>();
                 }
                 return null;
             }
             catch (Exception ex)
             {
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.VoteHelper.GetSessionvoteMemberValues(" + vote_ID + ")");
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.VoteHelper.GetSessionvoteMemberValues(" + voteID + ")");
+                return null;
+            }
+        }
+        public static List<VoteMember> GetSessionVoteMemberValues(long voteID,long attID)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    return context.VoteMembers.Where(c => c.VoteID == voteID && c.AttendantID== attID).ToList<VoteMember>();
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.VoteHelper.GetSessionvoteMemberValues(" + voteID + ", " + attID + ")");
                 return null;
             }
         }

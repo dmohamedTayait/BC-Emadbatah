@@ -714,6 +714,7 @@ header#header a.currentuser {
     padding: 5px;
     word-wrap: break-word;
     border-bottom: 1px solid #DEDEDE;
+    text-align: right;
 }
 
 .table_att_voting th {
@@ -731,7 +732,7 @@ header#header a.currentuser {
       width: 100%;
 }
 .tbl_voting_options tbody tr td {
-    padding: 5px;
+    text-align: center;
     word-wrap: break-word;
     border-bottom: 0;
 }
@@ -1524,6 +1525,7 @@ span.revFilelock {
     margin-bottom: 20px;
     margin-top: 20px;
     font-weight: bold;
+    line-height: normal;
 }
 .spanVoteSubject,
 .spanAttachTitle,
@@ -1814,4 +1816,8 @@ span.revFilelock {
 .sc-hr
 {
     border:0px !important;
+}
+.AttendantCont
+{
+    text-align:center;
 }

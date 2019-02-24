@@ -9,6 +9,7 @@
     <script type="text/javascript" src="scripts/jPlayer/jquery.jplayer.min.js"></script>
     <script type="text/javascript" src="scripts/select2.full.min.js"></script>
     <script type="text/javascript" src="scripts/EditSessionScript.js"></script>
+    <script type="text/javascript" src="scripts/VotingScript.js"></script>
     <link href="styles/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
     <link href="styles/select2.min.css" rel="stylesheet" type="text/css" />
     <script language="javascript" type="text/javascript">
@@ -73,7 +74,7 @@
                         <%--  <input name="" runat="server" id="btnAssignAttachToContentItem" type="button" class="btn inputBlock mb-5 btnAssignAttachToContentItem btn_editsession"
                         value="اضافة مرفق" />--%>
                         <input name="" runat="server" id="btnAddNewVote" type="button" class="btn inputBlock mb-5 btnAddNewVote btn_editsession"
-                            value="اضافة تصويت" />
+                            value="تصويت نداء بالأسم" />
                         <%--  <input name="" runat="server" id="btnAddManagePoint" type="button" class="btn inputBlock mb-5 btnAddManagePoint btn_editsession"
                         value="نقطة نظام" />--%>
                         <%-- <input name="" runat="server" id="btnAddNewTopic" type="button" class="btn inputBlock mb-5 btnAddNewTopic btn_editsession"
@@ -267,7 +268,8 @@
                                         رئيس الجلسة</label>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row"></div>
+                            <div class="row displaynone">
                                 <div class="grid_2 h2">
                                     &nbsp;
                                 </div>
@@ -333,7 +335,7 @@
                         <span id="spanVoteSubject" runat="server" name="spanVoteSubject" class="spanVoteSubject"></span>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:void(0)" class="removeVote">حذف
                         التصويت</a>
                     </div>
-                    <div class="row">
+                    <div class="row displaynone">
                         <div class="grid_10">
                             <div class="h2">
                                 تعليق على الفقرة
@@ -522,8 +524,31 @@
                     </asp:DropDownList>
                 </div>
             </div>
-            <div class="datacontainer inputcont datacontainer3 attendantCont">
-                <div id="AttendantCont" class="AttendantCont">
+            <div class="row datacontainer3 " style="line-height:normal">
+
+                <div class="grid_12 h4">
+                    <input name="" id="chbVote" runat="server" class="chbVote" type="checkbox"
+                        value="" />
+                    <label class="ml-20">
+                        بداية التصويت</label>
+                </div>
+            </div>
+            <div class="row datacontainer inputcont datacontainer3 attendantCont">
+                <div id="AttendantCont" class="AttendantCont grid_19">
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="row datacontainer3" style="line-height:normal">
+                <div class="grid_12 h2">
+                    <span>الموافقون: (</span>
+                    <span class="agreedVotesCount reditem">0</span>
+                    <span>) نائبا.</span>
+                    <span>غير الموافقين: (</span>
+                    <span class="disAgreedVotesCount greenitem">0</span>
+                    <span>) نائبا.</span>
+                    <span>الممتنعون: (</span>
+                    <span class="NoVotesCount blueitem">0</span>
+                    <span>) نائبا.</span>
                 </div>
             </div>
             <div class="poppbtnscont fl">
