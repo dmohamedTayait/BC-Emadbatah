@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using TayaIT.Enterprise.EMadbatah.BLL;
 using TayaIT.Enterprise.EMadbatah.DAL;
 using System.Text;
@@ -101,6 +102,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 List<Attendant> attendant = ee.Attendants.Select(aa => aa).Where(ww => ww.ID == AttendantID).ToList();
 
                 RadioButtonList rb = (RadioButtonList)e.Row.FindControl("RBLAttendantStates");
+                HtmlGenericControl divAbsenceExcuse = (HtmlGenericControl)e.Row.FindControl("divAbsenceExcuse");
+
+                DropDownList ddlAbsenseExcuse = (DropDownList)e.Row.FindControl("ddlAbsenseExcuse");
+                ddlAbsenseExcuse.Items.Add(new ListItem("اخرى", "0"));
+
                 TextBox txtAbsenceExcuse = (TextBox)e.Row.FindControl("txtAbsenceExcuse");
                 if (attendant.Count != 0)
                 {
@@ -111,13 +117,27 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     }
                     if (attendant[0].State == (int)Model.AttendantState.Apology)
                     {
-                        txtAbsenceExcuse.Text = attendant.First().AbsenseExcuse;
-                        txtAbsenceExcuse.Style.Add("display", "block");
+                        divAbsenceExcuse.Style.Add("display", "block");
+                        if (ddlAbsenseExcuse.Items.Contains(new ListItem(attendant.First().AbsenseExcuse)))
+                        {
+                            ddlAbsenseExcuse.SelectedValue = attendant.First().AbsenseExcuse;
+                            txtAbsenceExcuse.Text = "";
+                            txtAbsenceExcuse.Style.Add("display", "none");
+                        }
+                        else
+                        {
+                            txtAbsenceExcuse.Text = attendant.First().AbsenseExcuse;
+                            txtAbsenceExcuse.Style.Add("display", "block");
+                            ddlAbsenseExcuse.SelectedValue = "0";
+                        }
+              
                     }
                     else
                     {
                         txtAbsenceExcuse.Text = "";
-                        txtAbsenceExcuse.Style.Add("display", "none");
+                        ddlAbsenseExcuse.SelectedIndex = 0;
+                        //txtAbsenceExcuse.Style.Add("display", "none");
+                        divAbsenceExcuse.Style.Add("display", "none");
                     }
                     //rdio btn list: show - hide the third option
                     if (ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.GovernmentRepresentative).ToString())
@@ -138,16 +158,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             lblInfo1.Visible = true;
             lblInfo2.Text = "يتم الان حفظ بياناتك برجاء الاتنظار";
             lblInfo2.Visible = true;
+            int SessionID = int.Parse(ddlSessions.SelectedValue);
             foreach (GridViewRow item in GVAttendants.Rows)
             {
-
-                int SessionID = int.Parse(ddlSessions.SelectedValue);
                 HiddenField HFID = item.Cells[0].FindControl("HFID") as HiddenField;
 
                 int DefaultAttendantId = int.Parse(HFID.Value);
 
                 RadioButtonList rdlist = item.Cells[2].FindControl("RBLAttendantStates") as RadioButtonList;
                 TextBox txtAbsenceExcuse = item.Cells[3].FindControl("txtAbsenceExcuse") as TextBox;
+                HtmlGenericControl divAbsenceExcuse = item.Cells[3].FindControl("divAbsenceExcuse") as HtmlGenericControl;
 
                 int AttendantStatus = 0;
                 if (rdlist.SelectedItem != null)
@@ -157,7 +177,26 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                 if (AttendantStatus != 0)
                 {
-                    string absenceExcuse = AttendantStatus == (int)Model.AttendantState.Apology ? txtAbsenceExcuse.Text : "";
+                    string absenceExcuse = "";
+                    divAbsenceExcuse.Style.Add("display", "none");
+                    if (AttendantStatus == (int)Model.AttendantState.Apology)
+                    {
+                        DropDownList ddlAbsenseExcuse = item.Cells[3].FindControl("ddlAbsenseExcuse") as DropDownList;
+                      
+                        if (ddlAbsenseExcuse.SelectedValue == "0")
+                        {
+                            absenceExcuse = txtAbsenceExcuse.Text;
+                            txtAbsenceExcuse.Style.Add("display", "block");
+                        }
+                        else
+                        {
+                            absenceExcuse = ddlAbsenseExcuse.SelectedValue;
+                            txtAbsenceExcuse.Text = "";
+                            txtAbsenceExcuse.Style.Add("display", "none");
+                        }
+          
+                        divAbsenceExcuse.Style.Add("display", "block");
+                    }
                     AttendantHelper.UpdateAttendantState(AttendantStatus, DefaultAttendantId, absenceExcuse);
                 }
 
@@ -166,6 +205,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             lblInfo1.Visible = true;
             lblInfo2.Text = "تم الحفظ بنجاح";
             lblInfo2.Visible = true;
+            //fill_gv_attendants(SessionID);
         }
 
         protected void GVOutsideAttendants_RowEditing(object sender, GridViewEditEventArgs e)
