@@ -71,16 +71,16 @@
         }
 
             .Gridview th {
-                padding-left: 40px !important;
-                min-width: 50px;
-                max-width: 260px;
+                padding-left: 15px !important;
+                padding-right: 5px !important;
+                height: 36px;
+                width:auto;
                 font-size: 14px;
             }
 
             .Gridview td {
-                padding-left: 40px !important;
-                min-width: 50px;
-                max-width: 260px;
+                padding-left: 30px !important;
+                width:auto;
                 font-size: 14px;
             }
 
@@ -245,7 +245,7 @@
                                         <asp:TextBox ID="textAttLongName" runat="server" Style="width: 100%;" CssClass="txtgrid"></asp:TextBox>
                                     </FooterTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="اسم العضو فى ملف الوورد">
+                                <asp:TemplateField HeaderText="الاسم فى ملف الوورد">
                                     <ItemTemplate>
                                         <asp:Label ID="lblAttName" runat="server" Text='<%# Eval("Name")%>'></asp:Label>
                                     </ItemTemplate>
@@ -284,16 +284,22 @@
                                 <asp:TemplateField HeaderText="نوع العضو" Visible="false">
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlAttType" runat="server" Enabled="false" Style="width: 100%;">
+                                            <asp:ListItem Value="10" Text="الأمين العام"></asp:ListItem>
+                                            <asp:ListItem Value="4" Text="أعضاء الأمانة"></asp:ListItem>
                                             <asp:ListItem Value="2" Text="خارج المجلس" Selected="True"></asp:ListItem>
                                         </asp:DropDownList>
                                     </ItemTemplate>
                                     <EditItemTemplate>
                                         <asp:DropDownList ID="ddlAttType" runat="server" Style="width: 100%;">
+                                            <asp:ListItem Value="10" Text="الأمين العام"></asp:ListItem>
+                                            <asp:ListItem Value="4" Text="أعضاء الأمانة"></asp:ListItem>
                                             <asp:ListItem Value="2" Text="خارج المجلس" Selected="True"></asp:ListItem>
                                         </asp:DropDownList>
                                     </EditItemTemplate>
                                     <FooterTemplate>
                                         <asp:DropDownList ID="ddlAttType" runat="server" Style="width: 100%;">
+                                            <asp:ListItem Value="10" Text="الأمين العام"></asp:ListItem>
+                                            <asp:ListItem Value="4" Text="أعضاء الأمانة"></asp:ListItem>
                                             <asp:ListItem Value="2" Text="خارج المجلس" Selected="True"></asp:ListItem>
                                         </asp:DropDownList>
                                     </FooterTemplate>

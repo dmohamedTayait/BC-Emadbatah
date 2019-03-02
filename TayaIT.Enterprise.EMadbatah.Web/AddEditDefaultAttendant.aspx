@@ -137,6 +137,7 @@
                      <asp:ListItem Value="4" Text="الأمانة العامة "></asp:ListItem>
                      <asp:ListItem Value="3" Text="السادة الوزراء"></asp:ListItem>
                      <asp:ListItem Value="5" Text="رئيس المجلس"></asp:ListItem>
+                     <asp:ListItem Value="10" Text="الأمين العام"></asp:ListItem>
                 </asp:DropDownList>
             </div>
             <div class="clear">

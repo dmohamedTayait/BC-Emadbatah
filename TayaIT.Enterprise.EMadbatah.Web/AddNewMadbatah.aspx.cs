@@ -16,8 +16,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            Util.NumberingFormatter f = new Util.NumberingFormatter(true);
-            f.getResultEnhanced(13);
+            // Util.NumberingFormatter f = new Util.NumberingFormatter(true);
+            //f.getResultEnhanced(13);
+            string s = BLL.SessionStartFacade.GetPresidentIntro(60285);
         }
 
         protected void Button1_Click(object sender, EventArgs e)

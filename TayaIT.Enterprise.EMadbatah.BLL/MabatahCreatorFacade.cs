@@ -326,23 +326,27 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         {
                                             case 1:
                                                 agreed++;
-                                                vote_status = "موافقة";
                                                 break;
                                             case 2:
                                                 disgreed++;
-                                                vote_status = "غير موافقة";
                                                 break;
                                             case 3:
                                                 novote++;
-                                                vote_status = "ممتنعة";
                                                 break;
                                             default:
                                                 nonexist++;
-                                                vote_status = "غير موجودة";
                                                 break;
                                         }
                                     }
-                                        
+
+                                    int[] voteTotalArray = { nonexist, agreed, disgreed, novote };
+                                    string[] voteTotalStringArray = { "غير موجودة", "موافقة", "غير موافقة", "ممتنعة" };
+                                    // Finding max
+                                    int m = voteTotalArray.Max();
+
+                                    // Positioning max
+                                    int p = Array.IndexOf(voteTotalArray, m);
+                                    vote_status = voteTotalStringArray[p];
 
                                     doc.AddParagraph("(وهنا تمت عملية التصويت نداء بالاسم)", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
                                     doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");

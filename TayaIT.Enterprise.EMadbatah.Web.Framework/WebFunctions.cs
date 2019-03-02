@@ -94,7 +94,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             SplitItem,
             GetSpeakerJobTitle,
             GetSpeakerJobTitleAndAvatar,
-            GetTopicID
+            GetTopicID,
+            GetPresidentIntro,
+            GetFormatedAttendant
         }
 
         public enum FileFunctions

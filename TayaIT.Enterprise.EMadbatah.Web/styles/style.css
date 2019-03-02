@@ -1142,8 +1142,8 @@ span.revFilelock {
     border-right: 4px solid #c1cbe0;
     padding: 4px 10px 4px 0;
     width: calc(100% - 35px);
-    font-size: 13px;
-    font-family: advertisingbold;
+    font-size: 18pt;
+    font-family: Sakkal Majalla;
 }
 .item_lock {
     background: url("../images/lock.png") no-repeat scroll right top transparent;
@@ -1196,8 +1196,8 @@ span.revFilelock {
     margin: 0 10px 0 0;
 }
 .Edititem {
-    font-family: AdvertisingBold;
-    font-size:13px;
+    font-family: Sakkal Majalla;
+    font-size:18pt;
     line-height: 15px;
     direction: rtl;
 }

@@ -72,6 +72,28 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                 long attendantID;
                 switch (function)
                 {
+                    case WebFunctions.EditWizard.GetFormatedAttendant:
+                        {
+                            if (SessionID != null && long.TryParse(SessionID, out Session_ID))
+                            {
+                                List<Attendant> attendantsLst = AttendantHelper.GetAttendantInSession(Session_ID, new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.FromOutsideTheCouncil, (int)Model.AttendantType.GovernmentRepresentative, (int)Model.AttendantType.Secretariat, (int)Model.AttendantType.SecretaryPresident }, 1);
+                                jsonStringOut = SerializeObjectInJSON(attendantsLst);
+                                break;
+                            }
+                            else
+                                break;
+                        }
+                    case WebFunctions.EditWizard.GetPresidentIntro:
+                        {
+                            if (SessionID != null && long.TryParse(SessionID, out Session_ID))
+                            {
+                                string body = SessionStartFacade.GetPresidentIntro(Session_ID);
+                                jsonStringOut = SerializeObjectInJSON(body);
+                                break;
+                            }
+                            else
+                                break;
+                        }
                     case WebFunctions.EditWizard.GetSpeakerJobTitle:
                         {
                             if (AttendantID != null && long.TryParse(AttendantID, out attendantID))

@@ -262,17 +262,19 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
         private void fill_gv_attendants(long sessionID)
         {
+            List<Attendant> attendantsLst = new List<Attendant>();
             if (int.Parse(ddlAttendantTypes.SelectedValue) == (int)Model.AttendantType.GovernmentRepresentative)
             {
-                GVAttendants.Columns[2].HeaderText = "<span class='space-st1' style='color:blue;width:90px'>حاضر</span><span class='space-st1' style='color:red;width:150px'>غائب</span>";
+                GVAttendants.Columns[2].HeaderText = "<span class='space-st1' style='color:blue;width:90px'>حاضر</span><span class='space-st1' style='color:red;width:140px'>غائب</span>";
                 GVAttendants.Columns[4].Visible = true;
+                attendantsLst = AttendantHelper.GetAttendantInSession(sessionID, new List<int> { (int)Model.AttendantType.GovernmentRepresentative }, 0);
             }
             else
             {
                 GVAttendants.Columns[2].HeaderText = "<span class='space-st1' style='color:blue'>حاضر</span><span class='space-st1' style='color:red'>غائب</span><span class='space-st1' style='color:green'>غائب بعذر</span>";
                 GVAttendants.Columns[4].Visible = false;
+                attendantsLst = AttendantHelper.GetAttendantInSession(sessionID, new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.Secretariat, (int)Model.AttendantType.SecretaryPresident }, 0);
             }
-            List<Attendant> attendantsLst = AttendantHelper.GetAttendantInSession(sessionID, int.Parse(ddlAttendantTypes.SelectedValue));
             GVAttendants.DataSource = attendantsLst;
             GVAttendants.DataBind();
             GVAttendants.Style.Add("display", "block");
@@ -281,7 +283,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
         private void fill_gv_outside_attendants(long sessionID)
         {
-            List<Attendant> attendantsLst = AttendantHelper.GetAttendantInSession(sessionID, (int)Model.AttendantType.FromOutsideTheCouncil);
+            List<Attendant> attendantsLst = AttendantHelper.GetAttendantInSession(sessionID, new List<int> { (int)Model.AttendantType.FromOutsideTheCouncil },0);
+            if (attendantsLst.Count == 0)
+            {
+                Attendant empty_att = new Attendant();
+                empty_att.Name = "لا يوجد بيانات";
+                attendantsLst.Add(empty_att);
+            }
             GVOutsideAttendants.DataSource = attendantsLst;
             GVOutsideAttendants.DataBind();
             GVOutsideAttendants.Style.Add("display", "block");

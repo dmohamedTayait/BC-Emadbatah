@@ -37,9 +37,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         if (!string.IsNullOrEmpty(SessionID) && !string.IsNullOrEmpty(VoteSubject))
                         {
                             vote_id = VoteHelper.AddNewVote(long.Parse(SessionID), VoteSubject);
-                            List<Attendant> attLst = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.GovernmentRepresentative, (int)Model.AttendantType.President });
+                            List<Attendant> attLst = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.President }, 0);
                             foreach (Attendant attObj in attLst)
-                                VoteHelper.AddSessionVoteMemberValues(vote_id, attObj.ID, 0);
+                                VoteHelper.AddSessionVoteMemberValues(vote_id, attObj.ID, attObj.State == (int) Model.AttendantState.Attended ? (int)Model.VoteType.Agree : (int)Model.VoteType.NonExist);
                         }
  
                         jsonStringOut = SerializeObjectInJSON(vote_id);
@@ -69,15 +69,19 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             if (voteMems != null && voteMems.Count > 0)
                             {
                                 foreach (VoteMember voteObj in voteMems)
-                                    voteMemsLst.Add(new SessionMembersVote(voteObj.ID, long.Parse(VoteID), (long)voteObj.AttendantID, AttendantHelper.GetAttendantById((long)voteObj.AttendantID).LongName, (int)voteObj.VoteValue));
+                                {
+                                    if ((int)voteObj.VoteValue != (int)Model.VoteType.NonExist)
+                                        voteMemsLst.Add(new SessionMembersVote(voteObj.ID, long.Parse(VoteID), (long)voteObj.AttendantID, AttendantHelper.GetAttendantById((long)voteObj.AttendantID).LongName, (int)voteObj.VoteValue));
+                                }
                             }
                             else
                             {
-                                List<Attendant> attLst = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.GovernmentRepresentative, (int)Model.AttendantType.President });
+                                List<Attendant> attLst = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.President }, 0);
                                 foreach (Attendant attObj in attLst)
                                 {
-                                    VoteHelper.AddSessionVoteMemberValues(long.Parse(VoteID), attObj.ID, 0);
-                                    voteMemsLst.Add(new SessionMembersVote(0, long.Parse(VoteID), (long)attObj.ID, AttendantHelper.GetAttendantById((long)attObj.ID).LongName, 0));
+                                    VoteHelper.AddSessionVoteMemberValues(long.Parse(VoteID), attObj.ID, attObj.State == (int)Model.AttendantState.Attended ? (int)Model.VoteType.Agree : (int)Model.VoteType.NonExist);
+                                    if (attObj.State == (int)Model.AttendantState.Attended)
+                                        voteMemsLst.Add(new SessionMembersVote(0, long.Parse(VoteID), (long)attObj.ID, AttendantHelper.GetAttendantById((long)attObj.ID).LongName, attObj.State == (int)Model.AttendantState.Attended ? (int)Model.VoteType.Agree : (int)Model.VoteType.NonExist));
                                 }
                             }
                         }
@@ -99,7 +103,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         {
                             VoteHelper.AddSessionVoteMemberValues(long.Parse(VoteID), long.Parse(attID), (int)Model.VoteType.Novote);
                         }
-                       
                         break;
                     default:
                         break;
@@ -148,6 +151,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             get
             {
                 return WebHelper.GetQSValue(Constants.QSKeyNames.NOVOTEMEM, _context);
+            }
+        }
+        //
+        public string NonExistMem
+        {
+            get
+            {
+                return WebHelper.GetQSValue(Constants.QSKeyNames.NONEXISTMEM, _context);
             }
         }
     }

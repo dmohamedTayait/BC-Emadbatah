@@ -100,6 +100,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string AGREEDMEM { get { return "agreed_mem"; } }
             public string DISAGREEDMEM { get { return "disagreed_mem"; } }
             public string NOVOTEMEM { get { return "novote_mem"; } }
+            public string NONEXISTMEM { get { return "nonexist_mem"; } }
             public string VoteValue { get { return "votevalue"; } }
 
             //for reviewer

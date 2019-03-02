@@ -52,6 +52,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 + " %PresidentTitle%"
                 + ")";
 
+        public static string madbatahPresidentIntro = "بسم الله الرحمن الرحيم، والصلاة والسلام على سيدنا محمد وعلى آله وصحبه  أجمعين. نفتتح جلسة هذا اليوم  " +
+            " " + "%day%" +  " الموافق " + "%GeorgianDate%" + " وهي الجلسة " + "%type% %subject%"
+            + " من الانعقاد السنوي " + "%stageType% %stage%"
+            + " من الفصل التشريعي " + "%season%"
+            + ".";
         public static string madbatahStartsection2 = "وحضر الجلسة  " +
             "%out_attendants%" +
             " وعدد من موظفي الأمانة العامة، وقد تفضلت معالي الرئيس بافتتاح الجلسة:";
@@ -234,10 +239,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             if (governmentMemAttendants.Count > 0)
             {
                 body += emptyParag;
-                body += "<p style='" + basicPStyle + textJustify + defFontSize2 + "'>و قد مثل الحكومة كل من:</p>";
+                body += "<p style='" + basicPStyle + textJustify + defFontSize2 +  "'>و قد مثل الحكومة كل من:</p>";
                 body += writeGovernmentMemAttendantNFile("", governmentMemAttendants, (int)Model.AttendantState.Attended);
             }
-            List<Attendant> outsideAttendants = AttendantHelper.GetAttendantInSession(details.SessionID, (int)Model.AttendantType.FromOutsideTheCouncil);
+            List<Attendant> outsideAttendants = AttendantHelper.GetAttendantInSession(details.SessionID, new List<int> { (int)Model.AttendantType.FromOutsideTheCouncil, (int)Model.AttendantType.Secretariat, (int)Model.AttendantType.SecretaryPresident }, 0);
             if (outsideAttendants.Count > 0)
             {
                 body += emptyParag;
@@ -249,8 +254,102 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             madbatahStart += body;
             if (details.SessionStartFlag == (int)SessionOpenStatus.NotOnTime)
                 madbatahStart += "<p style='" + basicPStyle + textCenter + "'>" + madbatahStartsection3 + "</p>";
+            body += "<p style='" + basicPStyle + textJustify + defFontSize1  + defFontWeight + "'>الرئيس: </p>";
+            body += "<p style='" + basicPStyle + textJustify + defFontSize2 + textindent + "'>" + madbatahPresidentIntro.Replace("%subject%", femail_numbers.getResultEnhanced(int.Parse(details.Subject)))
+                .Replace("%season%", season)
+                .Replace("%type%", details.Type)
+                .Replace("%stageType%", details.StageType)
+                .Replace("%stage%", stage)
+                .Replace("%GeorgianDate%", gDate)
+                .Replace("%sessionTime%", timeInHour)
+                .Replace("%hijriDate%", hijriDate)
+                .Replace("%day%", dayNameAr) + "</p>";
             madbatahStart += "</body></html>";
             return madbatahStart;
+        }
+
+        public static string GetPresidentIntro(long sessionID)
+        {
+            Util.NumberingFormatter mail_numbers = new Util.NumberingFormatter(true);
+            Util.NumberingFormatter femail_numbers = new Util.NumberingFormatter(false);
+
+            SessionDetails details = GetSessionDetails(sessionID);
+            DateTimeFormatInfo dateFormat = Util.DateUtils.ConvertDateCalendar(details.Date, Util.CalendarTypes.Hijri, "en-us");
+            string dayNameAr = details.Date.ToString("dddd", dateFormat); // LocalHelper.GetLocalizedString("strDay" + hijDate.DayOfWeek);
+            string monthNameAr = LocalHelper.GetLocalizedString("strMonth" + details.Date.Month);
+            string monthNameHijAr = details.Date.ToString("MMMM", dateFormat); //LocalHelper.GetLocalizedString("strHijMonth"+hijDate.Month);
+            string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
+
+            try
+            {
+                int dayOfMonthNumHijNum = int.Parse(dayOfMonthNumHij);
+                dayOfMonthNumHij = dayOfMonthNumHijNum.ToString();
+            }
+            catch
+            {
+            }
+
+            string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
+            string hijriDate = dayOfMonthNumHij + " " + monthNameHijAr + " " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
+            string gDate = details.Date.Day + " من شهر " + monthNameAr + " لسنة " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
+            string timeInHour = LocalHelper.GetLocalizedString("strHour" + details.StartTime.Hour);// +" " + LocalHelper.GetLocalizedString("strTime" + details.Date.ToString("tt"));//"التاسعة صباحا";
+            string stage = mail_numbers.getResultEnhanced(int.Parse(details.Stage)); //;// "الخامس";
+            string season = mail_numbers.getResultEnhanced(int.Parse(details.Season));//  + "";// "الرابع عشر";
+      
+            string body = madbatahPresidentIntro.Replace("%subject%", femail_numbers.getResultEnhanced(int.Parse(details.Subject)))
+                .Replace("%season%", season)
+                .Replace("%type%", details.Type)
+                .Replace("%stageType%", details.StageType)
+                .Replace("%stage%", stage)
+                .Replace("%GeorgianDate%", gDate)
+                .Replace("%sessionTime%", timeInHour)
+                .Replace("%hijriDate%", hijriDate)
+                .Replace("%day%", dayNameAr);
+            List<Attendant> abologyAttendants = AttendantHelper.GetAttendantInSession(details.SessionID, new List<int> { (int)Model.AttendantType.FromTheCouncilMembers }, (int)Model.AttendantState.Apology);
+            List<Attendant> absentAttendants = AttendantHelper.GetAttendantInSession(details.SessionID, new List<int> { (int)Model.AttendantType.FromTheCouncilMembers }, (int)Model.AttendantState.Absent);
+            List<string> attstrings = new List<string>();
+            string attendant_str = "";
+            if (abologyAttendants.Count > 0 || absentAttendants.Count > 0)
+            {
+                body += " البند (1): تلاوة أسماء: ";
+                if (abologyAttendants.Count > 0)
+                {
+                    body += " الإخوة المعتذرين عن عدم حضور الجلسة وهم أصحاب السعادة: ";
+                    foreach (Attendant att in abologyAttendants)
+                    {
+                        if (att.Name != "غير معرف")
+                        {
+                            attendant_str = "";
+                            attendant_str += att.AttendantTitle.Trim() + " " + att.AttendantDegree.Trim() + " " + att.LongName.Trim();
+                            if (!string.IsNullOrEmpty(att.AbsenseExcuse.Trim()))
+                                attendant_str += " (" + att.AbsenseExcuse.Trim() + ")، ";
+                            attstrings.Add(attendant_str);
+                        }
+                    }
+                    body += string.Join("، ", attstrings);
+                   
+                }
+                if (abologyAttendants.Count > 0 && absentAttendants.Count > 0)
+                {
+                    body += " وقد تغيب عن حضور الجلسة أصحاب السعادة النواب ";
+                }
+                else if (abologyAttendants.Count == 0 && absentAttendants.Count > 0)
+                {
+                    body += " الإخوة المتغيبين عن عدم حضور الجلسة وهم أصحاب السعادة: ";
+                }
+                attstrings.Clear();
+                foreach (Attendant att in absentAttendants)
+                {
+                    if (att.Name != "غير معرف")
+                    {
+                        attendant_str = att.AttendantTitle.Trim() + " " + att.AttendantDegree.Trim() + " " + att.LongName.Trim();
+                        attstrings.Add(attendant_str);
+                    }
+                }
+                body += string.Join("، ", attstrings);
+            }
+
+            return body;
         }
 
         public static string FormatDate(DateTime date)

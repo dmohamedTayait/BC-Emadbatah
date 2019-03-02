@@ -89,7 +89,8 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         NA = 6,
         UnKnown = 7,
         UnAssigned = 8,
-        CountryPresidentFamily = 9
+        CountryPresidentFamily = 9,
+        SecretaryPresident = 10
     }
 
     public enum AttendantStatus
@@ -200,6 +201,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
 
     public enum VoteType//Attachement or Session File
     {
+        NonExist = 0,
         Agree = 1,
         Disagree = 2,
         Novote = 3

@@ -5,6 +5,7 @@ $(document).ready(function() {
     //////////////////// Votes
     // Load votes
     $(".btnAddNewVote").click(function (e) {
+        $(".txtNewVote", '.reviewpopup_cont5').val('');
         loadSessionVotes();
         $(".popupoverlay").show();
         $(".reviewpopup_cont5").show();
@@ -183,6 +184,7 @@ $(document).ready(function() {
                         selected: true
                     });
                     $('.ddl_votes').append(option.html(voteSubject));
+                    $(".txtNewVote", '.reviewpopup_cont5').val('');
                     loadVotesMembers();
                 },
                 error: function () { }
@@ -204,10 +206,10 @@ $(document).ready(function() {
             else if ($(this).val() == 2) {
                 disAgreedVote_lst.push(this.name.replace("options_", ""));
             }
-            else {
+            else if ($(this).val() == 3) {
                 NoVote_lst.push(this.name.replace("options_", ""));
             }
-           
+                       
         });
  
         if ($('.ddl_votes').val() != '') {
