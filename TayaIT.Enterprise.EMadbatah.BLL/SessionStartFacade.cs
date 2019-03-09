@@ -22,7 +22,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         public static string madbatahBodyHeader = " إنه فى الساعة "
             + "%sessionTime%"
             + " "
-            + "من صباح يوم "
+            + "من %time_detected% يوم "
             + "%hijriDate%"
             + " ، "
             + " الموافق "
@@ -37,20 +37,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             + " %President% "
             + " %PresidentTitle%"
             + "، و حضر الجلسة أصحاب السعادة النواب:-";
-
-        public static string madbatahStartNotOnTime = "( أخرت الجلسة فى تمام الساعة "
-                + "%sessionTime%"
-                + " صباحا ثم عقد مجلس الأمة جلسته العادية العلنية فى تمام الساعة "
-                + "%sessionTime%"
-                + " من صباح يوم "
-                + "%hijriDate%"
-                + " ، "
-                + " الموافق "
-                + "%GeorgianDate%"
-                + " برئاسة "
-                + " %President% "
-                + " %PresidentTitle%"
-                + ")";
 
         public static string madbatahPresidentIntro = "بسم الله الرحمن الرحيم، والصلاة والسلام على سيدنا محمد وعلى آله وصحبه  أجمعين. نفتتح جلسة هذا اليوم  " +
             " " + "%day%" +  " الموافق " + "%GeorgianDate%" + " وهي الجلسة " + "%type% %subject%"
@@ -185,7 +171,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
             string hijriDate = dayOfMonthNumHij + " " + monthNameHijAr + " " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
             string gDate = details.Date.Day + " " + monthNameAr + " " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
-            string timeInHour = LocalHelper.GetLocalizedString("strHour" + details.StartTime.Hour);// +" " + LocalHelper.GetLocalizedString("strTime" + details.Date.ToString("tt"));//"التاسعة صباحا";
+            int hour = details.StartTime.Hour > 12 ? details.StartTime.Hour - 12 : details.StartTime.Hour;
+            string time_detected = details.StartTime.Hour > 12 ? "مساء" : "صباح";
+            string timeInHour = LocalHelper.GetLocalizedString("strHour" + hour);// +" " + LocalHelper.GetLocalizedString("strTime" + details.Date.ToString("tt"));//"التاسعة صباحا";
             string stage = mail_numbers.getResultEnhanced(int.Parse(details.Stage)); //;// "الخامس";
             string season = mail_numbers.getResultEnhanced(int.Parse(details.Season));//  + "";// "الرابع عشر";
             string president = "";
@@ -225,6 +213,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 .Replace("%stage%", stage)
                 .Replace("%GeorgianDate%", gDate)
                 .Replace("%sessionTime%", timeInHour)
+                .Replace("%time_detected%", time_detected)
                 .Replace("%hijriDate%", hijriDate)
                 .Replace("%President%", president)
                 .Replace("%PresidentTitle%", presidentTitle) + "</p>";

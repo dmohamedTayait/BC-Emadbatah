@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="EMadbatahModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="EMadbatahModelStoreContainer">
+          <EntitySet Name="AbsenceExcuse" EntityType="EMadbatahModel.Store.AbsenceExcuse" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AgendaItem" EntityType="EMadbatahModel.Store.AgendaItem" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AgendaSubItem" EntityType="EMadbatahModel.Store.AgendaSubItem" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Attachement" EntityType="EMadbatahModel.Store.Attachement" store:Type="Tables" Schema="dbo" />
@@ -14,6 +15,7 @@
           <EntitySet Name="AttendantType" EntityType="EMadbatahModel.Store.AttendantType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DefaultAttendant" EntityType="EMadbatahModel.Store.DefaultAttendant" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MadbatahFilesStatus" EntityType="EMadbatahModel.Store.MadbatahFilesStatus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PlannedAgendaItem" EntityType="EMadbatahModel.Store.PlannedAgendaItem" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Procedure" EntityType="EMadbatahModel.Store.Procedure" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProcedureType" EntityType="EMadbatahModel.Store.ProcedureType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Role" EntityType="EMadbatahModel.Store.Role" store:Type="Tables" Schema="dbo" />
@@ -53,6 +55,10 @@
           <AssociationSet Name="FK_Attendant_Session" Association="EMadbatahModel.Store.FK_Attendant_Session">
             <End Role="Session" EntitySet="Session" />
             <End Role="Attendant" EntitySet="Attendant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedAgendaItem_PlannedAgendaItem" Association="EMadbatahModel.Store.FK_PlannedAgendaItem_PlannedAgendaItem">
+            <End Role="PlannedAgendaItem" EntitySet="PlannedAgendaItem" />
+            <End Role="PlannedAgendaItem1" EntitySet="PlannedAgendaItem" />
           </AssociationSet>
           <AssociationSet Name="FK_Procedure_ProcedureType" Association="EMadbatahModel.Store.FK_Procedure_ProcedureType">
             <End Role="ProcedureType" EntitySet="ProcedureType" />
@@ -143,6 +149,13 @@
             <End Role="VoteMember" EntitySet="VoteMember" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AbsenceExcuse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="excuse" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="AgendaItem">
           <Key>
             <PropertyRef Name="ID" />
@@ -238,6 +251,16 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PlannedAgendaItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="SessionID" Type="bigint" />
+          <Property Name="Order" Type="int" />
+          <Property Name="PlannedAgendaItemID" Type="bigint" />
         </EntityType>
         <EntityType Name="Procedure">
           <Key>
@@ -489,6 +512,18 @@
             </Principal>
             <Dependent Role="Attendant">
               <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedAgendaItem_PlannedAgendaItem">
+          <End Role="PlannedAgendaItem" Type="EMadbatahModel.Store.PlannedAgendaItem" Multiplicity="0..1" />
+          <End Role="PlannedAgendaItem1" Type="EMadbatahModel.Store.PlannedAgendaItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedAgendaItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlannedAgendaItem1">
+              <PropertyRef Name="PlannedAgendaItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -904,6 +939,12 @@
           <AssociationSet Name="FK_VoteMember_Vote" Association="EMadbatahModel.FK_VoteMember_Vote">
             <End Role="Vote" EntitySet="Votes" />
             <End Role="VoteMember" EntitySet="VoteMembers" />
+          </AssociationSet>
+          <EntitySet Name="AbsenceExcuses" EntityType="EMadbatahModel.AbsenceExcuse" />
+          <EntitySet Name="PlannedAgendaItems" EntityType="EMadbatahModel.PlannedAgendaItem" />
+          <AssociationSet Name="FK_PlannedAgendaItem_PlannedAgendaItem" Association="EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem">
+            <End Role="PlannedAgendaItem" EntitySet="PlannedAgendaItems" />
+            <End Role="PlannedAgendaItem1" EntitySet="PlannedAgendaItems" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AgendaItem">
@@ -1573,6 +1614,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AbsenceExcuse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="excuse" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PlannedAgendaItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="SessionID" />
+          <Property Type="Int32" Name="Order" />
+          <Property Type="Int64" Name="PlannedAgendaItemID" />
+          <NavigationProperty Name="PlannedAgendaItem1" Relationship="EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem" FromRole="PlannedAgendaItem" ToRole="PlannedAgendaItem1" />
+          <NavigationProperty Name="PlannedAgendaItem2" Relationship="EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem" FromRole="PlannedAgendaItem1" ToRole="PlannedAgendaItem" />
+        </EntityType>
+        <Association Name="FK_PlannedAgendaItem_PlannedAgendaItem">
+          <End Type="EMadbatahModel.PlannedAgendaItem" Role="PlannedAgendaItem" Multiplicity="0..1" />
+          <End Type="EMadbatahModel.PlannedAgendaItem" Role="PlannedAgendaItem1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlannedAgendaItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlannedAgendaItem1">
+              <PropertyRef Name="PlannedAgendaItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1798,6 +1870,25 @@
                 <ScalarProperty Name="AttendantID" ColumnName="AttendantID" />
                 <ScalarProperty Name="VoteValue" ColumnName="VoteValue" />
                 <ScalarProperty Name="VoteID" ColumnName="VoteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbsenceExcuses">
+            <EntityTypeMapping TypeName="EMadbatahModel.AbsenceExcuse">
+              <MappingFragment StoreEntitySet="AbsenceExcuse">
+                <ScalarProperty Name="excuse" ColumnName="excuse" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlannedAgendaItems">
+            <EntityTypeMapping TypeName="EMadbatahModel.PlannedAgendaItem">
+              <MappingFragment StoreEntitySet="PlannedAgendaItem">
+                <ScalarProperty Name="PlannedAgendaItemID" ColumnName="PlannedAgendaItemID" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2070,6 +2161,14 @@
           <ConnectorPoint PointX="11.932294166666667" PointY="17.327820638020832" />
           <ConnectorPoint PointX="12.098960833333335" PointY="17.327820638020832" />
           <ConnectorPoint PointX="12.25" PointY="17.327820638020832" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="EMadbatahModel.AbsenceExcuse" Width="1.5" PointX="0.75" PointY="0.75" Height="1.2636116536458388" />
+        <EntityTypeShape EntityType="EMadbatahModel.PlannedAgendaItem" Width="1.5" PointX="9.75" PointY="0.75" Height="2.0853483072916674" />
+        <AssociationConnector Association="EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem" >
+          <ConnectorPoint PointX="10.281923076923077" PointY="2.8353483072916674" />
+          <ConnectorPoint PointX="10.281923076923077" PointY="3.0853483072916674" />
+          <ConnectorPoint PointX="10.728461538461538" PointY="3.0853483072916674" />
+          <ConnectorPoint PointX="10.728461538461538" PointY="2.8353483072916674" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

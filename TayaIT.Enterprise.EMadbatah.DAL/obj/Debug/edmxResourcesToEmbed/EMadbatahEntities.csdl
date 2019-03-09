@@ -137,6 +137,12 @@
       <End Role="Vote" EntitySet="Votes" />
       <End Role="VoteMember" EntitySet="VoteMembers" />
     </AssociationSet>
+    <EntitySet Name="AbsenceExcuses" EntityType="EMadbatahModel.AbsenceExcuse" />
+    <EntitySet Name="PlannedAgendaItems" EntityType="EMadbatahModel.PlannedAgendaItem" />
+    <AssociationSet Name="FK_PlannedAgendaItem_PlannedAgendaItem" Association="EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem">
+      <End Role="PlannedAgendaItem" EntitySet="PlannedAgendaItems" />
+      <End Role="PlannedAgendaItem1" EntitySet="PlannedAgendaItems" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AgendaItem">
     <Key>
@@ -802,6 +808,37 @@
       </Principal>
       <Dependent Role="VoteMember">
         <PropertyRef Name="VoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AbsenceExcuse">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="excuse" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PlannedAgendaItem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Int64" Name="SessionID" />
+    <Property Type="Int32" Name="Order" />
+    <Property Type="Int64" Name="PlannedAgendaItemID" />
+    <NavigationProperty Name="PlannedAgendaItem1" Relationship="EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem" FromRole="PlannedAgendaItem" ToRole="PlannedAgendaItem1" />
+    <NavigationProperty Name="PlannedAgendaItem2" Relationship="EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem" FromRole="PlannedAgendaItem1" ToRole="PlannedAgendaItem" />
+  </EntityType>
+  <Association Name="FK_PlannedAgendaItem_PlannedAgendaItem">
+    <End Type="EMadbatahModel.PlannedAgendaItem" Role="PlannedAgendaItem" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.PlannedAgendaItem" Role="PlannedAgendaItem1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlannedAgendaItem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PlannedAgendaItem1">
+        <PropertyRef Name="PlannedAgendaItemID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

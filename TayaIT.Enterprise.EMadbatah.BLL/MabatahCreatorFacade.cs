@@ -156,6 +156,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             // )
             if (details.StartTime.ToString().IndexOf("AM") > 0)
                 timeInMin += " صباحاً";
+            else timeInMin += " مساءً";
 
             StringBuilder sb = new StringBuilder();
             sb.Append("<root>");
@@ -365,7 +366,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     if (lineNum != 1)
                                         doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
 
-                                    doc.AddParagraph(" (أغلبية "+ vote_status + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
+                                    doc.AddParagraph(" (أغلبية " + vote_status + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
 
                                     doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                                     lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
@@ -375,46 +376,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                                 }
                             }
-                        
+
                             if (speakerGroup[j].Count == k)// reach the loop end
                             {
-                                if (contentItem.TopicID != null && contentItem.TopicID != 0)
-                                {
-                                    /*WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 0);
-                                    List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(long.Parse(contentItem.TopicID.ToString()));
-                                    List<string> attNamesLst = new List<string>();
-                                    for (int u = 0; u < tpcAtts.Count(); u += 2)
-                                    {
-                                        Attendant att1 = new Attendant();
-                                        Attendant att2 = new Attendant();
-                                        string attNames = "";
-                                        att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
-                                        // attNames = (att1.AttendantDegree + " " + att1.Name).Trim(); 
-                                        attNames = att1.Name.Trim();
-                                        if (u + 1 < tpcAtts.Count())
-                                        {
-                                            att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
-                                            // attNames += "," + (att2.AttendantDegree + " " + att2.Name).Trim();
-                                            attNames += "," + att2.Name.Trim();
-                                        }
-                                        attNamesLst.Add(attNames);
-                                    }
-                                    // doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
-                                    if (attNamesLst.Count > 0)
-                                    {
-                                        doc.AddParagraph("مقدمو الطلب", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
-                                        doc.AddTable(attNamesLst);
-                                    }
-                                    doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                    lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
-                                    doc.DeleteLastParagraph("space");
-                                    if (lineNum != 1)
-                                        doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");*/
-                                }
-                                else
-                                {
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 1);
-                                }
+                                WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 1);
                                 contentItemGrp.Clear();
                             }
                         }
@@ -424,11 +389,17 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         j++;
                     }///loop sessionitem
 
-                    // doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                    doc.AddParagraph("الرئيـــــــــــــــس", ParagraphStyle.ParagraphTitle, ParagrapJustification.LTR, false, "");
-                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                    doc.AddParagraph("الأمين العـــــام", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                    doc.AddParagraph(" ", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
+                    List<string> signArr = new List<string>();
+                    List<Attendant> presidentSec = AttendantHelper.GetAttendantInSession(sessionID,(int) Model.AttendantType.SecretaryPresident);
+                    string presidentSecName = presidentSec.Count() > 0 ? presidentSec.First().Name : "";
+                    signArr.Add(presidentSecName + "," + SessionHelper.GetSessionByID(sessionID).President);
+                    signArr.Add("الأمين العام لمجلس النواب" + "," + "رئيس مجلس النواب");
+                    doc.AddCustomTable(signArr);
+                    doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
+                    doc.DeleteLastParagraph("space");
+                    if (lineNum != 1)
+                        doc.AddParagraph("", ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
                     doc.AddParagraph("(انتهت المضبطة)", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
                     doc.Save();
                     doc.Dispose();

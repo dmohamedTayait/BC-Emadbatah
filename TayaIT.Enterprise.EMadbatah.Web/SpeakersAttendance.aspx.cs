@@ -75,7 +75,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             Session sessionObj = SessionHelper.GetSessionByID(SessionID);
             btnSave.Style.Add("display", "");
 
-            if (ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.FromTheCouncilMembers).ToString() || ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.GovernmentRepresentative).ToString())
+            if (ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.FromTheCouncilMembers).ToString() || ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.GovernmentRepresentative).ToString() || ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.Secretariat).ToString())
             {
                 fill_gv_attendants(SessionID);
                 btnSave.Visible = true;
@@ -140,7 +140,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         divAbsenceExcuse.Style.Add("display", "none");
                     }
                     //rdio btn list: show - hide the third option
-                    if (ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.GovernmentRepresentative).ToString())
+                    if (ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.GovernmentRepresentative).ToString() || ddlAttendantTypes.SelectedValue == ((int)Model.AttendantType.Secretariat).ToString())
                     {
                         rb.Items[rb.Items.Count - 1].Attributes.Add("hidden", "hidden");
                     }
@@ -256,7 +256,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             
             ddlAttendantTypes.Items.Insert(0, new ListItem("نواب المجلس", ((int)Model.AttendantType.FromTheCouncilMembers).ToString()));
             ddlAttendantTypes.Items.Insert(1, new ListItem("ممثلى الحكومة", ((int)Model.AttendantType.GovernmentRepresentative).ToString()));
-            ddlAttendantTypes.Items.Insert(2, new ListItem("خارج المجلس", ((int)Model.AttendantType.FromOutsideTheCouncil).ToString()));
+            ddlAttendantTypes.Items.Insert(2, new ListItem("الأمامة العامة", ((int)Model.AttendantType.Secretariat).ToString()));
+            ddlAttendantTypes.Items.Insert(3, new ListItem("خارج المجلس", ((int)Model.AttendantType.FromOutsideTheCouncil).ToString()));
             ddlAttendantTypes.Items[0].Selected = true;
         }
 
@@ -269,11 +270,17 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 GVAttendants.Columns[4].Visible = true;
                 attendantsLst = AttendantHelper.GetAttendantInSession(sessionID, new List<int> { (int)Model.AttendantType.GovernmentRepresentative }, 0);
             }
+            else if (int.Parse(ddlAttendantTypes.SelectedValue) == (int)Model.AttendantType.Secretariat)
+            {
+                GVAttendants.Columns[2].HeaderText = "<span class='space-st1' style='color:blue;width:90px'>حاضر</span><span class='space-st1' style='color:red;width:140px'>غائب</span>";
+                GVAttendants.Columns[4].Visible = true;
+                attendantsLst = AttendantHelper.GetAttendantInSession(sessionID, new List<int> { (int)Model.AttendantType.Secretariat, (int)Model.AttendantType.SecretaryPresident }, 0);
+            }
             else
             {
                 GVAttendants.Columns[2].HeaderText = "<span class='space-st1' style='color:blue'>حاضر</span><span class='space-st1' style='color:red'>غائب</span><span class='space-st1' style='color:green'>غائب بعذر</span>";
                 GVAttendants.Columns[4].Visible = false;
-                attendantsLst = AttendantHelper.GetAttendantInSession(sessionID, new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.Secretariat, (int)Model.AttendantType.SecretaryPresident }, 0);
+                attendantsLst = AttendantHelper.GetAttendantInSession(sessionID, new List<int> { (int)Model.AttendantType.FromTheCouncilMembers }, 0);
             }
             GVAttendants.DataSource = attendantsLst;
             GVAttendants.DataBind();

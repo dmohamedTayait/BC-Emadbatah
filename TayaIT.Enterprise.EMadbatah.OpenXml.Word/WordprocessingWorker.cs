@@ -655,8 +655,8 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 case ParagraphStyle.Footer:
                     RunProperties runFooterProp = new RunProperties();
                     RunFonts runFooterFonts = new RunFonts() { Ascii = "Sakkal Majalla", HighAnsi = "Sakkal Majalla", ComplexScript = "Sakkal Majalla", AsciiTheme = ThemeFontValues.MinorBidi, HighAnsiTheme = ThemeFontValues.MinorBidi };
-                    FontSize fontFooterSize = new FontSize() { Val = "28" };
-                    FontSizeComplexScript fontComplexFooterSize = new FontSizeComplexScript() { Val = "28" };
+                    FontSize fontFooterSize = new FontSize() { Val = "24" };
+                    FontSizeComplexScript fontComplexFooterSize = new FontSizeComplexScript() { Val = "24" };
                     RightToLeftText rightToLeftFooterText = new RightToLeftText();
                     //BiDi biDi1 = new BiDi();
                     //Languages languages = new Languages() { EastAsia = "ar-SA", Bidi = "ar-SA" };
@@ -1187,6 +1187,62 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 tr.Append(tc3);
                 tr.Append(tc2);
               
+                table.Append(tr);
+                i++;
+            }
+            _docMainPart.Document.Body.Append(table);
+            Save();
+        }
+
+        public void AddCustomTable(List<string> data)
+        {
+            if (_docMainPart == null)
+                _docMainPart = _currentDoc.AddMainDocumentPart();
+            if (_docMainPart.Document == null)
+                _docMainPart.Document = MakeEmpyDocument();
+
+            Table table = new Table();
+
+            TableProperties tableProp = new TableProperties(new TableStyle() { Val = "styleTableGrid" },
+                    new TableIndentation() { Width = 0, Type = TableWidthUnitValues.Dxa },
+                    new TableJustification() { Val = TableRowAlignmentValues.Center },
+                    new TableWidth() { Width = "4000", Type = TableWidthUnitValues.Pct },//in percentage makes 70%
+                    new TableLook() { Val = "04A0", FirstRow = true, LastRow = false, NoHorizontalBand = false, NoVerticalBand = true },
+                    new TableBorders(
+                        new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "ffffff", Size = (UInt32Value)6U, Space = (UInt32Value)0U },
+                        new BottomBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "ffffff", Size = (UInt32Value)6U, Space = (UInt32Value)0U },
+                        new LeftBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "ffffff", Size = (UInt32Value)6U, Space = (UInt32Value)0U },
+                        new RightBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "ffffff", Size = (UInt32Value)6U, Space = (UInt32Value)0U },
+                        new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "ffffff", Size = (UInt32Value)6U, Space = (UInt32Value)0U },
+                        new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "ffffff", Size = (UInt32Value)6U, Space = (UInt32Value)0U }),
+                   new TableCellMarginDefault(
+                       new TopMargin() { Width = "20.5", Type = TableWidthUnitValues.Dxa },//0.07
+                       new TableCellLeftMargin() { Width = 20, Type = TableWidthValues.Dxa },
+                       new BottomMargin() { Width = "20.5", Type = TableWidthUnitValues.Dxa },
+                       new TableCellRightMargin() { Width = 20, Type = TableWidthValues.Dxa })
+                       );
+
+            table.Append(tableProp);
+
+            int i = 0;
+            foreach (string s in data)
+            {
+                var tr = new TableRow();
+                string[] sep = new string[1] { "," };
+
+                var tc1 = new TableCell();
+                string s1 = s.Split(sep, StringSplitOptions.None)[0];
+                tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "NormalArabic" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(s1) { Space = SpaceProcessingModeValues.Preserve }) { RsidRunProperties = "003213CC" }) { RsidParagraphAddition = "003213CC", RsidParagraphProperties = "00704A9B", RsidParagraphMarkRevision = "003213CC", RsidRunAdditionDefault = "003213CC" });
+                tc1.Append(new TableCellProperties(new TableCellWidth { Width = "2000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
+
+                var tc2 = new TableCell();
+                string s2 = s.Split(sep, StringSplitOptions.None)[1];
+                tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "NormalArabic" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(s2) { Space = SpaceProcessingModeValues.Preserve })));
+                tc2.Append(new TableCellProperties(new Shading() { Color = "auto", Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "2000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
+
+                tr.Append(tc2);
+                tr.Append(tc1);
+
                 table.Append(tr);
                 i++;
             }
@@ -1782,8 +1838,40 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             sectionProps.Append(footerRef);
 
             //Now populate the Footer contents
+          //  GenerateFooterPart1Content(footerPart);
+
+          //  footerPart.AddExternalRelationship("http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
+         //          new System.Uri("http://localhost:3017/images/logo.png", System.UriKind.Absolute), "rFTimg"); //rFTimg -> should be same as imageData1'id in GenerateFooterPart1Content
+
+
             footerPart.Footer = MakeFooter();
             footerPart.Footer.Save();
+
+        }
+
+        private void GenerateFooterPart1Content(FooterPart footerPart1)
+        {
+            Run run = new Run();
+            Picture picture = new Picture();
+
+            Footer footer1 = new Footer();
+
+            Paragraph paragraph85 = new Paragraph() { RsidParagraphAddition = "0025134C", RsidRunAdditionDefault = "00D71D07" };
+            ParagraphProperties paragraphProperties85 = new ParagraphProperties();
+            ParagraphStyleId paragraphStyleId85 = new ParagraphStyleId() { Val = "Footer" };
+
+            paragraphProperties85.Append(paragraphStyleId85);
+            paragraph85.Append(paragraphProperties85);
+
+            V.Shape shape1 = new V.Shape() { Id = "_x0000_s7170", Style = "width:456pt;height:31.5pt;mso-position-horizontal-relative:page;mso-position-vertical-relative:page", WrapCoordinates = "-33 0 -33 21086 21600 21086 21600 0 -33 0", Type = "#_x0000_t75" };
+            V.ImageData imageData1 = new V.ImageData() { Title = "Word_Footer_Brad_v1", RelationshipId = "rFTimg" };
+            shape1.Append(imageData1);
+            picture.Append(shape1);
+            run.Append(picture);
+            paragraph85.Append(run);
+
+            footer1.Append(paragraph85);
+            footerPart1.Footer = footer1;
 
         }
 
@@ -1883,13 +1971,16 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             Footer footer = new Footer();
 
             ParagraphProperties paragraphProperties = new ParagraphProperties(new RightToLeftText(),
+                 new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida },
                             new ParagraphStyleId() { Val = "Footer" }, new RunProperties(new RightToLeftText()),
                             new Tabs(
                                 new TabStop() { Val = TabStopValues.Clear, Position = 4320 },
                                 new TabStop() { Val = TabStopValues.Clear, Position = 8640 },
                                 new TabStop() { Val = TabStopValues.Center, Position = 4820 },
                                 new TabStop() { Val = TabStopValues.Right, Position = 6639 }));
+
             ParagraphProperties paragraphProperties2 = new ParagraphProperties(new RightToLeftText(),
+                 new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida },
                          new ParagraphStyleId() { Val = "Footer" }, new RunProperties(new RightToLeftText()));
 
             paragraphProperties.ParagraphStyleId = new ParagraphStyleId() { Val = ParagraphStyle.Footer.ToString() };

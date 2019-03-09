@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="EMadbatahModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="EMadbatahModelStoreContainer">
+    <EntitySet Name="AbsenceExcuse" EntityType="EMadbatahModel.Store.AbsenceExcuse" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AgendaItem" EntityType="EMadbatahModel.Store.AgendaItem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AgendaSubItem" EntityType="EMadbatahModel.Store.AgendaSubItem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Attachement" EntityType="EMadbatahModel.Store.Attachement" store:Type="Tables" Schema="dbo" />
@@ -9,6 +10,7 @@
     <EntitySet Name="AttendantType" EntityType="EMadbatahModel.Store.AttendantType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DefaultAttendant" EntityType="EMadbatahModel.Store.DefaultAttendant" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MadbatahFilesStatus" EntityType="EMadbatahModel.Store.MadbatahFilesStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PlannedAgendaItem" EntityType="EMadbatahModel.Store.PlannedAgendaItem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Procedure" EntityType="EMadbatahModel.Store.Procedure" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProcedureType" EntityType="EMadbatahModel.Store.ProcedureType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Role" EntityType="EMadbatahModel.Store.Role" store:Type="Tables" Schema="dbo" />
@@ -48,6 +50,10 @@
     <AssociationSet Name="FK_Attendant_Session" Association="EMadbatahModel.Store.FK_Attendant_Session">
       <End Role="Session" EntitySet="Session" />
       <End Role="Attendant" EntitySet="Attendant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlannedAgendaItem_PlannedAgendaItem" Association="EMadbatahModel.Store.FK_PlannedAgendaItem_PlannedAgendaItem">
+      <End Role="PlannedAgendaItem" EntitySet="PlannedAgendaItem" />
+      <End Role="PlannedAgendaItem1" EntitySet="PlannedAgendaItem" />
     </AssociationSet>
     <AssociationSet Name="FK_Procedure_ProcedureType" Association="EMadbatahModel.Store.FK_Procedure_ProcedureType">
       <End Role="ProcedureType" EntitySet="ProcedureType" />
@@ -138,6 +144,13 @@
       <End Role="VoteMember" EntitySet="VoteMember" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="AbsenceExcuse">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="excuse" Type="varchar" MaxLength="200" />
+  </EntityType>
   <EntityType Name="AgendaItem">
     <Key>
       <PropertyRef Name="ID" />
@@ -233,6 +246,16 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PlannedAgendaItem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="SessionID" Type="bigint" />
+    <Property Name="Order" Type="int" />
+    <Property Name="PlannedAgendaItemID" Type="bigint" />
   </EntityType>
   <EntityType Name="Procedure">
     <Key>
@@ -484,6 +507,18 @@
       </Principal>
       <Dependent Role="Attendant">
         <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlannedAgendaItem_PlannedAgendaItem">
+    <End Role="PlannedAgendaItem" Type="EMadbatahModel.Store.PlannedAgendaItem" Multiplicity="0..1" />
+    <End Role="PlannedAgendaItem1" Type="EMadbatahModel.Store.PlannedAgendaItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlannedAgendaItem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PlannedAgendaItem1">
+        <PropertyRef Name="PlannedAgendaItemID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

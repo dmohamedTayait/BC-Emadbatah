@@ -67,6 +67,10 @@
                             value="السابق" />
                         <input name="" runat="server" disabled="disabled" id="btnFinish" type="button" class="btn inputBlock mb-5 finish btn_editsession"
                             value="انهاء" />
+                        <input name="" runat="server" id="btnPresidentIntro" type="button" class="btn inputBlock mb-5 btnPresidentIntro btn_editsession"
+                            value="اضافة دباجة بدية المضبطة" />
+                        <input name="" runat="server" id="btnAddAttFullName" type="button" class="btn inputBlock mb-5 btnAddAttFullName btn_editsession"
+                            value="اضافة اسم العضو كاملا" />
                         <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn inputBlock mb-5 addingNewAgendaItem btn_editsession"
                             value="اضافة /  تعديل فهرس" />
                         <input name="" runat="server" id="btnAddProcuder" type="button" class="btn inputBlock mb-5 btnAddProcuder btn_editsession"
@@ -534,7 +538,7 @@
                 </div>
             </div>
             <div class="row datacontainer inputcont datacontainer3 attendantCont">
-                <div id="AttendantCont" class="AttendantCont grid_19">
+                <div id="AttendantCont" class="AttendantCont grid_23">
                 </div>
             </div>
             <div class="clear"></div>

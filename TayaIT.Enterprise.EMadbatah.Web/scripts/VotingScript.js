@@ -1,6 +1,6 @@
 ﻿
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     //////////////////// Votes
     // Load votes
@@ -29,7 +29,7 @@ $(document).ready(function() {
                 sid: $(".sessionID").val()
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 var option;
                 var label;
                 var div;
@@ -40,10 +40,9 @@ $(document).ready(function() {
                     });
                     $('.ddl_votes').append(option.html(response[i].VoteSubject));
                 }
-               
+
                 $('.ddl_votes').val(voteId);
-                if ($('.ddl_votes').val() == voteId && voteId != "0")
-                {
+                if ($('.ddl_votes').val() == voteId && voteId != "0") {
                     $(".chbVote").attr("checked", "true");
                 }
                 loadVotesMembers();
@@ -55,7 +54,7 @@ $(document).ready(function() {
     function loadVotesMembers() {
 
         $('#AttendantCont').html($('<img src="/images/loading.gif">'));
-      
+
         var voteId = $(".ddl_votes").val();
         if (voteId != "0") {
             jQuery.ajax({
@@ -79,18 +78,18 @@ $(document).ready(function() {
                         $('.ddl_votes').append(option.html(response[i].VoteSubject));
                     }
 
-                    grid_1 = $('<div>').addClass("grid_9");
+                    grid_1 = $('<div>').addClass("grid_11");
                     table1 = $('<table>').addClass("table_att_voting");
                     grid_2 = grid_1.clone();
                     table2 = table1.clone();
-                    var vote_types = ["موافق", "غير موافق", "ممتنع"]
+                    var vote_types = ["غير موجود", "موافق", "غير موافق", "ممتنع"]
                     var th_header_container = $('<div>');
-                    th_header_container.append($('<span class="greenitem" style="margin: 0 2px;display: inline-block;width: 50px;">').html(vote_types[0])).append($('<span class="reditem" style="margin: 0 2px;display: inline-block;width: 80px;color:red">').html(vote_types[1])).append($('<span class="blueitem" style="margin: 0 2px;display: inline-block">').html(vote_types[2]));
+                    th_header_container.append($('<span class="blueitem" style="margin: 0 2px;display: inline-block;width: 70px;">').html(vote_types[0])).append($('<span class="greenitem" style="margin: 0 2px;display: inline-block;width: 50px;">').html(vote_types[1])).append($('<span class="reditem" style="margin: 0 2px;display: inline-block;width: 80px;color:red">').html(vote_types[2])).append($('<span class="blueitem" style="margin: 0 2px;display: inline-block">').html(vote_types[3]));
 
                     row = $('<tr>').attr({});
                     th1 = $('<th style="width:5%">').attr({}).append($('<span>').html("ID").addClass("displaynone"));
-                    th2 = $('<th style="width:50%">').attr({}).append($('<span>').html("اسم المتحدث"));
-                    th3 = $('<th style="width:45%">').attr({}).html(th_header_container);
+                    th2 = $('<th style="width:45%">').attr({}).append($('<span>').html("اسم المتحدث"));
+                    th3 = $('<th style="width:50%">').attr({}).html(th_header_container);
                     row = row.append(th1).append(th2).append(th3)
                     table1.append(row.clone());
                     table2.append(row.clone());
@@ -100,8 +99,8 @@ $(document).ready(function() {
                     for (var i = 0; i < response.length; i++) {
                         row = $('<tr>').attr({});
                         td1 = $('<td style="width:5%">').attr({}).html($('<span>').html(response[i].AttendantID).addClass("displaynone"));
-                        td2 = $('<td style="width:50%">').attr({}).html($('<span>').html(response[i].AttendantName));
-                        td3 = $('<td style="width:45%">').attr({}).html(draw_radio_options_table(response[i].AttendantID.toString(), response[i].MemberVoteValue));
+                        td2 = $('<td style="width:45%">').attr({}).html($('<span>').html(response[i].AttendantName));
+                        td3 = $('<td style="width:50%">').attr({}).html(draw_radio_options_table(response[i].AttendantID.toString(), response[i].MemberVoteValue));
                         if (i < first_table_len) {
                             table1.append(row.append(td1).append(td2).append(td3));
                         }
@@ -133,20 +132,18 @@ $(document).ready(function() {
         }
     }
 
-    function draw_radio_options_table(attendantID,checkedOptionVal)
-    {
-        var vote_types = ["موافق", "غير موافق", "ممتنع"]
+    function draw_radio_options_table(attendantID, checkedOptionVal) {
+        var vote_types = ["غير موجود", "موافق", "غير موافق", "ممتنع"]
         var table_options = $('<table class="tbl_voting_options">');
         var tr_options = $('<tr>');
         var th_header_container = $('<div>');
         for (var i = 0; i < vote_types.length; i++) {
             radio = $('<input>').attr({
                 type: 'radio',
-                value: i + 1,
+                value: i,
                 name: 'options_' + attendantID
             });
-            if (checkedOptionVal == (i+1))
-            {
+            if (checkedOptionVal == (i)) {
                 radio.attr("checked", "checked")
             }
             var td_options = $('<td>').html(radio);
@@ -198,10 +195,11 @@ $(document).ready(function() {
         var agreedVote_lst = [];
         var disAgreedVote_lst = [];
         var NoVote_lst = [];
+        var NonExist_lst = [];
         var names = [];
         $('.table_att_voting input:radio:checked').each(function () {
             if ($(this).val() == 1) {
-                agreedVote_lst.push(this.name.replace("options_",""));
+                agreedVote_lst.push(this.name.replace("options_", ""));
             }
             else if ($(this).val() == 2) {
                 disAgreedVote_lst.push(this.name.replace("options_", ""));
@@ -209,9 +207,12 @@ $(document).ready(function() {
             else if ($(this).val() == 3) {
                 NoVote_lst.push(this.name.replace("options_", ""));
             }
-                       
+            else {
+                NonExist_lst.push(this.name.replace("options_", ""));
+            }
+
         });
- 
+
         if ($('.ddl_votes').val() != '') {
             // ajax load
             jQuery.ajax({
@@ -222,22 +223,23 @@ $(document).ready(function() {
                     funcname: 'SaveVoteMemVal',
                     sid: $(".sessionID").val(),
                     voteid: $('.ddl_votes').val(),
-                    agreed_mem : JSON.stringify(agreedVote_lst),
+                    agreed_mem: JSON.stringify(agreedVote_lst),
                     disagreed_mem: JSON.stringify(disAgreedVote_lst),
-                    novote_mem: JSON.stringify(NoVote_lst)
+                    novote_mem: JSON.stringify(NoVote_lst),
+                    nonexist_mem: JSON.stringify(NonExist_lst)
                 },
                 dataType: 'json',
                 success: function (response) {
                 },
                 error: function () { }
             });
-      }
+        }
         // close the popup
-      $(".popupoverlay").hide();
-      $(".reviewpopup_cont5").hide();
-      e.preventDefault();
+        $(".popupoverlay").hide();
+        $(".reviewpopup_cont5").hide();
+        e.preventDefault();
     });
-    $(".chbVote").change(function() {
+    $(".chbVote").change(function () {
         if ($(".chbVote").is(':checked')) {
             $(".voteId").val($('.ddl_votes').val());
             $('.spanVoteSubject').html($('.ddl_votes :selected').text());
@@ -259,6 +261,6 @@ $(document).ready(function() {
     });
 
 
-////////////// End vote
+    ////////////// End vote
 
 });

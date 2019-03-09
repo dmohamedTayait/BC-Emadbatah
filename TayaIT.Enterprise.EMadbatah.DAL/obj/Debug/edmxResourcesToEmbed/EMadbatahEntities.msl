@@ -280,5 +280,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AbsenceExcuses">
+      <EntityTypeMapping TypeName="EMadbatahModel.AbsenceExcuse">
+        <MappingFragment StoreEntitySet="AbsenceExcuse">
+          <ScalarProperty Name="excuse" ColumnName="excuse" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlannedAgendaItems">
+      <EntityTypeMapping TypeName="EMadbatahModel.PlannedAgendaItem">
+        <MappingFragment StoreEntitySet="PlannedAgendaItem">
+          <ScalarProperty Name="PlannedAgendaItemID" ColumnName="PlannedAgendaItemID" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

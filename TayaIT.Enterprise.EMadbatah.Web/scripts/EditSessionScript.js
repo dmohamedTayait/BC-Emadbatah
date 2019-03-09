@@ -2291,6 +2291,62 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
+    //saber will start here
+    //add madbatah start
+    $(".btnPresidentIntro").click(function (e) {
+        GetPresidentIntro();
+       // $(".popupoverlay").show();
+       // $(".reviewpopup_cont5").show();
+        e.preventDefault();
+    });
+
+    function GetPresidentIntro() {
+       // $('.ddl_votes').empty();//clear text
+        //Load Available Votes
+        jQuery.ajax({
+            cache: false,
+            type: 'post',
+            url: 'EditSessionHandler.ashx',
+            data: {
+                funcname: 'GetPresidentIntro',
+                sid: $(".sessionID").val()
+            },
+            dataType: 'json',
+            success: function (response) {
+                alert(response)
+            }
+        });
+    }
+    //end madbatah start
+
+    //btnAddAttFullName
+    $(".btnAddAttFullName").click(function (e) {
+        GetAttendantsFullName();
+        // $(".popupoverlay").show();
+        // $(".reviewpopup_cont5").show();
+        e.preventDefault();
+    });
+
+    function GetAttendantsFullName() {
+        // $('.ddl_votes').empty();//clear text
+        //Load Available Votes
+        jQuery.ajax({
+            cache: false,
+            type: 'post',
+            url: 'EditSessionHandler.ashx',
+            data: {
+                funcname: 'GetFormatedAttendant',
+                sid: $(".sessionID").val()
+            },
+            dataType: 'json',
+            success: function (response) {
+                alert(response[0].Name)
+            }
+        });
+    }
+    //End Add attendant Full naME
+
+
 $('.chkTopic').change(function() {
     // this will contain a reference to the checkbox   
     if (this.checked) {

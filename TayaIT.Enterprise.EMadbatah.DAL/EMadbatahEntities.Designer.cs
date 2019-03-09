@@ -48,6 +48,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_VoteMember_Attendant", "Attendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attendant), "VoteMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.VoteMember), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_Vote_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "Vote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.Vote), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_VoteMember_Vote", "Vote", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Vote), "VoteMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.VoteMember), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_PlannedAgendaItem_PlannedAgendaItem", "PlannedAgendaItem", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.PlannedAgendaItem), "PlannedAgendaItem1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.PlannedAgendaItem), true)]
 
 #endregion
 
@@ -418,6 +419,38 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
         private ObjectSet<VoteMember> _VoteMembers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AbsenceExcuse> AbsenceExcuses
+        {
+            get
+            {
+                if ((_AbsenceExcuses == null))
+                {
+                    _AbsenceExcuses = base.CreateObjectSet<AbsenceExcuse>("AbsenceExcuses");
+                }
+                return _AbsenceExcuses;
+            }
+        }
+        private ObjectSet<AbsenceExcuse> _AbsenceExcuses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PlannedAgendaItem> PlannedAgendaItems
+        {
+            get
+            {
+                if ((_PlannedAgendaItems == null))
+                {
+                    _PlannedAgendaItems = base.CreateObjectSet<PlannedAgendaItem>("PlannedAgendaItems");
+                }
+                return _PlannedAgendaItems;
+            }
+        }
+        private ObjectSet<PlannedAgendaItem> _PlannedAgendaItems;
 
         #endregion
 
@@ -582,6 +615,22 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         {
             base.AddObject("VoteMembers", voteMember);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AbsenceExcuses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAbsenceExcuses(AbsenceExcuse absenceExcuse)
+        {
+            base.AddObject("AbsenceExcuses", absenceExcuse);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PlannedAgendaItems EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPlannedAgendaItems(PlannedAgendaItem plannedAgendaItem)
+        {
+            base.AddObject("PlannedAgendaItems", plannedAgendaItem);
+        }
 
         #endregion
 
@@ -590,6 +639,87 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="AbsenceExcuse")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AbsenceExcuse : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AbsenceExcuse object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static AbsenceExcuse CreateAbsenceExcuse(global::System.Int64 id)
+        {
+            AbsenceExcuse absenceExcuse = new AbsenceExcuse();
+            absenceExcuse.ID = id;
+            return absenceExcuse;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String excuse
+        {
+            get
+            {
+                return _excuse;
+            }
+            set
+            {
+                OnexcuseChanging(value);
+                ReportPropertyChanging("excuse");
+                _excuse = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("excuse");
+                OnexcuseChanged();
+            }
+        }
+        private global::System.String _excuse;
+        partial void OnexcuseChanging(global::System.String value);
+        partial void OnexcuseChanged();
+
+        #endregion
+
+    
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -2733,6 +2863,223 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Session>("EMadbatahModel.FK_Session_MadbatahFilesStatus", "Session", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="PlannedAgendaItem")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PlannedAgendaItem : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PlannedAgendaItem object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static PlannedAgendaItem CreatePlannedAgendaItem(global::System.Int64 id)
+        {
+            PlannedAgendaItem plannedAgendaItem = new PlannedAgendaItem();
+            plannedAgendaItem.ID = id;
+            return plannedAgendaItem;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> SessionID
+        {
+            get
+            {
+                return _SessionID;
+            }
+            set
+            {
+                OnSessionIDChanging(value);
+                ReportPropertyChanging("SessionID");
+                _SessionID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SessionID");
+                OnSessionIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _SessionID;
+        partial void OnSessionIDChanging(Nullable<global::System.Int64> value);
+        partial void OnSessionIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Order
+        {
+            get
+            {
+                return _Order;
+            }
+            set
+            {
+                OnOrderChanging(value);
+                ReportPropertyChanging("Order");
+                _Order = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Order");
+                OnOrderChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Order;
+        partial void OnOrderChanging(Nullable<global::System.Int32> value);
+        partial void OnOrderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PlannedAgendaItemID
+        {
+            get
+            {
+                return _PlannedAgendaItemID;
+            }
+            set
+            {
+                OnPlannedAgendaItemIDChanging(value);
+                ReportPropertyChanging("PlannedAgendaItemID");
+                _PlannedAgendaItemID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PlannedAgendaItemID");
+                OnPlannedAgendaItemIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PlannedAgendaItemID;
+        partial void OnPlannedAgendaItemIDChanging(Nullable<global::System.Int64> value);
+        partial void OnPlannedAgendaItemIDChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_PlannedAgendaItem_PlannedAgendaItem", "PlannedAgendaItem1")]
+        public EntityCollection<PlannedAgendaItem> PlannedAgendaItem1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PlannedAgendaItem>("EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem", "PlannedAgendaItem1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PlannedAgendaItem>("EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem", "PlannedAgendaItem1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_PlannedAgendaItem_PlannedAgendaItem", "PlannedAgendaItem")]
+        public PlannedAgendaItem PlannedAgendaItem2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PlannedAgendaItem>("EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem", "PlannedAgendaItem").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PlannedAgendaItem>("EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem", "PlannedAgendaItem").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PlannedAgendaItem> PlannedAgendaItem2Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PlannedAgendaItem>("EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem", "PlannedAgendaItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PlannedAgendaItem>("EMadbatahModel.FK_PlannedAgendaItem_PlannedAgendaItem", "PlannedAgendaItem", value);
                 }
             }
         }

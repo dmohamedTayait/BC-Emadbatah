@@ -76,8 +76,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         {
                             if (SessionID != null && long.TryParse(SessionID, out Session_ID))
                             {
+                                List<SessionAttendant> formattedAttendantsLst = new List<SessionAttendant>();
                                 List<Attendant> attendantsLst = AttendantHelper.GetAttendantInSession(Session_ID, new List<int> { (int)Model.AttendantType.FromTheCouncilMembers, (int)Model.AttendantType.FromOutsideTheCouncil, (int)Model.AttendantType.GovernmentRepresentative, (int)Model.AttendantType.Secretariat, (int)Model.AttendantType.SecretaryPresident }, 1);
-                                jsonStringOut = SerializeObjectInJSON(attendantsLst);
+                                if (attendantsLst != null && attendantsLst.Count > 0)
+                                {
+                                    foreach (Attendant attObj in attendantsLst)
+                                    {
+                                        formattedAttendantsLst.Add(new SessionAttendant(attObj.ID, attObj.Name, attObj.LongName, attObj.JobTitle, (Model.AttendantState)attObj.State, (Model.AttendantType)attObj.Type, attObj.AttendantDegree, attObj.AttendantAvatar));
+                                    }
+                                }
+                                jsonStringOut = SerializeObjectInJSON(formattedAttendantsLst);
                                 break;
                             }
                             else

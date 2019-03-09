@@ -69,10 +69,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             if (voteMems != null && voteMems.Count > 0)
                             {
                                 foreach (VoteMember voteObj in voteMems)
-                                {
-                                    if ((int)voteObj.VoteValue != (int)Model.VoteType.NonExist)
-                                        voteMemsLst.Add(new SessionMembersVote(voteObj.ID, long.Parse(VoteID), (long)voteObj.AttendantID, AttendantHelper.GetAttendantById((long)voteObj.AttendantID).LongName, (int)voteObj.VoteValue));
-                                }
+                                    voteMemsLst.Add(new SessionMembersVote(voteObj.ID, long.Parse(VoteID), (long)voteObj.AttendantID, AttendantHelper.GetAttendantById((long)voteObj.AttendantID).LongName, (int)voteObj.VoteValue));
                             }
                             else
                             {
@@ -80,8 +77,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 foreach (Attendant attObj in attLst)
                                 {
                                     VoteHelper.AddSessionVoteMemberValues(long.Parse(VoteID), attObj.ID, attObj.State == (int)Model.AttendantState.Attended ? (int)Model.VoteType.Agree : (int)Model.VoteType.NonExist);
-                                    if (attObj.State == (int)Model.AttendantState.Attended)
-                                        voteMemsLst.Add(new SessionMembersVote(0, long.Parse(VoteID), (long)attObj.ID, AttendantHelper.GetAttendantById((long)attObj.ID).LongName, attObj.State == (int)Model.AttendantState.Attended ? (int)Model.VoteType.Agree : (int)Model.VoteType.NonExist));
+                                    voteMemsLst.Add(new SessionMembersVote(0, long.Parse(VoteID), (long)attObj.ID, AttendantHelper.GetAttendantById((long)attObj.ID).LongName, attObj.State == (int)Model.AttendantState.Attended ? (int)Model.VoteType.Agree : (int)Model.VoteType.NonExist));
                                 }
                             }
                         }
@@ -91,6 +87,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         List<string> AgreedMemLst = serializer.Deserialize<List<string>>(AgreedMem);
                         List<string> DisAgreedMemLst = serializer.Deserialize<List<string>>(DisAgreedMem);
                         List<string> NoVoteMemLst = serializer.Deserialize<List<string>>(NoVoteMem);
+                        List<string> NonExistMemLst = serializer.Deserialize<List<string>>(NonExistMem);
                         foreach (string attID in AgreedMemLst)
                         {
                             VoteHelper.AddSessionVoteMemberValues(long.Parse(VoteID), long.Parse(attID), (int)Model.VoteType.Agree);
@@ -102,6 +99,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         foreach (string attID in NoVoteMemLst)
                         {
                             VoteHelper.AddSessionVoteMemberValues(long.Parse(VoteID), long.Parse(attID), (int)Model.VoteType.Novote);
+                        }
+                        foreach (string attID in NonExistMemLst)
+                        {
+                            VoteHelper.AddSessionVoteMemberValues(long.Parse(VoteID), long.Parse(attID), (int)Model.VoteType.NonExist);
                         }
                         break;
                     default:
@@ -161,5 +162,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                 return WebHelper.GetQSValue(Constants.QSKeyNames.NONEXISTMEM, _context);
             }
         }
+
     }
 }

@@ -31,10 +31,25 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             AttendantTitleID = attendtantTitleID;
         }
 
+        public SessionAttendant(long sID, string name, string longname, string jobTitle, AttendantState attendantState, AttendantType attendantType, string attendantdegree,string attendantavatar)
+        {
+            SessionID = sID;
+            Name = name;
+            LongName = longname;
+            JobTitle = jobTitle;
+            State = attendantState;
+            Type = attendantType;
+            AttendantDegree = attendantdegree;
+            AttendantAvatar = attendantavatar;
+        }
+
         public long SessionID { get; set; }
         public long ID { get; set; }
         public string Name { get; set; }
+        public string LongName { get; set; }
         public string JobTitle { get; set; }
+        public string AttendantDegree { get; set; }
+        public string AttendantAvatar { get; set; }
         public AttendantState State { get; set; }
         public AttendantType Type { get; set; }
         public double TotalSpeakTime { get; set; }
